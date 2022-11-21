@@ -21,27 +21,57 @@ public class MapVisual : MonoBehaviour
     Color NORMAL = new Color(0.31f, 0.31f, 0.31f, 1f);
     Color VISITED = new Color(0.64f, 0.64f, 0.64f, 1f);
     Color PLAYERPOS = new Color(0.6f, 0.87f, 0.63f, 1f);
+    Color BATTLE = new Color();
+    Color TRAIT = new Color();
+    Color MOVEMENT = new Color();
+
 
     // Start is called before the first frame update
     void Start()
     {
-        startRoom = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        endRoom = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        startRoom = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        endRoom = transform.GetChild(2).GetComponent<SpriteRenderer>();
         for (int i = 0; i < 10; i++)
         {
-            paths.Add(transform.GetChild(2).GetChild(i).GetComponent<SpriteRenderer>());
+            paths.Add(transform.GetChild(3).GetChild(i).GetComponent<SpriteRenderer>());
         }
         for (int i = 0; i < 4; i++)
         {
-            events.Add(transform.GetChild(3).GetChild(i).GetComponent<SpriteRenderer>());
+            events.Add(transform.GetChild(4).GetChild(i).GetComponent<SpriteRenderer>());
         }
     }
 
     public void UpdateVisual()
     {
         UpdateVisualOnVisited();
+
         UpdateVisualOnPlayerPos();
         
+
+    }
+
+    private void UpdateVisualOnEvents()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if (mapdata.GetEventVisited(i))
+            {
+                var eventType = mapdata.GetEvent(i);
+                switch (eventType)
+                {
+                    case MapData.EncounterType.NORMAL:
+                        break;
+                    case MapData.EncounterType.BATTLE:
+                        break;
+                    case MapData.EncounterType.MOVEMENT:
+                        break;
+                    case MapData.EncounterType.TRAIT:
+                        break;
+                    case MapData.EncounterType.SUPPLY:
+                        break;
+                }
+            }
+        }
 
     }
 

@@ -29,11 +29,20 @@ public class MapData : MonoBehaviour
     // 맵 내의 데이터.
     private List<bool> pathsVisited; // 나중에 기획자료 제대로 도착하면 int대신 enum으로 수정하기. paths는 혹시 몰라서 
 
-    private List<int> events;
+    private List<EncounterType> events;
     private List<bool> eventVisited;
 
-    private int room; // 출발하는 이전 방도 들어갈 수 있다면, List<int>일 것이고, 아니면 그냥 int일것.
+    private EncounterType room; // 출발하는 이전 방도 들어갈 수 있다면, List<int>일 것이고, 아니면 그냥 int일것.
     private bool roomVisited;
+
+    public enum EncounterType
+    {
+        NORMAL,
+        SUPPLY,
+        TRAIT,
+        MOVEMENT,
+        BATTLE
+    }
 
     public void MapFirstSetup(int stagenum)
     {
@@ -47,17 +56,17 @@ public class MapData : MonoBehaviour
         }
 
         // Events에 새로운 데이터 입력.나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
-        events = new List<int>();
+        events = new List<EncounterType>();
         eventVisited = new List<bool>();
         for (int i = 0; i < 4; i++)
         {
             randomnum = 0; // random한 코드가 들어갈 예정. 
-            events.Add(randomnum);
+            events.Add(EncounterType.NORMAL);
             eventVisited.Add(false);
         }
 
         randomnum = 0;
-        room = randomnum;
+        room = EncounterType.BATTLE;
         roomVisited = false;
 
     }
@@ -66,7 +75,7 @@ public class MapData : MonoBehaviour
     /// 현재 있는 방의 이벤트 코드를 불러와 MapManager에게 알리는 함수.
     /// </summary>
     /// <returns></returns>
-    public int Encounter()
+    public EncounterType Encounter()
     {
         // 다음 방의 이벤트 호출.
         if(playerPos == 15)
@@ -169,7 +178,7 @@ public class MapData : MonoBehaviour
         }
     }
 
-    public int GetEvent(int index)
+    public EncounterType GetEvent(int index)
     {
         return events[index];
     }
@@ -189,7 +198,7 @@ public class MapData : MonoBehaviour
         return roomVisited;
     }
 
-    public int GetRoom()
+    public EncounterType GetRoom()
     {
         return room;
     }

@@ -171,9 +171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e81e0a3042e6b4686335edf4a98d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
+  mapData: []
+  currentStage: 0
   MapVisual: {fileID: 0}
-  stageNum: 0
+  mapdataPrefab: {fileID: 443133651740421082, guid: ae3789b37a0c756478833fe38e7e06d2, type: 3}
 --- !u!114 &53065512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2149,8 +2150,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 53065511}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: MapGeneration
-        m_Mode: 3
+        m_MethodName: TestMapGen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
