@@ -1,0 +1,25 @@
+{
+	"dialogEvents": [
+		{
+			"eventCode": 10,
+			"isAdditionalEvent":true,
+			"additionalEventCode":11,
+			"outLookEventCode": 1,
+			"dialog": "test text1 \n asdf"
+		},
+		{
+			"eventCode": 11,
+			"isAdditionalEvent":true,
+			"additionalEventCode":12,
+			"outLookEventCode": 1,
+			"dialog": "test text2 \n asdf"
+		},
+		{
+			"eventCode": 12,
+			"isAdditionalEvent":false,
+			"additionalEventCode":-1,
+			"outLookEventCode": 1,
+			"dialog": "test text3 \n asdf"
+		}
+	]
+}
