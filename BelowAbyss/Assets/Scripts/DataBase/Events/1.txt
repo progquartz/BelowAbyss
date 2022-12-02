@@ -1,0 +1,19 @@
+{
+	"player": [
+		{
+			"dialog": "test text1 \n asdf",
+			"test1" : 100,
+			"test2" : 20
+		},
+		{
+			"dialog": "test text2",
+			"test1" : 101,
+			"test2" : 21
+		},
+		{
+			"dialog": "test text3",
+			"test1" : 102,
+			"test2" : 22
+		}
+	]
+}
