@@ -2,37 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EventType
+{
+    DIALOG = 5,
+    SELECTION = 6
+}
+
 public class Parser : MonoBehaviour
 {
+    /// <summary>
+    /// Singletone
+    /// </summary>
+
     public TextAsset textJSON;
     public TextAsset textJSON2;
 
-    [System.Serializable]
-    public class Player
-    {
-        public string dialog;
-        public int test1;
-        public int test2;
-    }
-
-    [System.Serializable]
-    public class PlayerList
-    {
-        public Player[] player; // 여기의 player가 json에서의 첫 "player"로 적힌것과 같아야지 적용이 됨.
-    }
-
-    [System.Serializable]
-    public class DialogEvents
-    {
-        public DialogEvent[] dialogEvents;
-    }
-    public PlayerList myPlayerList = new PlayerList();
-
-    public DialogEvents DialogEventList = new DialogEvents();
-
+    
+    
     private void Start()
     {
-        myPlayerList = JsonUtility.FromJson<PlayerList>(textJSON.text);
-        DialogEventList = JsonUtility.FromJson<DialogEvents>(textJSON2.text);
+        EventManager.instance.DialogEventList = JsonUtility.FromJson<DialogEvents>(textJSON2.text);
+        for(int i = 0; i < EventManager.instance.DialogEventList.dialogEvents.Length; i++)
+        {
+            EventManager.instance.EventToEventType[EventManager.instance.DialogEventList.dialogEvents[i].eventCode] = EventType.DIALOG; // 다이얼로그가 0...
+        }
     }
+
 }
