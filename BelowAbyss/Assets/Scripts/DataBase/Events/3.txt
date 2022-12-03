@@ -1,0 +1,45 @@
+{
+	"selectionEvents": [
+		{
+			"eventCode": 20,
+			"isAdditionalEvent":true,
+			"additionalEventCode":11,
+			"outLookEventCode": 1,
+			"paragraphText" : "selection test1",
+			"dialog": "selection test text1 \n asdf",
+			"backgroundImage" : 0,
+			"artworkpath" : 0,
+			"backgroundMusic" : 0,
+			"selectionDialog" : ["test 10", "test 11","test 20"],
+			"selectionEvent" : [10,11,20]
+
+
+		},
+		{
+			"eventCode": 21,
+			"isAdditionalEvent":true,
+			"additionalEventCode":12,
+			"outLookEventCode": 1,
+			"paragraphText" : "selection test2",
+			"dialog": "selection test text2 \n asdf",
+			"backgroundImage" : 0,
+			"artworkpath" : 0,
+			"backgroundMusic" : 0,
+			"selectionDialog" : ["test 10", "test 11", "test 12","test 20"],
+			"selectionEvent" : [10,11,12,20]
+		},
+		{
+			"eventCode": 22,
+			"isAdditionalEvent":false,
+			"additionalEventCode":-1,
+			"outLookEventCode": 1,
+			"paragraphText" : "selection test3",
+			"dialog": "selection test text3 \n asdf",
+			"backgroundImage" : 0,
+			"artworkpath" : 0,
+			"backgroundMusic" : 0,
+			"selectionDialog" : ["test 10", "test 11", "test 12","test 20"],
+			"selectionEvent" : [10,11,12,20]
+		}
+	]
+}

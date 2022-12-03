@@ -15,12 +15,11 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    private GameObject parser;
     [SerializeField]
-    private Text paragraphText;
-    private Text dialog;
-    private Image backgroundImage;
-    private Image artworkpath;
+    protected Text paragraphText;
+    protected Text dialog;
+    protected Image backgroundImage;
+    protected Image artworkpath;
     public GameObject dialogUI;
     public int nextEvent;
     public bool isNextEventExist;
@@ -30,7 +29,6 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
-        parser = GameObject.Find("Parser");
         dialogUI = transform.GetChild(0).gameObject;
         paragraphText = transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>();
         dialog = transform.GetChild(0).GetChild(2).GetComponent<Text>();
