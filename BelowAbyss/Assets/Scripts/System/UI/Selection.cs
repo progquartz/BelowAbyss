@@ -34,24 +34,26 @@ public class Selection : Dialog
 
     private void Start()
     {
-        dialogUI = transform.GetChild(0).gameObject;
-        paragraphText = transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>();
-        dialog = transform.GetChild(0).GetChild(2).GetComponent<Text>();
+        dialogUI = transform.GetChild(1).gameObject;
+        paragraphText = transform.GetChild(1).GetChild(0).GetComponentInChildren<Text>();
+        dialog = transform.GetChild(1).GetChild(2).GetComponent<Text>();
         backgroundImage = transform.GetChild(0).GetComponent<Image>();
-        artworkpath = transform.GetChild(0).GetChild(1).GetComponent<Image>();
+        artworkImage = transform.GetChild(1).GetChild(1).GetComponent<Image>();
         for(int i = 0; i < 4; i++)
         {
-            selectionPanel[i] = transform.GetChild(0).GetChild(3).GetChild(i).gameObject;
+            selectionPanel[i] = transform.GetChild(1).GetChild(3).GetChild(i).gameObject;
             selectionDialog[i] = selectionPanel[i].transform.GetChild(1).GetChild(0).GetComponent<Text>();
         }
 
     }
+
     public bool LoadEventCode(SelectionEvent data)
     {
         paragraphText.text = data.paragraphText;
         dialog.text = data.dialog;
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
+        artworkImage.sprite = LoadImageBaseOnCode(data.artworkpath);
 
         for (int i = 0; i < data.selectionDialog.Length; i++)
         {
@@ -65,7 +67,6 @@ public class Selection : Dialog
         selectionEvent = data.selectionEvent;
         // 이미지 및 여러 추가사항들 존재.
         return true;
-
     }
 
     public void AppearPanel(int index)
@@ -81,6 +82,7 @@ public class Selection : Dialog
     public void SelectionPressed(int index)
     {
         Disappear();
+        backgroundImage.gameObject.SetActive(false);
         EventManager.instance.LoadEvent(selectionEvent[index]);
     }
 
