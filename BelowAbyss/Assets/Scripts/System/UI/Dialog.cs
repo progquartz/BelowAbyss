@@ -15,12 +15,12 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    private GameObject parser;
     [SerializeField]
-    private Text paragraphText;
-    private Text dialog;
-    private Image backgroundImage;
-    private Image artworkpath;
+    protected Text paragraphText;
+    protected Text dialog;
+    protected Image backgroundImage;
+    [SerializeField]
+    protected Image artworkImage;
     public GameObject dialogUI;
     public int nextEvent;
     public bool isNextEventExist;
@@ -30,12 +30,11 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
-        parser = GameObject.Find("Parser");
-        dialogUI = transform.GetChild(0).gameObject;
-        paragraphText = transform.GetChild(0).GetChild(0).GetComponentInChildren<Text>();
-        dialog = transform.GetChild(0).GetChild(2).GetComponent<Text>();
+        dialogUI = transform.GetChild(1).gameObject;
+        paragraphText = transform.GetChild(1).GetChild(0).GetComponentInChildren<Text>();
+        dialog = transform.GetChild(1).GetChild(2).GetComponent<Text>();
         backgroundImage = transform.GetChild(0).GetComponent<Image>();
-        artworkpath = transform.GetChild(0).GetChild(1).GetComponent<Image>();
+        artworkImage = transform.GetChild(1).GetChild(1).GetComponent<Image>();
     }
 
     public void Appear()
@@ -73,23 +72,52 @@ public class Dialog : MonoBehaviour
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
         
-        // 이미지 및 여러 추가사항들 존재.
-        return true;
+        LoadImageBaseOnCode(data.artworkpath);
+        if (LoadBackgroundImageBaseOnCode(data.backgroundImage) == null)
+        {
+            backgroundImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            backgroundImage.gameObject.SetActive(true);
+        }
+            //LoadImageBaseOnCode(data.artworkpath);
+            // 이미지 및 여러 추가사항들 존재.
+            return true;
     }
 
-    public Image LoadImageBaseOnCode(int imageCode)
+
+    public Sprite LoadImageBaseOnCode(int imageCode)
     {
-        return null;
+        Sprite image;
+        if(imageCode == 0)
+        {
+            return null;
+        }
+        string path = "Sprites/DialogArtwork/" + imageCode;
+        image = Resources.Load<Sprite>(path);
+        artworkImage.sprite = image;
+        //Instantiate(image, new Vector3(0, 0, 0), Quaternion.identity);
+        return image;
     }
 
-    public Image LoadBackgroundImageBaseOnCode(int imageCode)
+    public Sprite LoadBackgroundImageBaseOnCode(int imageCode)
     {
-        return null;
+        Sprite image;
+        if(imageCode == 0)
+        {
+            return null;
+        }
+        string path = "Textures/Background/" + imageCode;
+        image = Resources.Load<Sprite>(path);
+        backgroundImage.sprite = image;
+        return image;
     }
 
     public void NextButtonPressed()
     {
         Disappear();
+        backgroundImage.gameObject.SetActive(false);
         if (isNextEventExist)
         {
             EventManager.instance.LoadEvent(nextEvent);

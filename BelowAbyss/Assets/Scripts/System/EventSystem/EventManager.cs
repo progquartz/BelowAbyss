@@ -34,6 +34,26 @@ public class DialogEvents
     }
 }
 
+
+[System.Serializable]
+public class SelectionEvents
+{
+    public SelectionEvent[] selectionEvents;
+
+    public SelectionEvent FindEvent(int eventcode)
+    {
+        for (int i = 0; i < selectionEvents.Length; i++)
+        {
+            if (selectionEvents[i].eventCode == eventcode)
+            {
+                return selectionEvents[i];
+            }
+        }
+        return null;
+    }
+}
+
+
 public class EventManager : MonoBehaviour
 {
     /// <summary>
@@ -50,8 +70,10 @@ public class EventManager : MonoBehaviour
         }
     }
 
-
+    // 이벤트  리스트를 가져오는 매니저.
     public DialogEvents DialogEventList = new DialogEvents();
+    public SelectionEvents SelectionEventList = new SelectionEvents();
+
     public EventType[] EventToEventType = new EventType[10000];
 
     public void LoadEvent(int eventCode)
@@ -63,6 +85,7 @@ public class EventManager : MonoBehaviour
                 Dialog.instance.Appear(DialogEventList.FindEvent(eventCode));
                 break;
             case EventType.SELECTION:
+                Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
                 break;
         }
     }
