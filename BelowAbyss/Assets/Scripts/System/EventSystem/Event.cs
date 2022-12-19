@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /*
 
     이벤트 클래스를 기반으로 한 클래스들은, 모두 그 데이터만을 보관한다.
