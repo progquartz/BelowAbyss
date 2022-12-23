@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                Slots[i].transform.GetComponentInChildren<Image>().sprite = null;
+                Slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                 Slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
             }
         }

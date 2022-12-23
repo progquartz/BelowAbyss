@@ -7,7 +7,7 @@ public class Item
 {
     public int itemcode;
     public int stack;
-    private int stacklimit = 10; // 다음 수는 나중에 데이터파서에서 받아와서 데이터 아카이브에 저장될 예정인 변수임.
+    public int stacklimit = 10; // 다음 수는 나중에 데이터파서에서 받아와서 데이터 아카이브에 저장될 예정인 변수임.
 
     public Item(int _itemcode, int _stack)
     {
