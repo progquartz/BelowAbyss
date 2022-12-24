@@ -18,6 +18,8 @@ public class Parser : MonoBehaviour
     public TextAsset textJSON2;
     public TextAsset textJSON3;
 
+    public TextAsset OtherItems;
+
 
 
     private void Start()
@@ -34,6 +36,14 @@ public class Parser : MonoBehaviour
             EventManager.instance.EventToEventType[EventManager.instance.SelectionEventList.selectionEvents[i].eventCode] = EventType.SELECTION;
         }
 
+        ItemDataBase.instance.otherItemList = JsonUtility.FromJson<OtherItems>(OtherItems.text);
+        for(int i = 0; i < ItemDataBase.instance.otherItemList.otherItems.Length; i++)
+        {
+            ItemDataBase.instance.codeToItemType[ItemDataBase.instance.otherItemList.otherItems[i].itemCode] = ItemType.OTHERS;
+        }
+
+        // 아이템에 대한 모든 데이터 로드가 완료되었을 때.
+        ItemDataBase.instance.LoadStableStringData();
     }
 
 }

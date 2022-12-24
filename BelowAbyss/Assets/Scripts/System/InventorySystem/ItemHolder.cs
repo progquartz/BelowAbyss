@@ -12,6 +12,8 @@ public class ItemHolder : MonoBehaviour
     private int holdingItemCode;
     [SerializeField]
     private int holdingItemStack;
+    [SerializeField]
+    private int holdingItemStackLimit;
 
 
     // 우클릭따위 없다.
@@ -53,7 +55,10 @@ public class ItemHolder : MonoBehaviour
             }
             else if(getter == "CraftingContents") // 조합대일 경우.
             {
-
+                if (GetDataFromCrafting(index))
+                {
+                    isHoldingItem = true;
+                }
             }
             else if(getter == "CraftingFinishedContents") // 아이템일 경우.
             {
@@ -64,15 +69,14 @@ public class ItemHolder : MonoBehaviour
         {
             if (getter == "InventoryContents") // 인벤토리일 경우.
             {
-                Item itemChanging = Inventory.instance.ItemDB[index];
+                Item itemChanging = Inventory.instance.itemDB[index];
 
                 if (itemChanging.itemcode == 0) // 만약에 해당 슬롯이 빈 경우.
                 {
                     itemChanging.itemcode = holdingItemCode;
                     itemChanging.stack = holdingItemStack;
-                    holdingItemCode = 0;
-                    holdingItemStack = 0;
-                    isHoldingItem = false;
+                    itemChanging.stacklimit = holdingItemStackLimit;
+                    DropItemHolding();
                 }
                 else if(itemChanging.itemcode == holdingItemCode)  
                 {
@@ -86,9 +90,7 @@ public class ItemHolder : MonoBehaviour
                         int stackleft = itemChanging.AddStack(holdingItemCode, holdingItemStack);
                         if (stackleft == 0)
                         {
-                            holdingItemStack = 0;
-                            holdingItemCode = 0;
-                            isHoldingItem = false;
+                            DropItemHolding();
                         }
                         else if (stackleft > 0)
                         {
@@ -104,7 +106,40 @@ public class ItemHolder : MonoBehaviour
             }
             else if (getter == "CraftingContents") // 조합대일 경우.
             {
+                Item itemChanging = Crafting.instance.craftingDB[index];
 
+                if (itemChanging.itemcode == 0) // 만약에 해당 슬롯이 빈 경우.
+                {
+                    itemChanging.itemcode = holdingItemCode;
+                    itemChanging.stack = holdingItemStack;
+                    itemChanging.stacklimit = holdingItemStackLimit;
+                    DropItemHolding();
+                }
+                else if (itemChanging.itemcode == holdingItemCode)
+                {
+                    if (itemChanging.stack == itemChanging.stacklimit || holdingItemStack == itemChanging.stacklimit)
+                    {
+                        SwapHoldingByCrafting(index);
+                    }
+                    else
+                    {
+                        // 만약에 같은 아이템 / 더하면 한세트 이상일 경우 아이템이 한세트로 되면서 손에 남은 양이 남음.
+                        int stackleft = itemChanging.AddStack(holdingItemCode, holdingItemStack);
+                        if (stackleft == 0)
+                        {
+                            DropItemHolding();
+                        }
+                        else if (stackleft > 0)
+                        {
+                            holdingItemStack = stackleft;
+                        }
+                    }
+                }
+                else
+                {
+                    // 만약에 다른 아이템일 경우, 서로 쥔 아이템이 바뀜.
+                    SwapHoldingByCrafting(index);
+                }
             }
             else if (getter == "CraftingFinishedContents") // 아이템일 경우.
             {
@@ -112,6 +147,14 @@ public class ItemHolder : MonoBehaviour
             }
         }
 
+    }
+
+    public void DropItemHolding()
+    {
+        holdingItemStack = 0;
+        holdingItemCode = 0;
+        holdingItemStackLimit = 0;
+        isHoldingItem = false;
     }
 
     /// <summary>
@@ -137,7 +180,10 @@ public class ItemHolder : MonoBehaviour
             }
             else if (getter == "CraftingContents") // 조합대일 경우.
             {
-
+                if (GetHalfFromCrafting(index))
+                {
+                    isHoldingItem = true;
+                }
             }
             else if (getter == "CraftingFinishedContents") // 아이템일 경우.
             {
@@ -152,7 +198,7 @@ public class ItemHolder : MonoBehaviour
                 // 만약에 같은 아이템 / 부족한 슬롯 수일 경우, 아이템이 해당 슬롯에 하나가 추가됨.
                 // 만약에 같은 아이템 / 한 세트가 가득 차 있을 경우, 안더해짐.
                 // 만약에 다른 아이템일 경우, 서로 바뀜. 
-                Item itemChanging = Inventory.instance.ItemDB[index];
+                Item itemChanging = Inventory.instance.itemDB[index];
                 if (itemChanging.itemcode == 0) // 만약에 해당 슬롯이 빈 경우.
                 {
                     itemChanging.itemcode = holdingItemCode;
@@ -173,16 +219,12 @@ public class ItemHolder : MonoBehaviour
                     else
                     {
                         // 만약에 같은 아이템 / 부족한 슬롯 수일 경우, 아이템이 해당 슬롯에 하나가 추가됨.
-                        int stackleft = itemChanging.AddStack(holdingItemCode, 1);
-                        if (stackleft == 0)
+                        itemChanging.AddStack(holdingItemCode, 1);
+                        holdingItemStack--;
+                        if(holdingItemStack == 0)
                         {
-                            holdingItemStack = 0;
                             holdingItemCode = 0;
                             isHoldingItem = false;
-                        }
-                        else if (stackleft > 0)
-                        {
-                            holdingItemStack = stackleft;
                         }
                     }
                 }
@@ -194,7 +236,44 @@ public class ItemHolder : MonoBehaviour
             }
             else if (getter == "CraftingContents") // 조합대일 경우.
             {
-
+                // 만약에 같은 아이템 / 부족한 슬롯 수일 경우, 아이템이 해당 슬롯에 하나가 추가됨.
+                // 만약에 같은 아이템 / 한 세트가 가득 차 있을 경우, 안더해짐.
+                // 만약에 다른 아이템일 경우, 서로 바뀜. 
+                Item itemChanging = Crafting.instance.craftingDB[index];
+                if (itemChanging.itemcode == 0) // 만약에 해당 슬롯이 빈 경우.
+                {
+                    itemChanging.itemcode = holdingItemCode;
+                    itemChanging.stack = 1;
+                    holdingItemStack--;
+                    if (holdingItemStack == 0)
+                    {
+                        holdingItemCode = 0;
+                        isHoldingItem = false;
+                    }
+                }
+                else if (itemChanging.itemcode == holdingItemCode) // 같은 아이템일 경우.
+                {
+                    if (itemChanging.stack == itemChanging.stacklimit || holdingItemStack == itemChanging.stacklimit)
+                    {
+                        SwapHoldingByCrafting(index);
+                    }
+                    else
+                    {
+                        // 만약에 같은 아이템 / 부족한 슬롯 수일 경우, 아이템이 해당 슬롯에 하나가 추가됨.
+                        itemChanging.AddStack(holdingItemCode, 1);
+                        holdingItemStack--;
+                        if (holdingItemStack == 0)
+                        {
+                            holdingItemCode = 0;
+                            isHoldingItem = false;
+                        }
+                    }
+                }
+                else
+                {
+                    // 만약에 다른 아이템일 경우, 서로 쥔 아이템이 바뀜.
+                    SwapHoldingByCrafting(index);
+                }
             }
             else if (getter == "CraftingFinishedContents") // 아이템일 경우.
             {
@@ -211,12 +290,63 @@ public class ItemHolder : MonoBehaviour
     {
         int tempItemCode = holdingItemCode;
         int tempItemStack = holdingItemStack;
-        holdingItemCode = Inventory.instance.ItemDB[index].itemcode;
-        holdingItemStack = Inventory.instance.ItemDB[index].stack;
-        Inventory.instance.ItemDB[index].itemcode = tempItemCode;
-        Inventory.instance.ItemDB[index].stack = tempItemStack;
+        int tempItemStackLimit = holdingItemStackLimit;
+        holdingItemCode = Inventory.instance.itemDB[index].itemcode;
+        holdingItemStack = Inventory.instance.itemDB[index].stack;
+        holdingItemStackLimit = Inventory.instance.itemDB[index].stacklimit;
+        Inventory.instance.itemDB[index].itemcode = tempItemCode;
+        Inventory.instance.itemDB[index].stack = tempItemStack;
+        Inventory.instance.itemDB[index].stacklimit = tempItemStackLimit;
     }
 
+    public void SwapHoldingByCrafting(int index)
+    {
+        int tempItemCode = holdingItemCode;
+        int tempItemStack = holdingItemStack;
+        int tempItemStackLimit = holdingItemStackLimit;
+        holdingItemCode = Crafting.instance.craftingDB[index].itemcode;
+        holdingItemStack = Crafting.instance.craftingDB[index].stack;
+        holdingItemStackLimit = Crafting.instance.craftingDB[index].stacklimit;
+        Crafting.instance.craftingDB[index].itemcode = tempItemCode;
+        Crafting.instance.craftingDB[index].stack = tempItemStack;
+        Crafting.instance.craftingDB[index].stacklimit = tempItemStackLimit;
+    }
+
+    public bool GetHalfFromCrafting(int index)
+    {
+        Item itemGetting = Crafting.instance.craftingDB[index];
+        if (itemGetting.itemcode != 0)
+        {
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack = itemGetting.stack / 2;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.stack -= holdingItemStack;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    public bool GetDataFromCrafting(int index)
+    {
+        Item itemGetting = Crafting.instance.craftingDB[index];
+        if (itemGetting.itemcode != 0)
+        {
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack = itemGetting.stack;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.itemcode = 0;
+            itemGetting.stack = 0;
+            itemGetting.stacklimit = 0;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     /// <summary>
     /// 인벤토리에서 해당 인덱스의 아이템 데이터들을 가지고 오는 함수. 정상적으로 가져올 경우  true를, 아닐 경우 false값을 출력한다.
@@ -224,12 +354,15 @@ public class ItemHolder : MonoBehaviour
     /// <returns></returns>
     public bool GetDataFromInventory(int index)
     {
-        if (Inventory.instance.ItemDB[index].itemcode != 0)
+        Item itemGetting = Inventory.instance.itemDB[index];
+        if (itemGetting.itemcode != 0)
         {
-            holdingItemCode = Inventory.instance.ItemDB[index].itemcode;
-            holdingItemStack = Inventory.instance.ItemDB[index].stack;
-            Inventory.instance.ItemDB[index].itemcode = 0;
-            Inventory.instance.ItemDB[index].stack = 0;
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack = itemGetting.stack;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.itemcode = 0;
+            itemGetting.stack = 0;
+            itemGetting.stacklimit = 0;
             return true;
         }
         else
@@ -240,28 +373,19 @@ public class ItemHolder : MonoBehaviour
 
     public bool GetHalfFromInventory(int index)
     {
-        if (Inventory.instance.ItemDB[index].itemcode != 0)
+        Item itemGetting = Inventory.instance.itemDB[index];
+        if (itemGetting.itemcode != 0)
         {
-            holdingItemCode = Inventory.instance.ItemDB[index].itemcode;
-            holdingItemStack = Inventory.instance.ItemDB[index].stack / 2;
-            Inventory.instance.ItemDB[index].stack -= holdingItemStack;
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack = itemGetting.stack / 2;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.stack -= holdingItemStack;
             return true;
         }
         else
         {
             return false;
         }
-    }
-
-    public void TestClickObject()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public int GetItemHolding()

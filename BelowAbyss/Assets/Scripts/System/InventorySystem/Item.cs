@@ -7,7 +7,7 @@ public class Item
 {
     public int itemcode;
     public int stack;
-    public int stacklimit = 10; // 다음 수는 나중에 데이터파서에서 받아와서 데이터 아카이브에 저장될 예정인 변수임.
+    public int stacklimit; // 다음 수는 나중에 데이터파서에서 받아와서 데이터 아카이브에 저장될 예정인 변수임.
 
     public Item(int _itemcode, int _stack)
     {
@@ -30,15 +30,16 @@ public class Item
         }
         else
         {
+            itemcode = _itemcode;
+            stacklimit = ItemDataBase.instance.LoadStackLimit(itemcode);
+
             if (_stack + stack <= stacklimit)
             {
-                itemcode = _itemcode;
                 stack += _stack;
                 return 0;
             }
             else
             {
-                itemcode = _itemcode;
                 int left = (_stack + stack) - stacklimit;
                 stack = stacklimit;
                 return left;
@@ -46,4 +47,6 @@ public class Item
         }
         // item관련 DB가 있어야 할 예정.
     }
+
+    
 }

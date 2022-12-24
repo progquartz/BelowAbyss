@@ -1,0 +1,25 @@
+{
+	"otherItems":[
+		{
+			"itemCode" : 1,
+			"itemName" : "Item 1",
+			"itemCategory" : "Category 1",
+			"itemLore" : "First Item!",
+			"itemStackLimit" : 7
+		},
+		{
+			"itemCode" : 2,
+			"itemName" : "Item 2",
+			"itemCategory" : "Category 2",
+			"itemLore" : "Second Item!",
+			"itemStackLimit" : 13
+		},
+		{
+			"itemCode" : 3,
+			"itemName" : "Item 3",
+			"itemCategory" : "Category 3",
+			"itemLore" : "Third Item!",
+			"itemStackLimit" : 15
+		}
+	]
+}

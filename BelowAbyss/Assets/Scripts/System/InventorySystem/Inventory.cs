@@ -6,7 +6,10 @@ using TMPro;
 
 public enum ItemType
 {
-    
+    OTHERS = 9,
+    CONSUMPTION = 3,
+    WEAPON = 1,
+    ARMOUR = 2,
 }
 public class Inventory : MonoBehaviour
 {
@@ -19,7 +22,9 @@ public class Inventory : MonoBehaviour
             instance = this;
         }
     }
-    /*
+
+
+    /* 마크 UI 작동방식에 대하여.
      마크 일반 ui (ui간 아이템 이동 가능), 조합 기능
      인벤토리 크기는 32개, 스택단위는 아이템마다 정해져있음.
      조합 4x4 였음.
@@ -39,10 +44,10 @@ public class Inventory : MonoBehaviour
     */
 
     // 획득과 버려짐, 옮김부터 구현하기.
-    public List<Item> ItemDB;
-    public int SlotCount = 32;
+    public List<Item> itemDB;
+    public int slotCount = 32;
 
-    public List<GameObject> Slots;
+    public List<GameObject> slots;
 
     // holdingitem해서 작업하기.
 
@@ -54,19 +59,19 @@ public class Inventory : MonoBehaviour
 
     private void FirstSetup()
     {
-        ItemDB = new List<Item>();
-        for (int i = 0; i < SlotCount; i++)
+        itemDB = new List<Item>();
+        for (int i = 0; i < slotCount; i++)
         {
-            ItemDB.Add(new Item(0, 0));
-            Slots.Add(transform.GetChild(0).GetChild(0).GetChild(i).gameObject);
+            itemDB.Add(new Item(0, 0));
+            slots.Add(transform.GetChild(0).GetChild(0).GetChild(i).gameObject);
         }
 
     }
 
     public void Test()
     {
-        ItemDB[0] = new Item(1, 1);
-        ItemDB[1] = new Item(2, 10);
+        itemDB[0] = new Item(1, 1);
+        itemDB[1] = new Item(2, 10);
     }
 
     public void Test2()
@@ -82,19 +87,19 @@ public class Inventory : MonoBehaviour
     private void UpdateSprite()
     {
         string path = "Sprites/Item/"; 
-        for (int i = 0; i < SlotCount; i++)
+        for (int i = 0; i < slotCount; i++)
         {
-            if(ItemDB[i].itemcode != 0)
+            if(itemDB[i].itemcode != 0)
             {
                 Sprite image;
-                image = Resources.Load<Sprite>(path + ItemDB[i].itemcode.ToString());
-                Slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                Slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(ItemDB[i].stack.ToString());
+                image = Resources.Load<Sprite>(path + itemDB[i].itemcode.ToString());
+                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
             }
             else
             {
-                Slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                Slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
             }
         }
     }
@@ -111,12 +116,12 @@ public class Inventory : MonoBehaviour
         // 
         int isNotStackable = stack;
 
-        for (int i = 0; i < SlotCount; i++) // 모든 슬롯카운터에 한해.
+        for (int i = 0; i < slotCount; i++) // 모든 슬롯카운터에 한해.
         {
-            if (ItemDB[i].itemcode == itemcode) // 해당 슬롯에 아이템이 존재한다면.
+            if (itemDB[i].itemcode == itemcode) // 해당 슬롯에 아이템이 존재한다면.
             {
                 // 만약 슬롯에 데이터가 들어갔는데 쌓이지 못한다면 isnotstackable이 양수가됨. 문제가 없으면 0임.
-                isNotStackable = ItemDB[i].AddStack(itemcode, isNotStackable);
+                isNotStackable = itemDB[i].AddStack(itemcode, isNotStackable);
 
                 if(isNotStackable == 0) // 모든 아이템들이 정상적으로 들어갔다면 return true;
                 {
@@ -128,11 +133,11 @@ public class Inventory : MonoBehaviour
         //Debug.Log("아이템을 넣는데 같은 아이템을 찾지 못함!");
 
         // 여기까지 오면 모든 같은 아이템 슬롯에는 해당 아이템들이 없다는 뜻이 됨.
-        for (int emp = 0; emp < SlotCount; emp++) // 빈 공간을 찾음.
+        for (int emp = 0; emp < slotCount; emp++) // 빈 공간을 찾음.
         {
-            if (ItemDB[emp].itemcode == 0)
+            if (itemDB[emp].itemcode == 0)
             {
-                isNotStackable = ItemDB[emp].AddStack(itemcode, isNotStackable);
+                isNotStackable = itemDB[emp].AddStack(itemcode, isNotStackable);
 
                 if(isNotStackable == 0) // 만약에 다 채워졌다면.
                 {
