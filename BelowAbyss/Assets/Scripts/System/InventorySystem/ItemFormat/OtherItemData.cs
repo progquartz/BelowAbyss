@@ -1,9 +1,9 @@
 [System.Serializable]
 public class OtherItemData
 {
-    public int itemCode;// ¾ÆÀÌÅÛ ÄÚµå. int±â¹İ.
-    public string itemName;// ¾ÆÀÌÅÛ ÀÌ¸§. string ±â¹İ.
-    public string itemCategory;// ¾ÆÀÌÅÛ ºĞ·ù. string ±â¹İ.
-    public string itemLore;// ¾ÆÀÌÅÛ ¼³¸í. string ±â¹İ.
-    public int itemStackLimit; // ¾ÆÀÌÅÛ ÃÖ´ë ½ºÅÃ °¡´É °³¼ö.
+    public int itemCode;// ì•„ì´í…œ ì½”ë“œ. intê¸°ë°˜.
+    public string itemName;// ì•„ì´í…œ ì´ë¦„. string ê¸°ë°˜.
+    public string itemCategory;// ì•„ì´í…œ ë¶„ë¥˜. string ê¸°ë°˜.
+    public string itemLore;// ì•„ì´í…œ ì„¤ëª…. string ê¸°ë°˜.
+    public int itemStackLimit; // ì•„ì´í…œ ìµœëŒ€ ìŠ¤íƒ ê°€ëŠ¥ ê°œìˆ˜.
 }

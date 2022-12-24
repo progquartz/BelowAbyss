@@ -16,62 +16,62 @@ public class ItemHolder : MonoBehaviour
     private int holdingItemStackLimit;
 
 
-    // ¿ìÅ¬¸¯µûÀ§ ¾ø´Ù.
-    // ¾Æ¹«°Íµµ ÁıÁö ¾ÊÀº »óÅÂ¿¡¼­ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏ´Â ½½·ÔÀ» Å¬¸¯ÇÒ °æ¿ì¿¡ ÀüºÎ°¡ Áı¾îÁü.
-    // ¾Æ¹«°Íµµ ÁıÁö ¾ÊÀº »óÅÂ¿¡¼­ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏ´Â ½½·ÔÀ» ¿ìÅ¬¸¯ÇÒ °æ¿ì¿¡ Àı¹İÀÌ Áı¾îÁü.
+    // ìš°í´ë¦­ë”°ìœ„ ì—†ë‹¤.
+    // ì•„ë¬´ê²ƒë„ ì§‘ì§€ ì•Šì€ ìƒíƒœì—ì„œ ì•„ì´í…œì´ ì¡´ì¬í•˜ëŠ” ìŠ¬ë¡¯ì„ í´ë¦­í•  ê²½ìš°ì— ì „ë¶€ê°€ ì§‘ì–´ì§.
+    // ì•„ë¬´ê²ƒë„ ì§‘ì§€ ì•Šì€ ìƒíƒœì—ì„œ ì•„ì´í…œì´ ì¡´ì¬í•˜ëŠ” ìŠ¬ë¡¯ì„ ìš°í´ë¦­í•  ê²½ìš°ì— ì ˆë°˜ì´ ì§‘ì–´ì§.
 
-    // ¾ÆÀÌÅÛÀ» Áı°í ÀÖ´Â »óÅÂ¿¡¼­ ¹Ù±ù¿¡´Ù°¡ ³Ö°í ¾ÆÀÌÅÛÀ» Å¬¸¯ÇÒ °æ¿ì, ¾ÆÀÌÅÛÀ» ¹ö¸±°ÍÀÌ³Ä´Â Áú¹®ÀÌ ³ª¿È.
+    // ì•„ì´í…œì„ ì§‘ê³  ìˆëŠ” ìƒíƒœì—ì„œ ë°”ê¹¥ì—ë‹¤ê°€ ë„£ê³  ì•„ì´í…œì„ í´ë¦­í•  ê²½ìš°, ì•„ì´í…œì„ ë²„ë¦´ê²ƒì´ëƒëŠ” ì§ˆë¬¸ì´ ë‚˜ì˜´.
 
-    // ¾ÆÀÌÅÛÀ» Áı°í ÀÖ´Â »óÅÂ¿¡¼­ ½½·Ô¿¡´Ù°¡ ´ë°í Å¬¸¯À» ÇÒ °æ¿ì,´ÙÀ½ÀÇ °æ¿ì·Î ³ª´¸.
-    // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ºÎÁ·ÇÑ ½½·Ô ¼öÀÏ °æ¿ì ¾ÆÀÌÅÛÀÌ ÇØ´ç ½½·Ô¿¡ ÇÕÃÄÁü.
-    // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ´õÇÏ¸é ÇÑ¼¼Æ® ÀÌ»óÀÏ °æ¿ì ¾ÆÀÌÅÛÀÌ ÇÑ¼¼Æ®·Î µÇ¸é¼­ ¼Õ¿¡ ³²Àº ¾çÀÌ ³²À½.
-    // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î Áå ¾ÆÀÌÅÛÀÌ ¹Ù²ñ.
+    // ì•„ì´í…œì„ ì§‘ê³  ìˆëŠ” ìƒíƒœì—ì„œ ìŠ¬ë¡¯ì—ë‹¤ê°€ ëŒ€ê³  í´ë¦­ì„ í•  ê²½ìš°,ë‹¤ìŒì˜ ê²½ìš°ë¡œ ë‚˜ë‰¨.
+    // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë¶€ì¡±í•œ ìŠ¬ë¡¯ ìˆ˜ì¼ ê²½ìš° ì•„ì´í…œì´ í•´ë‹¹ ìŠ¬ë¡¯ì— í•©ì³ì§.
+    // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë”í•˜ë©´ í•œì„¸íŠ¸ ì´ìƒì¼ ê²½ìš° ì•„ì´í…œì´ í•œì„¸íŠ¸ë¡œ ë˜ë©´ì„œ ì†ì— ë‚¨ì€ ì–‘ì´ ë‚¨ìŒ.
+    // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ì¥” ì•„ì´í…œì´ ë°”ë€œ.
 
-    // ¾ÆÀÌÅÛÀ» Áı°í ÀÖ´Â »óÅÂ¿¡¼­ ½½·Ô¿¡´Ù°¡ ´ë°í ¿ìÅ¬¸¯À» ÇÒ °æ¿ì, ´ÙÀ½ÀÇ °æ¿ì·Î ³ª´¸.
-    // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ºÎÁ·ÇÑ ½½·Ô ¼öÀÏ °æ¿ì, ¾ÆÀÌÅÛÀÌ ÇØ´ç ½½·Ô¿¡ ÇÏ³ª°¡ Ãß°¡µÊ.
-    // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ÇÑ ¼¼Æ®°¡ °¡µæ Â÷ ÀÖÀ» °æ¿ì, ¾È´õÇØÁü.
-    // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î ¹Ù²ñ. 
+    // ì•„ì´í…œì„ ì§‘ê³  ìˆëŠ” ìƒíƒœì—ì„œ ìŠ¬ë¡¯ì—ë‹¤ê°€ ëŒ€ê³  ìš°í´ë¦­ì„ í•  ê²½ìš°, ë‹¤ìŒì˜ ê²½ìš°ë¡œ ë‚˜ë‰¨.
+    // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë¶€ì¡±í•œ ìŠ¬ë¡¯ ìˆ˜ì¼ ê²½ìš°, ì•„ì´í…œì´ í•´ë‹¹ ìŠ¬ë¡¯ì— í•˜ë‚˜ê°€ ì¶”ê°€ë¨.
+    // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / í•œ ì„¸íŠ¸ê°€ ê°€ë“ ì°¨ ìˆì„ ê²½ìš°, ì•ˆë”í•´ì§.
+    // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ë°”ë€œ. 
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ½½·Ô¿¡ ´ëÇÑ ÁÂÅ¬¸¯À» ÇßÀ» °æ¿ì È£ÃâµÇ´Â ÇÔ¼ö.
+    /// ì•„ì´í…œ ìŠ¬ë¡¯ì— ëŒ€í•œ ì¢Œí´ë¦­ì„ í–ˆì„ ê²½ìš° í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜.
     /// </summary>
     /// <param name="index"></param>
     public void OnClickButton(int index)
     {
         GameObject clickObj = EventSystem.current.currentSelectedGameObject;
 
-        Debug.Log(clickObj.name + "À» Å¬¸¯Çß½À´Ï´Ù.");
+        Debug.Log(clickObj.name + "ì„ í´ë¦­í–ˆìŠµë‹ˆë‹¤.");
 
         string getter = clickObj.transform.parent.name;
-        if (!isHoldingItem) // ¸¸¾à ¾ÆÀÌÅÛÀ» Áã°í ÀÖÁö ¾ÊÀ» °æ¿ì.
+        if (!isHoldingItem) // ë§Œì•½ ì•„ì´í…œì„ ì¥ê³  ìˆì§€ ì•Šì„ ê²½ìš°.
         {
             
-            if (getter == "InventoryContents") // ÀÎº¥Åä¸®ÀÏ °æ¿ì.
+            if (getter == "InventoryContents") // ì¸ë²¤í† ë¦¬ì¼ ê²½ìš°.
             {
                 if (GetDataFromInventory(index))
                 {
                     isHoldingItem = true;
                 }
             }
-            else if(getter == "CraftingContents") // Á¶ÇÕ´ëÀÏ °æ¿ì.
+            else if(getter == "CraftingContents") // ì¡°í•©ëŒ€ì¼ ê²½ìš°.
             {
                 if (GetDataFromCrafting(index))
                 {
                     isHoldingItem = true;
                 }
             }
-            else if(getter == "CraftingFinishedContents") // ¾ÆÀÌÅÛÀÏ °æ¿ì.
+            else if(getter == "CraftingFinishedContents") // ì•„ì´í…œì¼ ê²½ìš°.
             {
 
             }
         }
-        else // ¸¸¾à ¾ÆÀÌÅÛÀ» Áã°í ÀÖ´Ù¸é.
+        else // ë§Œì•½ ì•„ì´í…œì„ ì¥ê³  ìˆë‹¤ë©´.
         {
-            if (getter == "InventoryContents") // ÀÎº¥Åä¸®ÀÏ °æ¿ì.
+            if (getter == "InventoryContents") // ì¸ë²¤í† ë¦¬ì¼ ê²½ìš°.
             {
                 Item itemChanging = Inventory.instance.itemDB[index];
 
-                if (itemChanging.itemcode == 0) // ¸¸¾à¿¡ ÇØ´ç ½½·ÔÀÌ ºó °æ¿ì.
+                if (itemChanging.itemcode == 0) // ë§Œì•½ì— í•´ë‹¹ ìŠ¬ë¡¯ì´ ë¹ˆ ê²½ìš°.
                 {
                     itemChanging.itemcode = holdingItemCode;
                     itemChanging.stack = holdingItemStack;
@@ -86,7 +86,7 @@ public class ItemHolder : MonoBehaviour
                     }
                     else
                     {
-                        // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ´õÇÏ¸é ÇÑ¼¼Æ® ÀÌ»óÀÏ °æ¿ì ¾ÆÀÌÅÛÀÌ ÇÑ¼¼Æ®·Î µÇ¸é¼­ ¼Õ¿¡ ³²Àº ¾çÀÌ ³²À½.
+                        // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë”í•˜ë©´ í•œì„¸íŠ¸ ì´ìƒì¼ ê²½ìš° ì•„ì´í…œì´ í•œì„¸íŠ¸ë¡œ ë˜ë©´ì„œ ì†ì— ë‚¨ì€ ì–‘ì´ ë‚¨ìŒ.
                         int stackleft = itemChanging.AddStack(holdingItemCode, holdingItemStack);
                         if (stackleft == 0)
                         {
@@ -100,15 +100,15 @@ public class ItemHolder : MonoBehaviour
                 }
                 else 
                 {
-                    // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î Áå ¾ÆÀÌÅÛÀÌ ¹Ù²ñ.
+                    // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ì¥” ì•„ì´í…œì´ ë°”ë€œ.
                     SwapHoldingByInventory(index);
                 }
             }
-            else if (getter == "CraftingContents") // Á¶ÇÕ´ëÀÏ °æ¿ì.
+            else if (getter == "CraftingContents") // ì¡°í•©ëŒ€ì¼ ê²½ìš°.
             {
                 Item itemChanging = Crafting.instance.craftingDB[index];
 
-                if (itemChanging.itemcode == 0) // ¸¸¾à¿¡ ÇØ´ç ½½·ÔÀÌ ºó °æ¿ì.
+                if (itemChanging.itemcode == 0) // ë§Œì•½ì— í•´ë‹¹ ìŠ¬ë¡¯ì´ ë¹ˆ ê²½ìš°.
                 {
                     itemChanging.itemcode = holdingItemCode;
                     itemChanging.stack = holdingItemStack;
@@ -123,7 +123,7 @@ public class ItemHolder : MonoBehaviour
                     }
                     else
                     {
-                        // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ´õÇÏ¸é ÇÑ¼¼Æ® ÀÌ»óÀÏ °æ¿ì ¾ÆÀÌÅÛÀÌ ÇÑ¼¼Æ®·Î µÇ¸é¼­ ¼Õ¿¡ ³²Àº ¾çÀÌ ³²À½.
+                        // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë”í•˜ë©´ í•œì„¸íŠ¸ ì´ìƒì¼ ê²½ìš° ì•„ì´í…œì´ í•œì„¸íŠ¸ë¡œ ë˜ë©´ì„œ ì†ì— ë‚¨ì€ ì–‘ì´ ë‚¨ìŒ.
                         int stackleft = itemChanging.AddStack(holdingItemCode, holdingItemStack);
                         if (stackleft == 0)
                         {
@@ -137,11 +137,11 @@ public class ItemHolder : MonoBehaviour
                 }
                 else
                 {
-                    // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î Áå ¾ÆÀÌÅÛÀÌ ¹Ù²ñ.
+                    // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ì¥” ì•„ì´í…œì´ ë°”ë€œ.
                     SwapHoldingByCrafting(index);
                 }
             }
-            else if (getter == "CraftingFinishedContents") // ¾ÆÀÌÅÛÀÏ °æ¿ì.
+            else if (getter == "CraftingFinishedContents") // ì•„ì´í…œì¼ ê²½ìš°.
             {
 
             }
@@ -158,7 +158,7 @@ public class ItemHolder : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ½½·Ô¿¡ ´ëÇÑ ¿ìÅ¬¸¯À» ÇÒ °æ¿ì¿¡ È£ÃâµÇ´Â ÇÔ¼ö.
+    /// ì•„ì´í…œ ìŠ¬ë¡¯ì— ëŒ€í•œ ìš°í´ë¦­ì„ í•  ê²½ìš°ì— í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜.
     /// </summary>
     /// <param name="index"></param>
     /// <param name="slotTransform"></param>
@@ -166,26 +166,26 @@ public class ItemHolder : MonoBehaviour
     {
         GameObject clickObj = slotTransform.gameObject;
 
-        Debug.Log(clickObj.name +  "À» ¿ìÅ¬¸¯ÇÔ.");
+        Debug.Log(clickObj.name +  "ì„ ìš°í´ë¦­í•¨.");
         string getter = clickObj.transform.parent.name;
-        if (!isHoldingItem) // ¸¸¾à ¾ÆÀÌÅÛÀ» Áã°í ÀÖÁö ¾ÊÀ» °æ¿ì.
+        if (!isHoldingItem) // ë§Œì•½ ì•„ì´í…œì„ ì¥ê³  ìˆì§€ ì•Šì„ ê²½ìš°.
         {
             
-            if (getter == "InventoryContents") // ÀÎº¥Åä¸®ÀÏ °æ¿ì.
+            if (getter == "InventoryContents") // ì¸ë²¤í† ë¦¬ì¼ ê²½ìš°.
             {
                 if (GetHalfFromInventory(index))
                 {
                     isHoldingItem = true;
                 }
             }
-            else if (getter == "CraftingContents") // Á¶ÇÕ´ëÀÏ °æ¿ì.
+            else if (getter == "CraftingContents") // ì¡°í•©ëŒ€ì¼ ê²½ìš°.
             {
                 if (GetHalfFromCrafting(index))
                 {
                     isHoldingItem = true;
                 }
             }
-            else if (getter == "CraftingFinishedContents") // ¾ÆÀÌÅÛÀÏ °æ¿ì.
+            else if (getter == "CraftingFinishedContents") // ì•„ì´í…œì¼ ê²½ìš°.
             {
 
             }
@@ -193,13 +193,13 @@ public class ItemHolder : MonoBehaviour
         else
         {
 
-            if (getter == "InventoryContents") // ÀÎº¥Åä¸®ÀÏ °æ¿ì.
+            if (getter == "InventoryContents") // ì¸ë²¤í† ë¦¬ì¼ ê²½ìš°.
             {
-                // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ºÎÁ·ÇÑ ½½·Ô ¼öÀÏ °æ¿ì, ¾ÆÀÌÅÛÀÌ ÇØ´ç ½½·Ô¿¡ ÇÏ³ª°¡ Ãß°¡µÊ.
-                // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ÇÑ ¼¼Æ®°¡ °¡µæ Â÷ ÀÖÀ» °æ¿ì, ¾È´õÇØÁü.
-                // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î ¹Ù²ñ. 
+                // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë¶€ì¡±í•œ ìŠ¬ë¡¯ ìˆ˜ì¼ ê²½ìš°, ì•„ì´í…œì´ í•´ë‹¹ ìŠ¬ë¡¯ì— í•˜ë‚˜ê°€ ì¶”ê°€ë¨.
+                // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / í•œ ì„¸íŠ¸ê°€ ê°€ë“ ì°¨ ìˆì„ ê²½ìš°, ì•ˆë”í•´ì§.
+                // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ë°”ë€œ. 
                 Item itemChanging = Inventory.instance.itemDB[index];
-                if (itemChanging.itemcode == 0) // ¸¸¾à¿¡ ÇØ´ç ½½·ÔÀÌ ºó °æ¿ì.
+                if (itemChanging.itemcode == 0) // ë§Œì•½ì— í•´ë‹¹ ìŠ¬ë¡¯ì´ ë¹ˆ ê²½ìš°.
                 {
                     itemChanging.itemcode = holdingItemCode;
                     itemChanging.stack = 1;
@@ -210,7 +210,7 @@ public class ItemHolder : MonoBehaviour
                         isHoldingItem = false;
                     }
                 }
-                else if (itemChanging.itemcode == holdingItemCode) // °°Àº ¾ÆÀÌÅÛÀÏ °æ¿ì.
+                else if (itemChanging.itemcode == holdingItemCode) // ê°™ì€ ì•„ì´í…œì¼ ê²½ìš°.
                 {
                     if (itemChanging.stack == itemChanging.stacklimit || holdingItemStack == itemChanging.stacklimit)
                     {
@@ -218,7 +218,7 @@ public class ItemHolder : MonoBehaviour
                     }
                     else
                     {
-                        // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ºÎÁ·ÇÑ ½½·Ô ¼öÀÏ °æ¿ì, ¾ÆÀÌÅÛÀÌ ÇØ´ç ½½·Ô¿¡ ÇÏ³ª°¡ Ãß°¡µÊ.
+                        // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë¶€ì¡±í•œ ìŠ¬ë¡¯ ìˆ˜ì¼ ê²½ìš°, ì•„ì´í…œì´ í•´ë‹¹ ìŠ¬ë¡¯ì— í•˜ë‚˜ê°€ ì¶”ê°€ë¨.
                         itemChanging.AddStack(holdingItemCode, 1);
                         holdingItemStack--;
                         if(holdingItemStack == 0)
@@ -230,17 +230,17 @@ public class ItemHolder : MonoBehaviour
                 }
                 else
                 {
-                    // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î Áå ¾ÆÀÌÅÛÀÌ ¹Ù²ñ.
+                    // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ì¥” ì•„ì´í…œì´ ë°”ë€œ.
                     SwapHoldingByInventory(index);
                 }
             }
-            else if (getter == "CraftingContents") // Á¶ÇÕ´ëÀÏ °æ¿ì.
+            else if (getter == "CraftingContents") // ì¡°í•©ëŒ€ì¼ ê²½ìš°.
             {
-                // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ºÎÁ·ÇÑ ½½·Ô ¼öÀÏ °æ¿ì, ¾ÆÀÌÅÛÀÌ ÇØ´ç ½½·Ô¿¡ ÇÏ³ª°¡ Ãß°¡µÊ.
-                // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ÇÑ ¼¼Æ®°¡ °¡µæ Â÷ ÀÖÀ» °æ¿ì, ¾È´õÇØÁü.
-                // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î ¹Ù²ñ. 
+                // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë¶€ì¡±í•œ ìŠ¬ë¡¯ ìˆ˜ì¼ ê²½ìš°, ì•„ì´í…œì´ í•´ë‹¹ ìŠ¬ë¡¯ì— í•˜ë‚˜ê°€ ì¶”ê°€ë¨.
+                // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / í•œ ì„¸íŠ¸ê°€ ê°€ë“ ì°¨ ìˆì„ ê²½ìš°, ì•ˆë”í•´ì§.
+                // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ë°”ë€œ. 
                 Item itemChanging = Crafting.instance.craftingDB[index];
-                if (itemChanging.itemcode == 0) // ¸¸¾à¿¡ ÇØ´ç ½½·ÔÀÌ ºó °æ¿ì.
+                if (itemChanging.itemcode == 0) // ë§Œì•½ì— í•´ë‹¹ ìŠ¬ë¡¯ì´ ë¹ˆ ê²½ìš°.
                 {
                     itemChanging.itemcode = holdingItemCode;
                     itemChanging.stack = 1;
@@ -251,7 +251,7 @@ public class ItemHolder : MonoBehaviour
                         isHoldingItem = false;
                     }
                 }
-                else if (itemChanging.itemcode == holdingItemCode) // °°Àº ¾ÆÀÌÅÛÀÏ °æ¿ì.
+                else if (itemChanging.itemcode == holdingItemCode) // ê°™ì€ ì•„ì´í…œì¼ ê²½ìš°.
                 {
                     if (itemChanging.stack == itemChanging.stacklimit || holdingItemStack == itemChanging.stacklimit)
                     {
@@ -259,7 +259,7 @@ public class ItemHolder : MonoBehaviour
                     }
                     else
                     {
-                        // ¸¸¾à¿¡ °°Àº ¾ÆÀÌÅÛ / ºÎÁ·ÇÑ ½½·Ô ¼öÀÏ °æ¿ì, ¾ÆÀÌÅÛÀÌ ÇØ´ç ½½·Ô¿¡ ÇÏ³ª°¡ Ãß°¡µÊ.
+                        // ë§Œì•½ì— ê°™ì€ ì•„ì´í…œ / ë¶€ì¡±í•œ ìŠ¬ë¡¯ ìˆ˜ì¼ ê²½ìš°, ì•„ì´í…œì´ í•´ë‹¹ ìŠ¬ë¡¯ì— í•˜ë‚˜ê°€ ì¶”ê°€ë¨.
                         itemChanging.AddStack(holdingItemCode, 1);
                         holdingItemStack--;
                         if (holdingItemStack == 0)
@@ -271,11 +271,11 @@ public class ItemHolder : MonoBehaviour
                 }
                 else
                 {
-                    // ¸¸¾à¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÏ °æ¿ì, ¼­·Î Áå ¾ÆÀÌÅÛÀÌ ¹Ù²ñ.
+                    // ë§Œì•½ì— ë‹¤ë¥¸ ì•„ì´í…œì¼ ê²½ìš°, ì„œë¡œ ì¥” ì•„ì´í…œì´ ë°”ë€œ.
                     SwapHoldingByCrafting(index);
                 }
             }
-            else if (getter == "CraftingFinishedContents") // ¾ÆÀÌÅÛÀÏ °æ¿ì.
+            else if (getter == "CraftingFinishedContents") // ì•„ì´í…œì¼ ê²½ìš°.
             {
 
             }
@@ -283,7 +283,7 @@ public class ItemHolder : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç Áã°í ÀÖ´Â ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®ÀÇ ÀÎµ¦½º¿Í ¹Ù²Ş.
+    /// í˜„ì¬ ì¥ê³  ìˆëŠ” ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì˜ ì¸ë±ìŠ¤ì™€ ë°”ê¿ˆ.
     /// </summary>
     /// <param name="index"></param>
     public void SwapHoldingByInventory(int index)
@@ -349,7 +349,7 @@ public class ItemHolder : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡¼­ ÇØ´ç ÀÎµ¦½ºÀÇ ¾ÆÀÌÅÛ µ¥ÀÌÅÍµéÀ» °¡Áö°í ¿À´Â ÇÔ¼ö. Á¤»óÀûÀ¸·Î °¡Á®¿Ã °æ¿ì  true¸¦, ¾Æ´Ò °æ¿ì false°ªÀ» Ãâ·ÂÇÑ´Ù.
+    /// ì¸ë²¤í† ë¦¬ì—ì„œ í•´ë‹¹ ì¸ë±ìŠ¤ì˜ ì•„ì´í…œ ë°ì´í„°ë“¤ì„ ê°€ì§€ê³  ì˜¤ëŠ” í•¨ìˆ˜. ì •ìƒì ìœ¼ë¡œ ê°€ì ¸ì˜¬ ê²½ìš°  trueë¥¼, ì•„ë‹ ê²½ìš° falseê°’ì„ ì¶œë ¥í•œë‹¤.
     /// </summary>
     /// <returns></returns>
     public bool GetDataFromInventory(int index)
@@ -378,6 +378,10 @@ public class ItemHolder : MonoBehaviour
         {
             holdingItemCode = itemGetting.itemcode;
             holdingItemStack = itemGetting.stack / 2;
+            if(holdingItemStack == 0)
+            {
+                return false;
+            }
             holdingItemStackLimit = itemGetting.stacklimit;
             itemGetting.stack -= holdingItemStack;
             return true;

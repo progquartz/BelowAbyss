@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- ÀÌº¥Æ® ¸Å´ÏÀú´Â ÀÌº¥Æ®¿Í °ü·ÃµÈ Àü¹ÝÀûÀÎ ÀÛ¾÷À» ¼öÇàÇÑ´Ù.
- ÀÌº¥Æ®ÀÇ Ã¼ÀÎÀ¸·Î ÀÌ·ç¾îÁø ¿©·¯ ÀÌº¥Æ®µéÀ» ÁøÇàÇÏ°í ¼öÇàÇÏ¸ç, ´ÙÀ½ ½Ã½ºÅÛµé°ú ¿¬°áµÇ°Ô µÈ´Ù.
+ ì´ë²¤íŠ¸ ë§¤ë‹ˆì €ëŠ” ì´ë²¤íŠ¸ì™€ ê´€ë ¨ëœ ì „ë°˜ì ì¸ ìž‘ì—…ì„ ìˆ˜í–‰í•œë‹¤.
+ ì´ë²¤íŠ¸ì˜ ì²´ì¸ìœ¼ë¡œ ì´ë£¨ì–´ì§„ ì—¬ëŸ¬ ì´ë²¤íŠ¸ë“¤ì„ ì§„í–‰í•˜ê³  ìˆ˜í–‰í•˜ë©°, ë‹¤ìŒ ì‹œìŠ¤í…œë“¤ê³¼ ì—°ê²°ë˜ê²Œ ëœë‹¤.
  
-- ´ÙÀÌ¾ó·Î±× ½Ã½ºÅÛ.
-- ¼±ÅÃÁö
-- ÀüÅõ ½Ã½ºÅÛ
-- ·çÆÃ ½Ã½ºÅÛ (ÀÎº¥Åä¸®)
+- ë‹¤ì´ì–¼ë¡œê·¸ ì‹œìŠ¤í…œ.
+- ì„ íƒì§€
+- ì „íˆ¬ ì‹œìŠ¤í…œ
+- ë£¨íŒ… ì‹œìŠ¤í…œ (ì¸ë²¤í† ë¦¬)
      
-    ÀÌº¥Æ® À¯Çü¿¡ µû¶ó Å¬·¡½º°¡ ³ª´²Áö±â ¶§¹®¿¡, ÄÝ È£ÃâÀ» ¹ÞÀº ÀÌº¥Æ®ÀÇ À¯Çü¿¡ µû¶ó ¹«¾ð°¡¸¦ ÇÏ¸éµÈ´Ù.
+    ì´ë²¤íŠ¸ ìœ í˜•ì— ë”°ë¼ í´ëž˜ìŠ¤ê°€ ë‚˜ëˆ ì§€ê¸° ë•Œë¬¸ì—, ì½œ í˜¸ì¶œì„ ë°›ì€ ì´ë²¤íŠ¸ì˜ ìœ í˜•ì— ë”°ë¼ ë¬´ì–¸ê°€ë¥¼ í•˜ë©´ëœë‹¤.
     
 */
 
@@ -57,8 +57,8 @@ public class SelectionEvents
 public class EventManager : MonoBehaviour
 {
     /// <summary>
-    /// ÀÌº¥Æ® ¸Å´ÏÀúÀÓ. ¸ðµç µ¥ÀÌÅÍ ÀúÀåÇÏ°í °ü¸®ÇÔ. ÆÄ¼­¿¡¼­ ÀÌº¥Æ® ¸Å´ÏÀú·Î ¾Öµé ¿Å±æ°Í.
-    /// À¯ÇüÀ» ¾î¶»°Ô °ü¸®ÇÒÁö´Â ³»ÀÏÀÇ ³»°¡ Á¤ÇØÁÙ°Í.
+    /// ì´ë²¤íŠ¸ ë§¤ë‹ˆì €ìž„. ëª¨ë“  ë°ì´í„° ì €ìž¥í•˜ê³  ê´€ë¦¬í•¨. íŒŒì„œì—ì„œ ì´ë²¤íŠ¸ ë§¤ë‹ˆì €ë¡œ ì• ë“¤ ì˜®ê¸¸ê²ƒ.
+    /// ìœ í˜•ì„ ì–´ë–»ê²Œ ê´€ë¦¬í• ì§€ëŠ” ë‚´ì¼ì˜ ë‚´ê°€ ì •í•´ì¤„ê²ƒ.
     /// </summary>
     public static EventManager instance;
 
@@ -70,7 +70,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    // ÀÌº¥Æ®  ¸®½ºÆ®¸¦ °¡Á®¿À´Â ¸Å´ÏÀú.
+    // ì´ë²¤íŠ¸  ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë§¤ë‹ˆì €.
     public DialogEvents DialogEventList = new DialogEvents();
     public SelectionEvents SelectionEventList = new SelectionEvents();
 
@@ -78,7 +78,7 @@ public class EventManager : MonoBehaviour
 
     public void LoadEvent(int eventCode)
     {
-        Debug.Log(eventCode + "¿¡ ´ëÇÑ ÀÌº¥Æ® È£Ãâ ¿äÃ» ¹ß»ý.");
+        Debug.Log(eventCode + "ì— ëŒ€í•œ ì´ë²¤íŠ¸ í˜¸ì¶œ ìš”ì²­ ë°œìƒ.");
         switch (EventToEventType[eventCode])
         {
             case EventType.DIALOG:

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Selection : Dialog
 {
-    public new static Selection instance; // ±âº» ¸â¹öÀÎ Dialog ¼û±â±â.
+    public new static Selection instance; // ê¸°ë³¸ ë©¤ë²„ì¸ Dialog ìˆ¨ê¸°ê¸°.
 
     private void Awake()
     {
@@ -24,11 +24,11 @@ public class Selection : Dialog
         dialogUI.SetActive(true);
         if (LoadEventCode(data))
         {
-            Debug.Log("Á¤»óÀûÀ¸·Î " + data.eventCode + " ¹øÀÇ ÀÌº¥Æ® ·Îµå ¿Ï·á.");
+            Debug.Log("ì •ìƒì ìœ¼ë¡œ " + data.eventCode + " ë²ˆì˜ ì´ë²¤íŠ¸ ë¡œë“œ ì™„ë£Œ.");
         }
         else
         {
-            Debug.Log(data.eventCode + " ¹øÀÇ ÀÌº¥Æ® ·Îµå Áß ¹®Á¦ ¹ß»ı.");
+            Debug.Log(data.eventCode + " ë²ˆì˜ ì´ë²¤íŠ¸ ë¡œë“œ ì¤‘ ë¬¸ì œ ë°œìƒ.");
         }
     }
 
@@ -57,7 +57,7 @@ public class Selection : Dialog
 
         for (int i = 0; i < data.selectionDialog.Length; i++)
         {
-            selectionDialog[i].text = data.selectionDialog[i]; // ÀÌº¥Æ® µ¥ÀÌÅÍ°¡ ÁÖ¾îÁø ³ğÀº ÇÏ°í, ¾Æ´Ñ °æ¿ì´Â Áö¿ö¹ö¸®±â.
+            selectionDialog[i].text = data.selectionDialog[i]; // ì´ë²¤íŠ¸ ë°ì´í„°ê°€ ì£¼ì–´ì§„ ë†ˆì€ í•˜ê³ , ì•„ë‹Œ ê²½ìš°ëŠ” ì§€ì›Œë²„ë¦¬ê¸°.
             AppearPanel(i);
         }
         for (int i = data.selectionDialog.Length; i < 4; i++)
@@ -65,7 +65,7 @@ public class Selection : Dialog
             DisappearPanel(i);
         }
         selectionEvent = data.selectionEvent;
-        // ÀÌ¹ÌÁö ¹× ¿©·¯ Ãß°¡»çÇ×µé Á¸Àç.
+        // ì´ë¯¸ì§€ ë° ì—¬ëŸ¬ ì¶”ê°€ì‚¬í•­ë“¤ ì¡´ì¬.
         return true;
     }
 

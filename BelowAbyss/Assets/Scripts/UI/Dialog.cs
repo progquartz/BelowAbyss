@@ -25,7 +25,7 @@ public class Dialog : MonoBehaviour
     public int nextEvent;
     public bool isNextEventExist;
 
-    // ´çÀå ¾ÈÇÔ.
+    // ë‹¹ì¥ ì•ˆí•¨.
     private AudioClip backgroundMusic;
 
     private void Start()
@@ -47,11 +47,11 @@ public class Dialog : MonoBehaviour
         dialogUI.SetActive(true);
         if (LoadEventCode(data))
         {
-            Debug.Log("Á¤»óÀûÀ¸·Î " + data.eventCode + " ¹øÀÇ ÀÌº¥Æ® ·Îµå ¿Ï·á.");
+            Debug.Log("ì •ìƒì ìœ¼ë¡œ " + data.eventCode + " ë²ˆì˜ ì´ë²¤íŠ¸ ë¡œë“œ ì™„ë£Œ.");
         }
         else
         {
-            Debug.Log( data.eventCode + " ¹øÀÇ ÀÌº¥Æ® ·Îµå Áß ¹®Á¦ ¹ß»ı.");
+            Debug.Log( data.eventCode + " ë²ˆì˜ ì´ë²¤íŠ¸ ë¡œë“œ ì¤‘ ë¬¸ì œ ë°œìƒ.");
         }
     }
 
@@ -61,7 +61,7 @@ public class Dialog : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌº¥Æ®¸¦ ·ÎµåÇÏ´Â ÇÔ¼ö. ¸¸¾à¿¡ Á¤»óÀûÀ¸·Î ·ÎµåµÇÁö ¾Ê¾ÒÀ» °æ¿ì, false°ªÀ» ³»º¸³¿.
+    /// ì´ë²¤íŠ¸ë¥¼ ë¡œë“œí•˜ëŠ” í•¨ìˆ˜. ë§Œì•½ì— ì •ìƒì ìœ¼ë¡œ ë¡œë“œë˜ì§€ ì•Šì•˜ì„ ê²½ìš°, falseê°’ì„ ë‚´ë³´ëƒ„.
     /// </summary>
     /// <param name="eventCode"></param>
     /// <returns></returns>
@@ -82,7 +82,7 @@ public class Dialog : MonoBehaviour
             backgroundImage.gameObject.SetActive(true);
         }
             //LoadImageBaseOnCode(data.artworkpath);
-            // ÀÌ¹ÌÁö ¹× ¿©·¯ Ãß°¡»çÇ×µé Á¸Àç.
+            // ì´ë¯¸ì§€ ë° ì—¬ëŸ¬ ì¶”ê°€ì‚¬í•­ë“¤ ì¡´ì¬.
             return true;
     }
 

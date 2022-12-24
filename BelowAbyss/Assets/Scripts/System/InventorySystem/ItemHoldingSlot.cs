@@ -33,7 +33,7 @@ public class ItemHoldingSlot : MonoBehaviour
             transform_icon.GetComponent<Graphic>().raycastTarget = false;
     }
 
-    //CodeFinder ÄÚµåÆÄÀÎ´õ
+    //CodeFinder ì½”ë“œíŒŒì¸ë”
     //From https://codefinder.janndk.com/ 
     private void Update_MousePosition()
     {

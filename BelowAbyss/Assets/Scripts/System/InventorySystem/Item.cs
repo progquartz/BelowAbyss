@@ -7,7 +7,7 @@ public class Item
 {
     public int itemcode;
     public int stack;
-    public int stacklimit; // ´ÙÀ½ ¼ö´Â ³ªÁß¿¡ µ¥ÀÌÅÍÆÄ¼­¿¡¼­ ¹Þ¾Æ¿Í¼­ µ¥ÀÌÅÍ ¾ÆÄ«ÀÌºê¿¡ ÀúÀåµÉ ¿¹Á¤ÀÎ º¯¼öÀÓ.
+    public int stacklimit; // ë‹¤ìŒ ìˆ˜ëŠ” ë‚˜ì¤‘ì— ë°ì´í„°íŒŒì„œì—ì„œ ë°›ì•„ì™€ì„œ ë°ì´í„° ì•„ì¹´ì´ë¸Œì— ì €ìž¥ë  ì˜ˆì •ì¸ ë³€ìˆ˜ìž„.
 
     public Item(int _itemcode, int _stack)
     {
@@ -16,8 +16,8 @@ public class Item
     }
 
     /// <summary>
-    /// ÇØ´ç ½½·Ô¿¡ ¾ÆÀÌÅÛÀ» Áý¾î³ÖÀ½, ´Ù¸¥ ¾ÆÀÌÅÛÀÌ¸é -1À» ¸®ÅÏÇÏ¸ç °°Àº ¾ÆÀÌÅÛÀÌÁö¸¸ ´õ ¸ø ½×ÀÌ´Â »óÈ²ÀÌ¶ó¸é ¸ø½×´Â¸¸Å­ÀÇ ¼ö¸¦ ¸®ÅÏ.
-    /// ¾Æ¹«·± ¹®Á¦°¡ ¾ø¾ú´Ù¸é 0À» ¸®ÅÏÇÔ.
+    /// í•´ë‹¹ ìŠ¬ë¡¯ì— ì•„ì´í…œì„ ì§‘ì–´ë„£ìŒ, ë‹¤ë¥¸ ì•„ì´í…œì´ë©´ -1ì„ ë¦¬í„´í•˜ë©° ê°™ì€ ì•„ì´í…œì´ì§€ë§Œ ë” ëª» ìŒ“ì´ëŠ” ìƒí™©ì´ë¼ë©´ ëª»ìŒ“ëŠ”ë§Œí¼ì˜ ìˆ˜ë¥¼ ë¦¬í„´.
+    /// ì•„ë¬´ëŸ° ë¬¸ì œê°€ ì—†ì—ˆë‹¤ë©´ 0ì„ ë¦¬í„´í•¨.
     /// </summary>
     /// <param name="_itemcode"></param>
     /// <param name="_stack"></param>
@@ -45,7 +45,7 @@ public class Item
                 return left;
             }
         }
-        // item°ü·Ã DB°¡ ÀÖ¾î¾ß ÇÒ ¿¹Á¤.
+        // itemê´€ë ¨ DBê°€ ìžˆì–´ì•¼ í•  ì˜ˆì •.
     }
 
     

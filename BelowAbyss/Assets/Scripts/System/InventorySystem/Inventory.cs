@@ -24,32 +24,32 @@ public class Inventory : MonoBehaviour
     }
 
 
-    /* ¸¶Å© UI ÀÛµ¿¹æ½Ä¿¡ ´ëÇÏ¿©.
-     ¸¶Å© ÀÏ¹Ý ui (ui°£ ¾ÆÀÌÅÛ ÀÌµ¿ °¡´É), Á¶ÇÕ ±â´É
-     ÀÎº¥Åä¸® Å©±â´Â 32°³, ½ºÅÃ´ÜÀ§´Â ¾ÆÀÌÅÛ¸¶´Ù Á¤ÇØÁ®ÀÖÀ½.
-     Á¶ÇÕ 4x4 ¿´À½.
+    /* ë§ˆí¬ UI ìž‘ë™ë°©ì‹ì— ëŒ€í•˜ì—¬.
+     ë§ˆí¬ ì¼ë°˜ ui (uiê°„ ì•„ì´í…œ ì´ë™ ê°€ëŠ¥), ì¡°í•© ê¸°ëŠ¥
+     ì¸ë²¤í† ë¦¬ í¬ê¸°ëŠ” 32ê°œ, ìŠ¤íƒë‹¨ìœ„ëŠ” ì•„ì´í…œë§ˆë‹¤ ì •í•´ì ¸ìžˆìŒ.
+     ì¡°í•© 4x4 ì˜€ìŒ.
 
-     ÀÎº¥Åä¸®¿¡¼­ ½ÇÁ¦·Î ÀÛ¿ëÇÏ´Â°Í.
+     ì¸ë²¤í† ë¦¬ì—ì„œ ì‹¤ì œë¡œ ìž‘ìš©í•˜ëŠ”ê²ƒ.
 
-    ¾ÆÀÌÅÛÀ» ´©¸£¸é ¾ÆÀÌÅÛÀÌ µé¾î¿Ã·ÁÁü.
-    ¾ÆÀÌÅÛÀÌ µé¾î¿Ã·ÁÁø »óÅÂ¿¡¼­´Â ÀÎº¥Åä¸® ¹ÛÀ¸·Î ÀÌ¸¦ ¹ö¸± °æ¿ì ¾ÆÀÌÅÛÀ» ¹ö¸± ¼ö ÀÖÀ½.
-    ¾ÆÀÌÅÛÀÌ µé¿©¿Ã·ÁÁø »óÅÂ¿¡¼­´Â ¾ÆÀÌÅÛÀ» ¿Å±æ ¼ö ÀÖÀ½.
-    ¾ÆÀÌÅÛÀÌ µé¿©¿Ã·ÁÁø »óÅÂ¿¡¼­ ¿ìÅ¬¸¯À» ÇÏ¸é ÇØ´ç À§Ä¡¿¡ 1°³°¡ ¶³¾îÁü. ¸¸¾à °°Àº ¾ÆÀÌÅÛÀÌ¶ó¸é 1°³°¡ ´Ã¾î³².
+    ì•„ì´í…œì„ ëˆ„ë¥´ë©´ ì•„ì´í…œì´ ë“¤ì–´ì˜¬ë ¤ì§.
+    ì•„ì´í…œì´ ë“¤ì–´ì˜¬ë ¤ì§„ ìƒíƒœì—ì„œëŠ” ì¸ë²¤í† ë¦¬ ë°–ìœ¼ë¡œ ì´ë¥¼ ë²„ë¦´ ê²½ìš° ì•„ì´í…œì„ ë²„ë¦´ ìˆ˜ ìžˆìŒ.
+    ì•„ì´í…œì´ ë“¤ì—¬ì˜¬ë ¤ì§„ ìƒíƒœì—ì„œëŠ” ì•„ì´í…œì„ ì˜®ê¸¸ ìˆ˜ ìžˆìŒ.
+    ì•„ì´í…œì´ ë“¤ì—¬ì˜¬ë ¤ì§„ ìƒíƒœì—ì„œ ìš°í´ë¦­ì„ í•˜ë©´ í•´ë‹¹ ìœ„ì¹˜ì— 1ê°œê°€ ë–¨ì–´ì§. ë§Œì•½ ê°™ì€ ì•„ì´í…œì´ë¼ë©´ 1ê°œê°€ ëŠ˜ì–´ë‚¨.
     
-    ¾ÆÀÌÅÛÀ» ¿ìÅ¬¸¯ÇÏ¸é ÇØ´ç À§Ä¡ÀÇ ¾ÆÀÌÅÛÀÌ Àý¹ÝÀ¸·Î ³ª´¶ Ã¤·Î µé¿©¿Ã·ÁÁü. 1°³¸é ±×³É µé¿©¿Ã·ÁÁü.
+    ì•„ì´í…œì„ ìš°í´ë¦­í•˜ë©´ í•´ë‹¹ ìœ„ì¹˜ì˜ ì•„ì´í…œì´ ì ˆë°˜ìœ¼ë¡œ ë‚˜ë‰œ ì±„ë¡œ ë“¤ì—¬ì˜¬ë ¤ì§. 1ê°œë©´ ê·¸ëƒ¥ ë“¤ì—¬ì˜¬ë ¤ì§.
 
-    ¾ÆÀÌÅÛÀÌ µé¿©¿Ã·ÁÁø »óÅÂ¿¡¼­ Å¬¸¯/ ¿ìÅ¬¸¯À» ³õÀ¸¸é µé¿©¿Ã·ÁÁø°ÍÀÌ Ãë¼ÒµÊ.
-    µé¿©¿Ã·ÁÁø°ÍÀÌ Ãë¼Ò µÈ »óÅÂ¿¡¼­ ÇØ´ç À§Ä¡¿¡ °°Àº¾ÆÀÌÅÛÀÌ °¡µæ Ã¡°Å³ª, ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ³õ¿©Á®ÀÖ´Ù¸é ÀÌ¸¦ °¡Àå °¡±î¿î °÷¿¡ ¹èÄ¡ÇÔ. 
-    ¸¸¾à¿¡ °¡Àå °¡±î¿î ºó Ä­ÀÌ ¾ø´Ù¸é, °¡Àå °¡±î¿î °°Àº ¾ÆÀÌÅÛÀÌ ºó °ø°£¿¡ Áý¾î³ÖÀ½.
+    ì•„ì´í…œì´ ë“¤ì—¬ì˜¬ë ¤ì§„ ìƒíƒœì—ì„œ í´ë¦­/ ìš°í´ë¦­ì„ ë†“ìœ¼ë©´ ë“¤ì—¬ì˜¬ë ¤ì§„ê²ƒì´ ì·¨ì†Œë¨.
+    ë“¤ì—¬ì˜¬ë ¤ì§„ê²ƒì´ ì·¨ì†Œ ëœ ìƒíƒœì—ì„œ í•´ë‹¹ ìœ„ì¹˜ì— ê°™ì€ì•„ì´í…œì´ ê°€ë“ ì°¼ê±°ë‚˜, ë‹¤ë¥¸ ì•„ì´í…œì´ ë†“ì—¬ì ¸ìžˆë‹¤ë©´ ì´ë¥¼ ê°€ìž¥ ê°€ê¹Œìš´ ê³³ì— ë°°ì¹˜í•¨. 
+    ë§Œì•½ì— ê°€ìž¥ ê°€ê¹Œìš´ ë¹ˆ ì¹¸ì´ ì—†ë‹¤ë©´, ê°€ìž¥ ê°€ê¹Œìš´ ê°™ì€ ì•„ì´í…œì´ ë¹ˆ ê³µê°„ì— ì§‘ì–´ë„£ìŒ.
     */
 
-    // È¹µæ°ú ¹ö·ÁÁü, ¿Å±èºÎÅÍ ±¸ÇöÇÏ±â.
+    // íšë“ê³¼ ë²„ë ¤ì§, ì˜®ê¹€ë¶€í„° êµ¬í˜„í•˜ê¸°.
     public List<Item> itemDB;
     public int slotCount = 32;
 
     public List<GameObject> slots;
 
-    // holdingitemÇØ¼­ ÀÛ¾÷ÇÏ±â.
+    // holdingitemí•´ì„œ ìž‘ì—…í•˜ê¸°.
 
     
     private void Start()
@@ -105,50 +105,50 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛÀ» È¹µæÇÏ´Â ÄÚµå. ¸¸¾à¿¡ ¾ÆÀÌÅÛÃ¢ÀÌ °¡µæ Âù »óÅÂ¶ó¸é, ºÒ°¡´ÉÇÑ false°ªÀ» ³»º¸³¿.
+    /// ì•„ì´í…œì„ íšë“í•˜ëŠ” ì½”ë“œ. ë§Œì•½ì— ì•„ì´í…œì°½ì´ ê°€ë“ ì°¬ ìƒíƒœë¼ë©´, ë¶ˆê°€ëŠ¥í•œ falseê°’ì„ ë‚´ë³´ëƒ„.
     /// </summary>
     /// <param name="itemcode"></param>
     /// <param name="stack"></param>
     /// <returns></returns>
     private bool GetItem(int itemcode, int stack)
     {
-        // ¸¸¾à¿¡  sameitemexist»óÅÂÀÌÁö¸¸ item¿¡¼­ ºÒ°¡´É ÆÇÁ¤À» ³»·Á¼­ ³²´Â ¾ÆÀÌÅÛÀ» ³Ñ±â¸é ÀÌ¸¦ int°ªÀ¸·Î ÀúÀå.
+        // ë§Œì•½ì—  sameitemexistìƒíƒœì´ì§€ë§Œ itemì—ì„œ ë¶ˆê°€ëŠ¥ íŒì •ì„ ë‚´ë ¤ì„œ ë‚¨ëŠ” ì•„ì´í…œì„ ë„˜ê¸°ë©´ ì´ë¥¼ intê°’ìœ¼ë¡œ ì €ìž¥.
         // 
         int isNotStackable = stack;
 
-        for (int i = 0; i < slotCount; i++) // ¸ðµç ½½·ÔÄ«¿îÅÍ¿¡ ÇÑÇØ.
+        for (int i = 0; i < slotCount; i++) // ëª¨ë“  ìŠ¬ë¡¯ì¹´ìš´í„°ì— í•œí•´.
         {
-            if (itemDB[i].itemcode == itemcode) // ÇØ´ç ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÑ´Ù¸é.
+            if (itemDB[i].itemcode == itemcode) // í•´ë‹¹ ìŠ¬ë¡¯ì— ì•„ì´í…œì´ ì¡´ìž¬í•œë‹¤ë©´.
             {
-                // ¸¸¾à ½½·Ô¿¡ µ¥ÀÌÅÍ°¡ µé¾î°¬´Âµ¥ ½×ÀÌÁö ¸øÇÑ´Ù¸é isnotstackableÀÌ ¾ç¼ö°¡µÊ. ¹®Á¦°¡ ¾øÀ¸¸é 0ÀÓ.
+                // ë§Œì•½ ìŠ¬ë¡¯ì— ë°ì´í„°ê°€ ë“¤ì–´ê°”ëŠ”ë° ìŒ“ì´ì§€ ëª»í•œë‹¤ë©´ isnotstackableì´ ì–‘ìˆ˜ê°€ë¨. ë¬¸ì œê°€ ì—†ìœ¼ë©´ 0ìž„.
                 isNotStackable = itemDB[i].AddStack(itemcode, isNotStackable);
 
-                if(isNotStackable == 0) // ¸ðµç ¾ÆÀÌÅÛµéÀÌ Á¤»óÀûÀ¸·Î µé¾î°¬´Ù¸é return true;
+                if(isNotStackable == 0) // ëª¨ë“  ì•„ì´í…œë“¤ì´ ì •ìƒì ìœ¼ë¡œ ë“¤ì–´ê°”ë‹¤ë©´ return true;
                 {
                     return true;
                 }
             }
         }
 
-        //Debug.Log("¾ÆÀÌÅÛÀ» ³Ö´Âµ¥ °°Àº ¾ÆÀÌÅÛÀ» Ã£Áö ¸øÇÔ!");
+        //Debug.Log("ì•„ì´í…œì„ ë„£ëŠ”ë° ê°™ì€ ì•„ì´í…œì„ ì°¾ì§€ ëª»í•¨!");
 
-        // ¿©±â±îÁö ¿À¸é ¸ðµç °°Àº ¾ÆÀÌÅÛ ½½·Ô¿¡´Â ÇØ´ç ¾ÆÀÌÅÛµéÀÌ ¾ø´Ù´Â ¶æÀÌ µÊ.
-        for (int emp = 0; emp < slotCount; emp++) // ºó °ø°£À» Ã£À½.
+        // ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ ëª¨ë“  ê°™ì€ ì•„ì´í…œ ìŠ¬ë¡¯ì—ëŠ” í•´ë‹¹ ì•„ì´í…œë“¤ì´ ì—†ë‹¤ëŠ” ëœ»ì´ ë¨.
+        for (int emp = 0; emp < slotCount; emp++) // ë¹ˆ ê³µê°„ì„ ì°¾ìŒ.
         {
             if (itemDB[emp].itemcode == 0)
             {
                 isNotStackable = itemDB[emp].AddStack(itemcode, isNotStackable);
 
-                if(isNotStackable == 0) // ¸¸¾à¿¡ ´Ù Ã¤¿öÁ³´Ù¸é.
+                if(isNotStackable == 0) // ë§Œì•½ì— ë‹¤ ì±„ì›Œì¡Œë‹¤ë©´.
                 {
-                    Debug.Log(emp + "¹øÀÇ ºó °ø°£¿¡" + itemcode + "¹øÀÇ ¾ÆÀÌÅÛÀ» ³ÖÀ½.");
+                    Debug.Log(emp + "ë²ˆì˜ ë¹ˆ ê³µê°„ì—" + itemcode + "ë²ˆì˜ ì•„ì´í…œì„ ë„£ìŒ.");
                     return true;
                 }
             }
         }
 
-        // ¿©±â±îÁö ¿À¸é ¸ðµç ¾ÆÀÌÅÛ ½½·ÔÀÌ ºñÁö ¾Ê¾Ò°í °°Àº ¾ÆÀÌÅÛ ½½·Ô¿¡´Â ÇØ´ç ¾ÆÀÌÅÛµéÀÌ °¡µæ Âù°ÍÀÓ.
-        Debug.Log(itemcode + "¹øÀÇ ¾ÆÀÌÅÛÀÌ" + isNotStackable + "¸¸Å­ ÀÎº¥Åä¸®¿¡ ÀúÀåµÇÁö ¸øÇÔ.");
+        // ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ ëª¨ë“  ì•„ì´í…œ ìŠ¬ë¡¯ì´ ë¹„ì§€ ì•Šì•˜ê³  ê°™ì€ ì•„ì´í…œ ìŠ¬ë¡¯ì—ëŠ” í•´ë‹¹ ì•„ì´í…œë“¤ì´ ê°€ë“ ì°¬ê²ƒìž„.
+        Debug.Log(itemcode + "ë²ˆì˜ ì•„ì´í…œì´" + isNotStackable + "ë§Œí¼ ì¸ë²¤í† ë¦¬ì— ì €ìž¥ë˜ì§€ ëª»í•¨.");
         return false;
 
        

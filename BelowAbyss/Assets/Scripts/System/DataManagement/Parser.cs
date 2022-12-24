@@ -27,7 +27,7 @@ public class Parser : MonoBehaviour
         EventManager.instance.DialogEventList = JsonUtility.FromJson<DialogEvents>(textJSON2.text);
         for(int i = 0; i < EventManager.instance.DialogEventList.dialogEvents.Length; i++)
         {
-            EventManager.instance.EventToEventType[EventManager.instance.DialogEventList.dialogEvents[i].eventCode] = EventType.DIALOG; // ´ÙÀÌ¾ó·Î±×°¡ 0...
+            EventManager.instance.EventToEventType[EventManager.instance.DialogEventList.dialogEvents[i].eventCode] = EventType.DIALOG; // ë‹¤ì´ì–¼ë¡œê·¸ê°€ 0...
         }
 
         EventManager.instance.SelectionEventList = JsonUtility.FromJson<SelectionEvents>(textJSON3.text);
@@ -42,7 +42,7 @@ public class Parser : MonoBehaviour
             ItemDataBase.instance.codeToItemType[ItemDataBase.instance.otherItemList.otherItems[i].itemCode] = ItemType.OTHERS;
         }
 
-        // ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¸ğµç µ¥ÀÌÅÍ ·Îµå°¡ ¿Ï·áµÇ¾úÀ» ¶§.
+        // ì•„ì´í…œì— ëŒ€í•œ ëª¨ë“  ë°ì´í„° ë¡œë“œê°€ ì™„ë£Œë˜ì—ˆì„ ë•Œ.
         ItemDataBase.instance.LoadStableStringData();
     }
 
