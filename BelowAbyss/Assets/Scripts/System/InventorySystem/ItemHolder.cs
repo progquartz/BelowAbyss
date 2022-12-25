@@ -62,6 +62,11 @@ public class ItemHolder : MonoBehaviour
             }
             else if(getter == "CraftingFinishedContents") // 아이템일 경우.
             {
+                if (GetOneFromCrafted())
+                {
+                    isHoldingItem = true;
+                    Crafting.instance.CraftOneItem();
+                }
 
             }
         }
@@ -143,7 +148,17 @@ public class ItemHolder : MonoBehaviour
             }
             else if (getter == "CraftingFinishedContents") // 아이템일 경우.
             {
-
+                Item itemChanging = Crafting.instance.craftedDB;
+                if (itemChanging.itemcode == holdingItemCode)
+                {
+                    if(holdingItemStack != itemChanging.stacklimit)
+                    {
+                        if (GetOneFromCrafted())
+                        {
+                            Crafting.instance.CraftOneItem();
+                        }
+                    }
+                }
             }
         }
 
@@ -312,6 +327,64 @@ public class ItemHolder : MonoBehaviour
         Crafting.instance.craftingDB[index].stacklimit = tempItemStackLimit;
     }
 
+
+    public bool GetHalfFromCrafted()
+    {
+        Item itemGetting = Crafting.instance.craftedDB;
+        if (itemGetting.itemcode != 0)
+        {
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack = itemGetting.stack / 2;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.stack -= holdingItemStack;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool GetDataFromCrafted()
+    {
+        Item itemGetting = Crafting.instance.craftedDB;
+        if (itemGetting.itemcode != 0)
+        {
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack = itemGetting.stack;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.itemcode = 0;
+            itemGetting.stack = 0;
+            itemGetting.stacklimit = 0;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool GetOneFromCrafted()
+    {
+        Item itemGetting = Crafting.instance.craftedDB;
+        if (itemGetting.itemcode != 0)
+        {
+            holdingItemCode = itemGetting.itemcode;
+            holdingItemStack++;
+            holdingItemStackLimit = itemGetting.stacklimit;
+            itemGetting.stack -= holdingItemStack;
+            if(itemGetting.stack == 0)
+            {
+                itemGetting.itemcode = 0;
+                itemGetting.stacklimit = 0;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public bool GetHalfFromCrafting(int index)
     {
         Item itemGetting = Crafting.instance.craftingDB[index];

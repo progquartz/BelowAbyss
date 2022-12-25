@@ -3,6 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class RecipeDatas
+{
+    public RecipeData[] recipeDatas;
+
+    /// <summary>
+    /// 조합법을 찾고, 만약에 찾지 못했을 경우 -1을 리턴.
+    /// </summary>
+    /// <param name="sizeX"></param>
+    /// <param name="sizeY"></param>
+    /// <param name="table"></param>
+    /// <returns></returns>
+    public int FindItemRecipies(int sizeX, int sizeY, int[] table)
+    {
+        for(int i = 0; i < recipeDatas.Length; i++) // 복잡도 이슈 있을수도 있음...
+        {
+            if(recipeDatas[i].sizeX == sizeX && recipeDatas[i].sizeY == sizeY)
+            {
+                bool stillavailable = true;
+                for(int x = 0; x < table.Length; x++)
+                {
+                    if(recipeDatas[i].craftingRecipe[x] != table[x])
+                    {
+                        stillavailable = false;
+                    }
+                    
+                }
+                if(stillavailable)
+                {
+                    return recipeDatas[i].craftingItem;
+                }
+            }
+        }
+        return -1;
+    }
+
+}
+[System.Serializable]
 public class OtherItems
 {
     public OtherItemData[] otherItems;
@@ -24,7 +61,7 @@ public class OtherItems
 public class ItemDataBase : MonoBehaviour
 {
     public static ItemDataBase instance;
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -33,7 +70,10 @@ public class ItemDataBase : MonoBehaviour
         }
     }
 
+    public RecipeDatas recipeDatas = new RecipeDatas();
+
     public OtherItems otherItemList = new OtherItems();
+
 
     public string[] itemNameList = new string[10000];
     public string[] itemCategoryList = new string[10000];
@@ -76,5 +116,10 @@ public class ItemDataBase : MonoBehaviour
     public int LoadStackLimit(int itemCode)
     {
         return itemStackLimitList[itemCode];
+    }
+
+    public int SearchRecipe(int sizeX, int sizeY, int[] table)
+    {
+        return recipeDatas.FindItemRecipies(sizeX, sizeY, table);
     }
 }

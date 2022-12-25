@@ -78,6 +78,7 @@ public class Inventory : MonoBehaviour
     {
         GetItem(1, 3);
         GetItem(2, 15);
+        GetItem(3, 5);
     }
 
     private void Update()

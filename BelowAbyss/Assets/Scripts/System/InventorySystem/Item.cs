@@ -15,6 +15,13 @@ public class Item
         stack = _stack;
     }
 
+    public Item(int _itemcode, int _stack, int _stacklimit)
+    {
+        itemcode = _itemcode;
+        stack = _stack;
+        stacklimit = _stacklimit;
+    }
+
     /// <summary>
     /// 해당 슬롯에 아이템을 집어넣음, 다른 아이템이면 -1을 리턴하며 같은 아이템이지만 더 못 쌓이는 상황이라면 못쌓는만큼의 수를 리턴.
     /// 아무런 문제가 없었다면 0을 리턴함.
