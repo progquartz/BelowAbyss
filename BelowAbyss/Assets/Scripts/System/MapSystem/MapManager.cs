@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¸Ê ¸Å´ÏÀú´Â, ¿ÀÁ÷ ÇÑ¹ø¿¡ ÇÑ°³¸¸ Á¸ÀçÇÒ ¼ö ÀÖ´Â ¸Å´ÏÀúÀÌ´Ù.
-/// ¸ÊÀÌ Ã³À½À¸·Î Àü°³µÉ °æ¿ì, ¸Ê¸Å´ÏÀú´Â MapData³»ºÎÀÇ µ¥ÀÌÅÍ¸¦ ·ÎµåÇÏ°Ô µÇ¸ç, ¸¸¾à ·ÎµåÇÒ µ¥ÀÌÅÍ°¡ ¾ø´Ù¸é ÀÌ¸¦ »õ·Î ¸¸µé¾î³½´Ù.
+/// ë§µ ë§¤ë‹ˆì €ëŠ”, ì˜¤ì§ í•œë²ˆì— í•œê°œë§Œ ì¡´ì¬í•  ìˆ˜ ìˆëŠ” ë§¤ë‹ˆì €ì´ë‹¤.
+/// ë§µì´ ì²˜ìŒìœ¼ë¡œ ì „ê°œë  ê²½ìš°, ë§µë§¤ë‹ˆì €ëŠ” MapDataë‚´ë¶€ì˜ ë°ì´í„°ë¥¼ ë¡œë“œí•˜ê²Œ ë˜ë©°, ë§Œì•½ ë¡œë“œí•  ë°ì´í„°ê°€ ì—†ë‹¤ë©´ ì´ë¥¼ ìƒˆë¡œ ë§Œë“¤ì–´ë‚¸ë‹¤.
 /// 
-/// ¸¸¾à MapData ³»ºÎÀÇ µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏ°Ô µÈ´Ù¸é, MapManger´Â ÀÌ¸¦ ±â¹İÀ¸·Î Map¿¡ µ¥ÀÌÅÍ¸¦ ³Ö¾î Àû¿ëÇÏµµ·Ï ÇÑ´Ù.
-/// ÀÌ´Â °¢°¢¿¡ Á¸ÀçÇÏ´Â PathNode¿Í EventNode°¡ ¼öÇàÇÏ°Ô µÈ´Ù.
+/// ë§Œì•½ MapData ë‚´ë¶€ì˜ ë°ì´í„°ê°€ ì¡´ì¬í•˜ê²Œ ëœë‹¤ë©´, MapMangerëŠ” ì´ë¥¼ ê¸°ë°˜ìœ¼ë¡œ Mapì— ë°ì´í„°ë¥¼ ë„£ì–´ ì ìš©í•˜ë„ë¡ í•œë‹¤.
+/// ì´ëŠ” ê°ê°ì— ì¡´ì¬í•˜ëŠ” PathNodeì™€ EventNodeê°€ ìˆ˜í–‰í•˜ê²Œ ëœë‹¤.
 /// 
-/// ¸¸¾à¿¡ °ÔÀÓ ¸Å´ÏÀú°¡ »õ·Î¿î ½ºÅ×ÀÌÁö¸¦ ¸¸µé¾î¶ó´Â ¸í·ÉÀ» ³»¸®°Ô µÈ´Ù¸é, ÀÌ¸¦ ÁøÇàÇÏ¸é µÈ´Ù.
+/// ë§Œì•½ì— ê²Œì„ ë§¤ë‹ˆì €ê°€ ìƒˆë¡œìš´ ìŠ¤í…Œì´ì§€ë¥¼ ë§Œë“¤ì–´ë¼ëŠ” ëª…ë ¹ì„ ë‚´ë¦¬ê²Œ ëœë‹¤ë©´, ì´ë¥¼ ì§„í–‰í•˜ë©´ ëœë‹¤.
 /// 
 /// </summary>
 public class MapManager : MonoBehaviour
@@ -19,17 +19,17 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private List<MapData> mapData;
     [SerializeField]
-    private int currentStage; // ÇöÀç ÁøÇàÁßÀÎ ½ºÅ×ÀÌÁö
+    private int currentStage; // í˜„ì¬ ì§„í–‰ì¤‘ì¸ ìŠ¤í…Œì´ì§€
     [SerializeField]
     private MapVisual MapVisual;
     [SerializeField]
     private GameObject mapdataPrefab;
 
-    // ¸Ê¿¡ Ãß°¡ÀûÀ¸·Î Àû¿ëµÇ¾î¾ß ÇÏ´Â ¸ÖÆ¼ÇÃ¶óÀÌ¾î.
-    private float stageMultiplier; // ½ºÅ×ÀÌÁö ÁõÆø·ü. ³ªÁß¿¡ °¡¸é Ã¼·Â / °ø°İ·Â µîÀÇ Ãß°¡ º¸Á¤À¸·Î ³ª´· ¿¹Á¤.
-    private bool isElite; // ¿¤¸®Æ®¿©ºÎ? Á¸ÀçÇÒÁöµµ?
+    // ë§µì— ì¶”ê°€ì ìœ¼ë¡œ ì ìš©ë˜ì–´ì•¼ í•˜ëŠ” ë©€í‹°í”Œë¼ì´ì–´.
+    private float stageMultiplier; // ìŠ¤í…Œì´ì§€ ì¦í­ë¥ . ë‚˜ì¤‘ì— ê°€ë©´ ì²´ë ¥ / ê³µê²©ë ¥ ë“±ì˜ ì¶”ê°€ ë³´ì •ìœ¼ë¡œ ë‚˜ë‰  ì˜ˆì •.
+    private bool isElite; // ì—˜ë¦¬íŠ¸ì—¬ë¶€? ì¡´ì¬í• ì§€ë„?
 
-    private float supplyOutRate; // ¸Å ÀÌµ¿¸¶´Ù º¸±ŞÇ° ³¯¾Æ°¡´Â ºñÀ².
+    private float supplyOutRate; // ë§¤ ì´ë™ë§ˆë‹¤ ë³´ê¸‰í’ˆ ë‚ ì•„ê°€ëŠ” ë¹„ìœ¨.
 
     void Awake()
     {
@@ -70,7 +70,7 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç Mapmanager°¡ °¡Áö°í ÀÖ´Â MapDataÀÇ ÇØ´ç ÀÎµ¦½º µ¥ÀÌÅÍ°¡ ValidÇÑÁö È®ÀÎÇÔ.
+    /// í˜„ì¬ Mapmanagerê°€ ê°€ì§€ê³  ìˆëŠ” MapDataì˜ í•´ë‹¹ ì¸ë±ìŠ¤ ë°ì´í„°ê°€ Validí•œì§€ í™•ì¸í•¨.
     /// </summary>
     /// <returns></returns>
     private bool CheckMapDataValid(int index)
@@ -120,7 +120,7 @@ public class MapManager : MonoBehaviour
         MapVisual.UpdateVisual();
     }
 
-    // ¸Ê »ı¼º, ¸Ê ³» ÀÌµ¿-> ³»ºÎµ¥ÀÌÅÍ´Â mapdata¿¡¼­ Ã³¸®, ¸Ê º¸¿©ÁÖ±â(ºñÁÖ¾ó) -> ½ÇÁ¦´Â mapvisual¿¡¼­ Ã³¸®.
+    // ë§µ ìƒì„±, ë§µ ë‚´ ì´ë™-> ë‚´ë¶€ë°ì´í„°ëŠ” mapdataì—ì„œ ì²˜ë¦¬, ë§µ ë³´ì—¬ì£¼ê¸°(ë¹„ì£¼ì–¼) -> ì‹¤ì œëŠ” mapvisualì—ì„œ ì²˜ë¦¬.
 
     public void Move(int position)
     {

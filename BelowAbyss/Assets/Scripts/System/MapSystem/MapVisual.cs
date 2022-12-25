@@ -17,7 +17,7 @@ public class MapVisual : MonoBehaviour
     [SerializeField]
     SpriteRenderer endRoom;
 
-    // ªˆµÈ
+    // ÏÉâÎì§
     Color NORMAL = new Color(0.31f, 0.31f, 0.31f, 1f);
     Color VISITED = new Color(0.64f, 0.64f, 0.64f, 1f);
     Color PLAYERPOS = new Color(0.6f, 0.87f, 0.63f, 1f);
@@ -129,7 +129,7 @@ public class MapVisual : MonoBehaviour
             ChangeColor(endRoom, PLAYERPOS);
             return;
         }
-        // ¿Ã∫•∆Æ¿« ∞ÊøÏ.
+        // Ïù¥Î≤§Ìä∏Ïùò Í≤ΩÏö∞.
         if(mapdata.GetPosition() % 3 == 0)
         {
             ChangeColor(events[mapdata.GetPosition() / 3 - 1], PLAYERPOS);

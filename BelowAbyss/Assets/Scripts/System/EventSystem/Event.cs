@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /*
 
-    ÀÌº¥Æ® Å¬·¡½º¸¦ ±â¹İÀ¸·Î ÇÑ Å¬·¡½ºµéÀº, ¸ğµÎ ±× µ¥ÀÌÅÍ¸¸À» º¸°üÇÑ´Ù.
-    µ¥ÀÌÅÍÀÇ º¸°ü ¿ÜÀÇ ¿ëµµ·Î ´ÙÀ½ Å¬·¡½ºµéÀº »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+    ì´ë²¤íŠ¸ í´ë˜ìŠ¤ë¥¼ ê¸°ë°˜ìœ¼ë¡œ í•œ í´ë˜ìŠ¤ë“¤ì€, ëª¨ë‘ ê·¸ ë°ì´í„°ë§Œì„ ë³´ê´€í•œë‹¤.
+    ë°ì´í„°ì˜ ë³´ê´€ ì™¸ì˜ ìš©ë„ë¡œ ë‹¤ìŒ í´ë˜ìŠ¤ë“¤ì€ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
  
 */
 [System.Serializable]
 public class Event
 {
-    public int eventCode; // ÀÌº¥Æ® ÄÚµå
+    public int eventCode; // ì´ë²¤íŠ¸ ì½”ë“œ
 
-    public bool isAdditionalEvent; // Ãß°¡ ÀÌº¥Æ® Á¸Àç ¿©ºÎ
-    public int additionalEventCode; // ÀÖ´Ù¸é, ÀÌ¸¦ ½ÇÇàÇÏ´Â ÀÌº¥Æ®ÄÚµå.
+    public bool isAdditionalEvent; // ì¶”ê°€ ì´ë²¤íŠ¸ ì¡´ì¬ ì—¬ë¶€
+    public int additionalEventCode; // ìˆë‹¤ë©´, ì´ë¥¼ ì‹¤í–‰í•˜ëŠ” ì´ë²¤íŠ¸ì½”ë“œ.
 
-    public int outLookEventCode; // ¿ÜºÎ¿¡¼­ º¸¿©Áö´Â ÀÌº¥Æ® ÄÚµå À¯Çü.
+    public int outLookEventCode; // ì™¸ë¶€ì—ì„œ ë³´ì—¬ì§€ëŠ” ì´ë²¤íŠ¸ ì½”ë“œ ìœ í˜•.
 
 }
