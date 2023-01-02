@@ -1,0 +1,52 @@
+{
+    "enemies" : [
+        {
+            "EnemyCode" : 1,
+            "MaxHealth" : 10,
+            "StartArmour" : 10,
+            "Size" : 1,
+            "enemySpriteCode" : "uparupa",
+            "SoundCode" : 1,
+            "attackDamage" : 1,
+            "attackSpeed" : 1,
+            "additionalEffect" : ["aaaaa", "aaaaaa"],
+            "additionalEffectCoolTime" : [1,3]
+        },
+        {
+            "EnemyCode" : 2,
+            "MaxHealth" : 15,
+            "StartArmour" : 0,
+            "Size" : 2,
+            "enemySpriteCode" : "bigeye",
+            "SoundCode" : 2,
+            "attackDamage" : 2,
+            "attackSpeed" : 2,
+            "additionalEffect" : ["bbbbb", "bbbb"],
+            "additionalEffectCoolTime" : [1,3]
+        },
+        {
+            "EnemyCode" : 3,
+            "MaxHealth" : 20,
+            "StartArmour" : 5,
+            "Size" : 1,
+            "enemySpriteCode" : "sidehorn",
+            "SoundCode" : 3,
+            "attackDamage" : 3,
+            "attackSpeed" : 3,
+            "additionalEffect" : ["cccccc", "ccccc"],
+            "additionalEffectCoolTime" : [1,3]
+        },
+        {
+            "EnemyCode" : 4,
+            "MaxHealth" : 25,
+            "StartArmour" : 7,
+            "Size" : 1,
+            "enemySpriteCode" : "balooneye",
+            "SoundCode" : 4,
+            "attackDamage" : 4,
+            "attackSpeed" : 4,
+            "additionalEffect" : ["dddddd", "dddddd"],
+            "additionalEffectCoolTime" : [1,3]
+        }
+    ]
+}

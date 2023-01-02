@@ -21,6 +21,8 @@ public class Parser : MonoBehaviour
     public TextAsset OtherItems;
     public TextAsset RecipeDatas;
 
+    public TextAsset EnemyDatas;
+
 
 
     private void Start()
@@ -51,6 +53,9 @@ public class Parser : MonoBehaviour
 
         // 아이템에 대한 모든 데이터 로드가 완료되었을 때.
         ItemDataBase.instance.LoadStableStringData();
+
+        // 적들에 대한 모든 데이터 로드.
+        EnemyDataBase.instance.enemies = JsonUtility.FromJson<Enemies>(EnemyDatas.text);
     }
 
 }

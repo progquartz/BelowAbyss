@@ -57,6 +57,24 @@ public class OtherItems
     }
 }
 
+[System.Serializable]
+public class WeaponItems
+{
+    public WeaponItemData[] weaponItems;
+
+    public WeaponItemData Finditem(int itemCode)
+    {
+        for (int i = 0; i < weaponItems.Length; i++)
+        {
+            if (weaponItems[i].itemCode == itemCode)
+            {
+                return weaponItems[i];
+            }
+        }
+        return null;
+    }
+}
+
 
 public class ItemDataBase : MonoBehaviour
 {
