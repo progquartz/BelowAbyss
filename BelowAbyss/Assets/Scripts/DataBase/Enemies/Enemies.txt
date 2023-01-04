@@ -3,7 +3,6 @@
         {
             "EnemyCode" : 1,
             "MaxHealth" : 10,
-            "StartArmour" : 10,
             "Size" : 1,
             "enemySpriteCode" : "uparupa",
             "SoundCode" : 1,
@@ -15,7 +14,6 @@
         {
             "EnemyCode" : 2,
             "MaxHealth" : 15,
-            "StartArmour" : 0,
             "Size" : 2,
             "enemySpriteCode" : "bigeye",
             "SoundCode" : 2,
@@ -27,7 +25,6 @@
         {
             "EnemyCode" : 3,
             "MaxHealth" : 20,
-            "StartArmour" : 5,
             "Size" : 1,
             "enemySpriteCode" : "sidehorn",
             "SoundCode" : 3,
@@ -39,7 +36,6 @@
         {
             "EnemyCode" : 4,
             "MaxHealth" : 25,
-            "StartArmour" : 7,
             "Size" : 1,
             "enemySpriteCode" : "balooneye",
             "SoundCode" : 4,

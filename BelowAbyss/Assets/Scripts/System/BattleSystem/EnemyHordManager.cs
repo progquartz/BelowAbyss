@@ -17,7 +17,6 @@ public class EnemyHordManager : MonoBehaviour
         // 체력 관련
         enemies[index].stat.maxHp = data.MaxHealth;
         enemies[index].stat.currentHp = data.MaxHealth;
-        enemies[index].stat.armour = data.StartArmour;
         
         // 사이즈 / 추가 효과 관련.
         enemies[index].stat.size = data.Size;
