@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 {
     public PlayerStat stat;
 
-
     
 
 
