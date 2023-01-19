@@ -15,6 +15,23 @@ using UnityEngine;
     
 */
 
+[System.Serializable]
+public class BattleEvents
+{
+    public BattleEvent[] battleEvents;
+
+    public BattleEvent FindEvent(int eventcode)
+    {
+        for(int i = 0; i < battleEvents.Length; i++)
+        {
+            if(battleEvents[i].eventCode == eventcode)
+            {
+                return battleEvents[i];
+            }
+        }
+        return null;
+    }
+}
 
 [System.Serializable]
 public class DialogEvents
@@ -67,12 +84,19 @@ public class EventManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
+
 
     // 이벤트  리스트를 가져오는 매니저.
     public DialogEvents DialogEventList = new DialogEvents();
     public SelectionEvents SelectionEventList = new SelectionEvents();
+    public BattleEvents BattleEventList = new BattleEvents();
 
     public EventType[] EventToEventType = new EventType[10000];
 
@@ -86,6 +110,9 @@ public class EventManager : MonoBehaviour
                 break;
             case EventType.SELECTION:
                 Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
+                break;
+            case EventType.BATTLE:
+                BattleManager.instance.BattleStart(BattleEventList.FindEvent(eventCode));
                 break;
         }
     }

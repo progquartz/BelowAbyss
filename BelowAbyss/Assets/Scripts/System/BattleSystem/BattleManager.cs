@@ -5,6 +5,9 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
+    public EnemyHord enemyHord;
+    private List<int> currentHordAgainst;
+
 
     private void Awake()
     {
@@ -19,6 +22,40 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        enemyHord = transform.GetComponentInChildren<EnemyHord>();
+    }
+
+    /// <summary>
+    /// 현재 가진 상대호드데이터를 삭제하고, 배틀이벤트를 기반으로 한 새로운 적 호드 생성.
+    /// </summary>
+    /// <param name="battleEvent"></param>
+    public void BattleStart(BattleEvent battleEvent)
+    {
+        currentHordAgainst = new List<int>();
+
+        int randomNum = Random.Range(0, battleEvent.hordCount-1);
+
+        string[] hordData = battleEvent.hordData[randomNum].Split();
+        for(int i = 0; i < hordData.Length; i++)
+        {
+            currentHordAgainst.Add(int.Parse(hordData[i]));
+        }
+        enemyHord.SpawnHord(currentHordAgainst);
+    }
+
+    public void BattleStart()
+    {
+        if(currentHordAgainst != null)
+        {
+            enemyHord.SpawnHord(currentHordAgainst);
+        }
+        else
+        {
+            Debug.Log("정상적이지 않은 호드데이터를 가진 채로 배틀매니저가 적 데이터를 로드합니다.");
+        }
+    }
     public void OnPlayerDeath()
     {
 

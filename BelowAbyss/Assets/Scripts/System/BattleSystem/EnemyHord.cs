@@ -158,8 +158,14 @@ public class EnemyHord : MonoBehaviour
         enemyHolder[enemyIndex].transform.localPosition = NewPos;
     }
 
+    /// <summary>
+    /// 기존에 있던 적들을 싹 밀고 새로운 호드데이터 기반의 적 소환.
+    /// </summary>
+    /// <param name="hordData"></param>
     public void SpawnHord(List<int> hordData)
     {
+        ElimateAllHord();
+
         for(int i = 0; i < hordData.Count; i++)
         {
             transform.GetChild(i).gameObject.SetActive(true);
