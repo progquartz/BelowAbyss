@@ -48,7 +48,7 @@ public class EffectManager : MonoBehaviour
 {
     public static EffectManager instance;
 
-    public EnemyHordManager enemyHordManager;
+    public EnemyHord enemyHordManager;
     public Player playerStat;
 
     public EffectData testData;
@@ -85,6 +85,11 @@ public class EffectManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -276,7 +281,7 @@ public class EffectManager : MonoBehaviour
 
     public void PutEffect()
     {
-        switch (status)
+        switch (status) // 만약 플레이어에게 버프 단위로 들어가는 스킬들 (전투 단위 버프)은 전부 PlayerStat의 List에 들어갈것.
         {
             case EffectType.CURHP:
                 CurHPChange();

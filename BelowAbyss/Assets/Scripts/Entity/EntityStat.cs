@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class EntityStat
 {
+    
     public int currentHp;
     public int maxHp;
 

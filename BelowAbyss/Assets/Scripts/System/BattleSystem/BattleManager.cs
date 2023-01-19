@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static BattleManager instance;
+
+    private void Awake()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPlayerDeath()
     {
-        
+
+    }
+
+    public void OnBattleEnd()
+    {
+
+    }
+
+    public void OnBattleStart()
+    {
+
     }
 }
