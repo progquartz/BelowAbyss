@@ -26,7 +26,8 @@ public class Parser : MonoBehaviour
 
     public TextAsset EnemyDatas;
 
-
+    public TextAsset ThemeDatas;
+    public TextAsset stageThemeDatas;
 
     private void Start()
     {
@@ -44,12 +45,16 @@ public class Parser : MonoBehaviour
             EventManager.instance.EventToEventType[EventManager.instance.SelectionEventList.selectionEvents[i].eventCode] = EventType.SELECTION;
         }
 
-        // 전투 데이터 로드.
+        // 전투 이벤트 데이터 로드.
         EventManager.instance.BattleEventList = JsonUtility.FromJson<BattleEvents>(textBattleData.text);
         for(int i = 0; i < EventManager.instance.BattleEventList.battleEvents.Length; i++)
         {
             EventManager.instance.EventToEventType[EventManager.instance.BattleEventList.battleEvents[i].eventCode] = EventType.BATTLE;
         }
+
+        // 테마 데이터 로드.
+        ThemeDataBase.instance.themes = JsonUtility.FromJson<Themes>(ThemeDatas.text);
+        ThemeDataBase.instance.stageThemeDatas = JsonUtility.FromJson<StageThemeDatas>(stageThemeDatas.text);
 
         // 기타 아이템 데이터 로드.
         ItemDataBase.instance.otherItemList = JsonUtility.FromJson<OtherItems>(OtherItems.text);
