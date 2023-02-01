@@ -2,19 +2,25 @@
     "themes":
     [
         {
-            "themeName" : "Grassland",
-            "themeLore" : "풀밭이다.",
-            "eventList" : [10,20,30]
+            "themeCode" : "Grassland",
+            "themeName" : "대평원",
+            "themeLore" : "초원을 본따 만들어진 던전.",
+            "eventList" : [10,20,30],
+	        "lastRoomData" : [11,21,31]
         },
         {
-            "themeName" : "Hell",
-            "themeLore" : "지옥이다.",
-            "eventList" : [11,21,31]
+            "themeCode" : "Hell",
+            "themeName" : "지옥",
+            "themeLore" : "말 그대로 지옥, 지옥의 형상이 보인다.",
+            "eventList" : [11,21,30],
+	        "lastRoomData" : [12,22,32]
         },
         {
-            "themeName" : "DragonNest",
+            "themeCode" : "DragonNest",
+            "themeName" : "용의 둥지",
             "themeLore" : "용의둥지다.",
-            "eventList" : [12,22,32]
+            "eventList" : [12,22,32],
+	        "lastRoomData" : [11,21,31]
         }
     ]
 }

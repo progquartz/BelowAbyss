@@ -2,7 +2,7 @@
     "stageThemeDatas":
     [
         {
-            "stageThemeData" : ["Grassland"]
+            "stageThemeData" : ["Grassland", "Hell"]
         },
         {
             "stageThemeData" : ["Grassland", "Hell"]

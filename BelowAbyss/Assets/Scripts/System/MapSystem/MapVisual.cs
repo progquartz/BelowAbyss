@@ -56,18 +56,15 @@ public class MapVisual : MonoBehaviour
         {
             if (mapdata.GetEventVisited(i))
             {
-                var eventType = mapdata.GetEvent(i);
+                var eventCode = mapdata.GetEvent(i);
+                EventType eventType =  EventManager.instance.LoadEventType(eventCode);
                 switch (eventType)
                 {
-                    case MapData.EncounterType.NORMAL:
+                    case EventType.BATTLE:
                         break;
-                    case MapData.EncounterType.BATTLE:
+                    case EventType.DIALOG:
                         break;
-                    case MapData.EncounterType.MOVEMENT:
-                        break;
-                    case MapData.EncounterType.TRAIT:
-                        break;
-                    case MapData.EncounterType.SUPPLY:
+                    case EventType.SELECTION:
                         break;
                 }
             }
@@ -156,6 +153,6 @@ public class MapVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateVisual();
     }
 }

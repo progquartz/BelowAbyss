@@ -1,0 +1,38 @@
+{
+    "skillDatas":
+    [
+        {
+            "skillCode" : 1,
+            "skillIconCode" : 1,
+            "skillName" : "1번 스킬",
+            "skillLore" : "1번 스킬입니다.",
+            "skillEffect1" : [""],
+            "skillEffect2" : [""],
+            "skillEffect3" : [""],
+            "skillCooltime" : 5.0,
+            "skillDelay" : 0.0
+        },
+        {
+            "skillCode" : 2,
+            "skillIconCode" : 2,
+            "skillName" : "2번 스킬",
+            "skillLore" : "2번 스킬입니다.",
+            "skillEffect1" : [""],
+            "skillEffect2" : [""],
+            "skillEffect3" : [""],
+            "skillCooltime" : 3.0,
+            "skillDelay" : 5.0
+        },
+        {
+            "skillCode" : 3,
+            "skillIconCode" : 3,
+            "skillName" : "3번 스킬",
+            "skillLore" : "3번 스킬입니다.",
+            "skillEffect1" : [""],
+            "skillEffect2" : [""],
+            "skillEffect3" : [""],
+            "skillCooltime" : 2.0,
+            "skillDelay" : 0.0
+        }
+    ]
+}

@@ -140,6 +140,18 @@ public class EnemyHord : MonoBehaviour
         {
             enemies[i].UpdateSprite();
         }
+        CheckEnemyAllDeath();
+    }
+
+    private void CheckEnemyAllDeath()
+    {
+        
+        if(BattleManager.instance.isBattleStarted && enemyCount == 0)
+        {
+            Debug.Log("모든 적이 죽음으로써 전투가 종료됩니다.");
+            BattleManager.instance.BattlePhaseEnded();
+        }
+        
     }
 
     private void UpdateEnemyPositionData()

@@ -26,6 +26,21 @@ public class ThemeDataBase : MonoBehaviour
     {
         return themes.FindTheme(themeName);
     }
+
+    public int GetRandomEventFromTheme(string themeName)
+    {
+        int randomNum = Random.Range(0, themes.FindTheme(themeName).eventList.Length);
+        Debug.Log(themes.FindTheme(themeName).eventList[randomNum] + "코드의 이벤트를 일반 방에 호출");
+        return themes.FindTheme(themeName).eventList[randomNum];
+    }
+
+    public int GetRandomBossFromTheme(string themeName)
+    {
+        int randomNum = Random.Range(0, themes.FindTheme(themeName).lastRoomData.Length);
+        Debug.Log(themes.FindTheme(themeName).lastRoomData[randomNum] + "코드의 이벤트를 보스 방에 호출");
+        return themes.FindTheme(themeName).lastRoomData[randomNum];
+    }
+
 }
 
 [System.Serializable]
@@ -43,7 +58,7 @@ public class Themes
     {
         for (int i = 0; i < themes.Length; i++)
         {
-            if (themes[i].themeName == themeName)
+            if (themes[i].themeCode == themeName)
             {
                 return themes[i];
             }

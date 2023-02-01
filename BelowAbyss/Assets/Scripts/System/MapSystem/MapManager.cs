@@ -17,13 +17,16 @@ public class MapManager : MonoBehaviour
     private static MapManager instance;
 
     [SerializeField]
-    private List<MapData> mapData;
+    private List<MapData> mapDatas;
     [SerializeField]
     private int currentStage; // 현재 진행중인 스테이지
     [SerializeField]
     private MapVisual MapVisual;
     [SerializeField]
     private GameObject mapdataPrefab;
+    [SerializeField]
+    private StageLoreUI stageLoreUI;
+
 
     // 맵에 추가적으로 적용되어야 하는 멀티플라이어.
     private float stageMultiplier; // 스테이지 증폭률. 나중에 가면 체력 / 공격력 등의 추가 보정으로 나뉠 예정.
@@ -60,13 +63,16 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void FlushAllMapDatas()
+    {
+        mapDatas = null;
+        currentStage = -1;
+        mapDatas = new List<MapData>();
+        MapVisual = GetComponent<MapVisual>();
+    }
 
     private void Start()
     {
-        currentStage = -1;
-        mapData = null;
-        MapVisual = GetComponent<MapVisual>();
-        mapData = new List<MapData>();
     }
 
     /// <summary>
@@ -75,13 +81,13 @@ public class MapManager : MonoBehaviour
     /// <returns></returns>
     private bool CheckMapDataValid(int index)
     {
-        if(mapData == null)
+        if(mapDatas == null)
         {
             return false;
         }
         else
         {
-            if(mapData[index].CheckValidation() == false)
+            if(mapDatas[index].CheckValidation() == false)
             {
                 return false;
             }
@@ -92,46 +98,61 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void TestMapGen()
-    {
-        MapGeneration(1, true);
-    }
-    public void MapGeneration(int genStageNum, bool isChangeStageInstantly)
+
+    public void GenerateNextStage(bool isChangeStageInstantly)
     {
         GameObject temp = Instantiate(mapdataPrefab, transform.GetChild(0));
         temp.AddComponent<MapData>();
-        mapData.Add(temp.GetComponent<MapData>());
+        mapDatas.Add(temp.GetComponent<MapData>());
         if (isChangeStageInstantly)
         {
-            currentStage = mapData.Count-1;
-            MapVisual.mapdata = mapData[currentStage];
-            mapData[currentStage].MapFirstSetup(currentStage);
+            currentStage = mapDatas.Count-1;
+            MapVisual.mapdata = mapDatas[currentStage];
+            mapDatas[currentStage].MapFirstSetup(currentStage, stageLoreUI);
         }
         else
         {
-            mapData[mapData.Count-1].MapFirstSetup(mapData.Count-1);
+            mapDatas[mapDatas.Count-1].MapFirstSetup(mapDatas.Count-1);
         }
-    }
-
-    public void MapChange(int stageNum)
-    {
-        currentStage = stageNum;
-        MapVisual.mapdata = mapData[currentStage];
-        MapVisual.UpdateVisual();
     }
 
     // 맵 생성, 맵 내 이동-> 내부데이터는 mapdata에서 처리, 맵 보여주기(비주얼) -> 실제는 mapvisual에서 처리.
 
+
     public void Move(int position)
     {
-        mapData[currentStage].SetPosition((mapData[currentStage].GetPosition() + position));
+        int currentPos = mapDatas[currentStage].GetPosition() + position;
+
+        if (currentPos == 15)
+        {
+            if (!mapDatas[currentStage].roomVisited)
+            {
+                EventManager.instance.LoadEvent(mapDatas[currentStage].GetBossEvent());
+            }
+        }
+        else if (currentPos % 3 == 0 && currentPos != 0)
+        {
+            if (!mapDatas[currentStage].eventVisited[currentPos / 3 - 1])
+            {
+                EventManager.instance.LoadEvent(mapDatas[currentStage].GetEvent(currentPos / 3 - 1));
+            }
+        }
+
+
+        mapDatas[currentStage].SetPosition(currentPos);
         MapVisual.UpdateVisual();
+        
     }
 
+    public void GoToNextStage()
+    {
+        GenerateNextStage(true);
+    }
 
     public void MoveTo(int position)
     {
-        mapData[currentStage].SetPosition(position);
+        mapDatas[currentStage].SetPosition(position);
+        MapVisual.UpdateVisual();
     }
 
     private void DeleteMap()

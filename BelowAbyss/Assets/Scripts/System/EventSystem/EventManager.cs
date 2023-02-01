@@ -112,8 +112,13 @@ public class EventManager : MonoBehaviour
                 Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
                 break;
             case EventType.BATTLE:
-                BattleManager.instance.BattleStart(BattleEventList.FindEvent(eventCode));
+                BattleManager.instance.BattlePhaseBegin(BattleEventList.FindEvent(eventCode));
                 break;
         }
+    }
+
+    public EventType LoadEventType(int eventCode)
+    {
+        return EventToEventType[eventCode];
     }
 }
