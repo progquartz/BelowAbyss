@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
                     realindex++;
                 }
             }
-            transform.GetComponentInParent<EnemyHordManager>().Death(realindex);
+            transform.GetComponentInParent<EnemyHord>().Death(realindex);
             stat.enemyCode = 0;
         }
     }

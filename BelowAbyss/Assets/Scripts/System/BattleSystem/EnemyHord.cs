@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHordManager : MonoBehaviour
+public class EnemyHord : MonoBehaviour
 {
     private float[] enemyHolderRowXpositionData = new float[4] {0,250,500,750};
 
@@ -17,6 +17,10 @@ public class EnemyHordManager : MonoBehaviour
     // 범위 스킬이 있음. 1열 기준 2칸 공격. 적이 2칸을 차지하는 애가 있음 그럼 얘혼자 맞음?
     // 데미지는 1번. 
 
+    /// <summary>
+    /// 캐릭터를 죽은 판정을 내게 만듬. 어떠한 형식으로 죽든간에 Enemy에서 호출되게 되어있음.
+    /// </summary>
+    /// <param name="index"></param>
     public void Death(int index)
     {
         enemies.Remove(enemies[index]);
@@ -24,6 +28,27 @@ public class EnemyHordManager : MonoBehaviour
         enemyHolder.Remove(enemyHolder[index]);
         enemyCount--;
         lastIndex--;
+        RearrangeHordPositions();
+    }
+
+    /// <summary>
+    /// 모든 적의 배열이 순서대로 잘 가 있는지 검사.
+    /// </summary>
+    private void RearrangeHordPositions()
+    {
+        int indexHaveToBe = 0;
+        for(int i = 0; i < enemies.Count; i++)
+        {
+            if(enemies[i].stat.position != indexHaveToBe)
+            {
+                enemies[i].stat.position = indexHaveToBe;
+                indexHaveToBe += enemies[i].stat.size;
+            }
+            else
+            {
+                indexHaveToBe += enemies[i].stat.size;
+            }
+        }
     }
     /// <summary>
     /// 가장 앞 열 기준으로 count만큼의 칸 내에 있는 적 열을 가져옴.
@@ -115,6 +140,18 @@ public class EnemyHordManager : MonoBehaviour
         {
             enemies[i].UpdateSprite();
         }
+        CheckEnemyAllDeath();
+    }
+
+    private void CheckEnemyAllDeath()
+    {
+        
+        if(BattleManager.instance.isBattleStarted && enemyCount == 0)
+        {
+            Debug.Log("모든 적이 죽음으로써 전투가 종료됩니다.");
+            BattleManager.instance.BattlePhaseEnded();
+        }
+        
     }
 
     private void UpdateEnemyPositionData()
@@ -133,8 +170,14 @@ public class EnemyHordManager : MonoBehaviour
         enemyHolder[enemyIndex].transform.localPosition = NewPos;
     }
 
+    /// <summary>
+    /// 기존에 있던 적들을 싹 밀고 새로운 호드데이터 기반의 적 소환.
+    /// </summary>
+    /// <param name="hordData"></param>
     public void SpawnHord(List<int> hordData)
     {
+        ElimateAllHord();
+
         for(int i = 0; i < hordData.Count; i++)
         {
             transform.GetChild(i).gameObject.SetActive(true);

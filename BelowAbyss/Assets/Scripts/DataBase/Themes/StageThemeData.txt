@@ -1,0 +1,14 @@
+{
+    "stageThemeDatas":
+    [
+        {
+            "stageThemeData" : ["Grassland", "Hell"]
+        },
+        {
+            "stageThemeData" : ["Grassland", "Hell"]
+        },
+        {
+            "stageThemeData" : ["Grassland", "DragonNest"]
+        }
+    ]
+}

@@ -25,15 +25,20 @@ public class MapData : MonoBehaviour
     // 이벤트는 3,6,9,12 -> 3으로 나눠지는 수. (0제외)
     // 마지막 방은 15 -> 15.
     [SerializeField]
+    private int stageNum;
+    [SerializeField]
     private int playerPos;
     // 맵 내의 데이터.
     private List<bool> pathsVisited; // 나중에 기획자료 제대로 도착하면 int대신 enum으로 수정하기. paths는 혹시 몰라서 
 
-    private List<EncounterType> events;
-    private List<bool> eventVisited;
+    private List<int> events;
+    public List<bool> eventVisited;
+    private string themeSelected;
 
-    private EncounterType room; // 출발하는 이전 방도 들어갈 수 있다면, List<int>일 것이고, 아니면 그냥 int일것.
-    private bool roomVisited;
+    private BackupMapData backupMapData = new BackupMapData();
+
+    private int bossEvent; // 출발하는 이전 방도 들어갈 수 있다면, List<int>일 것이고, 아니면 그냥 int일것.
+    public bool roomVisited;
 
     public enum EncounterType
     {
@@ -44,43 +49,102 @@ public class MapData : MonoBehaviour
         BATTLE
     }
 
-    public void MapFirstSetup(int stagenum)
+    public void MapFirstSetup(int stagenum, StageLoreUI stageLoreUI)
     {
+        stageNum = stagenum;
+        // 테마 선택.
+        int randomNum = Random.Range(0, ThemeDataBase.instance.stageThemeDatas.stageThemeDatas[stagenum].stageThemeData.Length);
+        themeSelected = ThemeDataBase.instance.stageThemeDatas.stageThemeDatas[stagenum].stageThemeData[randomNum];
+        backupMapData.mapTheme = themeSelected;
 
-        int randomnum;
-        // Paths에 새로운 데이터 입력. 나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
+        stageLoreUI.AppearStageLore(stageNum, ThemeDataBase.instance.themes.themes[randomNum].themeName, ThemeDataBase.instance.themes.themes[randomNum].themeLore, 1.5f, 1.0f);
+
+        // 테마를 기반으로 Paths에 새로운 데이터 입력. 나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
         pathsVisited = new List<bool>();
         for (int i = 0; i < 10; i++)
         {
             pathsVisited.Add(false);
         }
 
-        // Events에 새로운 데이터 입력.나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
-        events = new List<EncounterType>();
+        // 테마를 기반으로 Events에 새로운 데이터 입력.나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
+        events = new List<int>();
         eventVisited = new List<bool>();
         for (int i = 0; i < 4; i++)
         {
-            randomnum = 0; // random한 코드가 들어갈 예정. 
-            events.Add(EncounterType.NORMAL);
+            randomNum = Random.Range(0, ThemeDataBase.instance.FindThemes(themeSelected).eventList.Length);
+            int eventData = SetEventFromData(i);
+            events.Add(eventData);
+            backupMapData.eventList[i] = eventData;
             eventVisited.Add(false);
         }
 
-        randomnum = 0;
-        room = EncounterType.BATTLE;
+
+        // 가장 마지막 보스파이트 데이터.
+        bossEvent = SetRandomBossFromData();
         roomVisited = false;
 
+    }
+
+    /// <summary>
+    /// 맵을 초기설정하는 함수.
+    /// 랜덤값으로 이벤트들이 선정되며, 이들의 데이터가 파일 형식으로 남게 됨.
+    /// </summary>
+    /// <param name="stagenum"></param>
+    public void MapFirstSetup(int stagenum)
+    {
+        stageNum = stagenum;
+        // 테마 선택.
+        int randomNum = Random.Range(0, ThemeDataBase.instance.stageThemeDatas.stageThemeDatas[stagenum].stageThemeData.Length);
+        themeSelected = ThemeDataBase.instance.stageThemeDatas.stageThemeDatas[stagenum].stageThemeData[randomNum];
+        backupMapData.mapTheme = themeSelected;
+
+
+        // 테마를 기반으로 Paths에 새로운 데이터 입력. 나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
+        pathsVisited = new List<bool>();
+        for (int i = 0; i < 10; i++)
+        {
+            pathsVisited.Add(false);
+        }
+
+        // 테마를 기반으로 Events에 새로운 데이터 입력.나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
+        events = new List<int>();
+        eventVisited = new List<bool>();
+        for (int i = 0; i < 4; i++)
+        {
+            randomNum = Random.Range(0, ThemeDataBase.instance.FindThemes(themeSelected).eventList.Length);
+            int eventData = SetEventFromData(i);
+            events.Add(eventData);
+            backupMapData.eventList[i] = eventData;
+            eventVisited.Add(false);
+        }
+
+
+        // 가장 마지막 보스파이트 데이터.
+        bossEvent = SetRandomBossFromData();
+        roomVisited = false;
+
+    }
+
+    private int SetEventFromData(int index)
+    {
+        return ThemeDataBase.instance.GetRandomEventFromTheme(themeSelected);
+    }
+
+    private int SetRandomBossFromData()
+    {
+        return ThemeDataBase.instance.GetRandomBossFromTheme(themeSelected);
     }
 
     /// <summary>
     /// 현재 있는 방의 이벤트 코드를 불러와 MapManager에게 알리는 함수.
     /// </summary>
     /// <returns></returns>
-    public EncounterType Encounter()
+    public int Encounter()
     {
         // 다음 방의 이벤트 호출.
         if(playerPos == 15)
         {
-            return room;
+            return bossEvent;
         }
         // 현재 있는 이벤트위치의 이벤트 호출.
         else
@@ -178,7 +242,7 @@ public class MapData : MonoBehaviour
         }
     }
 
-    public EncounterType GetEvent(int index)
+    public int GetEvent(int index)
     {
         return events[index];
     }
@@ -198,9 +262,9 @@ public class MapData : MonoBehaviour
         return roomVisited;
     }
 
-    public EncounterType GetRoom()
+    public int GetBossEvent()
     {
-        return room;
+        return bossEvent;
     }
 
 }
