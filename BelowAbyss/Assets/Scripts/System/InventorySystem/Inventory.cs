@@ -20,8 +20,15 @@ public class Inventory : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(instance.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
+
+
 
 
     /* 마크 UI 작동방식에 대하여.
@@ -85,6 +92,7 @@ public class Inventory : MonoBehaviour
     {
         UpdateSprite();
     }
+
     private void UpdateSprite()
     {
         string path = "Sprites/Item/"; 

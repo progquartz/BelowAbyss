@@ -16,6 +16,7 @@ public class SkillSlot : MonoBehaviour
 
 
     // 업데이트에서 변경되는 부분.
+    [SerializeField]
     private bool isSkillEnabled = false;
     private float coolTimeLeft = 0.0f;
     private float delayNeeded;
@@ -40,6 +41,11 @@ public class SkillSlot : MonoBehaviour
             skillData = null;
             isSkillSlotFilled = false;
         }
+        else if(_skillData.skillCode == 0)
+        {
+            skillData = null;
+            isSkillSlotFilled = false;
+        }
         else
         {
             skillData = _skillData;
@@ -49,6 +55,9 @@ public class SkillSlot : MonoBehaviour
                 isSkillNeedDelay = true;
             }
             delayNeeded = skillData.skillDelay;
+            Sprite image;
+            image = Resources.Load<Sprite>("Sprites/Skill/" +  _skillData.skillIconCode.ToString());
+            skillImage.sprite = image;
         }
     }
 
@@ -74,6 +83,7 @@ public class SkillSlot : MonoBehaviour
                 }
                 else // 쿨타임 작동 시작.
                 {
+                    isSkillEnabled = true;
                     CheckCooltime();
                 }
             }
@@ -112,14 +122,25 @@ public class SkillSlot : MonoBehaviour
     private void UpdateVisual()
     {
         skillImage.color = new Color(1, 1, 1, 1);
-        if (!isSkillEnabled)
+        if (BattleManager.instance.isBattleStarted)
         {
-            skillDelayUI.fillAmount = delayNeeded / skillData.skillDelay;
+            if (!isSkillEnabled)
+            {
+                if (skillData.skillDelay != 0)
+                {
+                    skillDelayUI.fillAmount = delayNeeded / skillData.skillDelay;
+                }
+            }
+            else
+            {
+                skillDelayUI.fillAmount = 0.0f;
+                skillCooltimeUI.fillAmount = coolTimeLeft / skillData.skillCooltime;
+            }
         }
         else
         {
             skillDelayUI.fillAmount = 0.0f;
-            skillCooltimeUI.fillAmount = coolTimeLeft / skillData.skillCooltime;
+            skillCooltimeUI.fillAmount = 0.0f;
         }
     }
 
