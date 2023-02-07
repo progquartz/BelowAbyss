@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private void TempFirstSetup()
     {
         Parser.instance.ParseAllData();
+        SkillInventory.instance.FirstSetup();
         MapManager.Instance.FlushAllMapDatas();
         MapManager.Instance.GenerateNextStage(true);
     }
