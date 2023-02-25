@@ -28,33 +28,13 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
-
-
-    /* 마크 UI 작동방식에 대하여.
-     마크 일반 ui (ui간 아이템 이동 가능), 조합 기능
-     인벤토리 크기는 32개, 스택단위는 아이템마다 정해져있음.
-     조합 4x4 였음.
-
-     인벤토리에서 실제로 작용하는것.
-
-    아이템을 누르면 아이템이 들어올려짐.
-    아이템이 들어올려진 상태에서는 인벤토리 밖으로 이를 버릴 경우 아이템을 버릴 수 있음.
-    아이템이 들여올려진 상태에서는 아이템을 옮길 수 있음.
-    아이템이 들여올려진 상태에서 우클릭을 하면 해당 위치에 1개가 떨어짐. 만약 같은 아이템이라면 1개가 늘어남.
-    
-    아이템을 우클릭하면 해당 위치의 아이템이 절반으로 나뉜 채로 들여올려짐. 1개면 그냥 들여올려짐.
-
-    아이템이 들여올려진 상태에서 클릭/ 우클릭을 놓으면 들여올려진것이 취소됨.
-    들여올려진것이 취소 된 상태에서 해당 위치에 같은아이템이 가득 찼거나, 다른 아이템이 놓여져있다면 이를 가장 가까운 곳에 배치함. 
-    만약에 가장 가까운 빈 칸이 없다면, 가장 가까운 같은 아이템이 빈 공간에 집어넣음.
-    */
-
     // 획득과 버려짐, 옮김부터 구현하기.
     public List<Item> itemDB;
+    public List<Weapon> equipDB;
     public int slotCount = 32;
 
     public List<GameObject> slots;
+    public List<GameObject> equipSlots;
 
     // holdingitem해서 작업하기.
 
@@ -66,26 +46,41 @@ public class Inventory : MonoBehaviour
 
     private void FirstSetup()
     {
+        slots = new List<GameObject>();
+        equipSlots = new List<GameObject>();
         itemDB = new List<Item>();
+        equipDB = new List<Weapon>();
         for (int i = 0; i < slotCount; i++)
         {
             itemDB.Add(new Item(0, 0));
-            slots.Add(transform.GetChild(0).GetChild(0).GetChild(i).gameObject);
+            slots.Add(transform.GetChild(2).GetChild(0).GetChild(i).gameObject);
         }
-
+        for(int i = 0; i < 4; i++)
+        {
+            equipDB.Add(new Weapon(0, 0));
+            equipSlots.Add(transform.GetChild(3).GetChild(0).GetChild(i).gameObject);
+        }
+        gameObject.SetActive(false);
     }
 
     public void Test()
     {
-        itemDB[0] = new Item(1, 1);
-        itemDB[1] = new Item(2, 10);
+        GetItem(1, 1);
+        GetItem(2, 10);
     }
 
     public void Test2()
     {
-        GetItem(1, 3);
-        GetItem(2, 15);
-        GetItem(3, 5);
+        GetItem(101, 3);
+        GetItem(102, 2);
+        GetItem(103, 1);
+    }
+
+    public void Test3()
+    {
+        GetItem(201, 3);
+        GetItem(202, 2);
+        GetItem(203, 1);
     }
 
     private void Update()
@@ -103,16 +98,74 @@ public class Inventory : MonoBehaviour
                 Sprite image;
                 image = Resources.Load<Sprite>(path + itemDB[i].itemcode.ToString());
                 slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                 slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
             }
             else
             {
                 slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                 slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+            }
+        }
+
+        for(int i = 0; i < 4; i++)
+        {
+            if (equipDB[i].itemcode != 0)
+            {
+                Sprite image;
+                image = Resources.Load<Sprite>(path + equipDB[i].itemcode.ToString());
+                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                equipSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(equipDB[i].stack.ToString());
+            }
+            else
+            {
+                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+                equipSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
             }
         }
     }
 
+    public void UseItem(int index, Transform cursorOn)
+    {
+        string getter = cursorOn.parent.name;
+
+        int itemcode = 0;
+        if (getter == "InventoryContents") // 인벤토리일 경우.
+        {
+            itemcode = Inventory.instance.itemDB[index].itemcode;
+        }
+
+        if (ItemDataBase.instance.GetType( itemcode) == ItemType.CONSUMPTION)
+        {
+            Debug.Log(index + "번째 인덱스의 " + itemcode + "번 아이템 사용 호출");
+            ConsumeItemData data = ItemDataBase.instance.LoadItemData(itemcode) as ConsumeItemData;
+            for(int i = 0; i < data.itemUseCode1.Length; i++)
+            {
+                EffectManager.instance.AmplifyEffect(data.itemUseCode1[i], data.itemUseCode2[i], data.itemUseCode3[i]);
+            }
+            LossItem(index, itemcode);
+        }
+    }
+
+    public void DropItem(int index, Transform cursorOn)
+    {
+        string getter = cursorOn.parent.name;
+
+        int itemcode = 0;
+        if (getter == "InventoryContents") // 인벤토리일 경우.
+        {
+            itemcode = Inventory.instance.itemDB[index].itemcode;
+        }
+
+        if (itemcode != 0)
+        {
+            Debug.Log(index + "번 인덱스의 아이템을 버립니다.");
+            LossItem(index, itemcode);
+        }
+    }
     /// <summary>
     /// 아이템을 획득하는 코드. 만약에 아이템창이 가득 찬 상태라면, 불가능한 false값을 내보냄.
     /// </summary>
@@ -139,7 +192,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        //Debug.Log("아이템을 넣는데 같은 아이템을 찾지 못함!");
+        Debug.Log("아이템을 넣는데 같은 아이템을 찾지 못함!");
 
         // 여기까지 오면 모든 같은 아이템 슬롯에는 해당 아이템들이 없다는 뜻이 됨.
         for (int emp = 0; emp < slotCount; emp++) // 빈 공간을 찾음.
@@ -164,4 +217,21 @@ public class Inventory : MonoBehaviour
        
     }
 
+    private void LossItem(int index, int itemcode)
+    {
+        if(itemDB[index].stack > 0)
+        {
+            itemDB[index].stack--;
+            if (itemDB[index].stack == 0)
+            {
+                EmptySlot(index);
+            }
+        }
+    }
+
+    private void EmptySlot(int index)
+    {
+        Item item = new Item(0, 0);
+        itemDB[index] = item;
+    }
 }

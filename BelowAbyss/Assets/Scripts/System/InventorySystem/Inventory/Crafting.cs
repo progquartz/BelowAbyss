@@ -59,11 +59,13 @@ public class Crafting : MonoBehaviour
                 Sprite image;
                 image = Resources.Load<Sprite>(path + craftingDB[i].itemcode.ToString());
                 slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                 slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(craftingDB[i].stack.ToString());
             }
             else
             {
                 slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                 slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
             }
         }
@@ -73,11 +75,13 @@ public class Crafting : MonoBehaviour
             Sprite image;
             image = Resources.Load<Sprite>(path + craftedDB.itemcode.ToString());
             craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
+            craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
             //craftedSlot.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(craftedDB.stack.ToString());
         }
         else
         {
             craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+            craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
             //craftedSlot.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
         }
 

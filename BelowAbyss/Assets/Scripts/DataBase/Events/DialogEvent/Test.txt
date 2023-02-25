@@ -32,6 +32,28 @@
 			"backgroundImage" : 2,
 			"artworkpath" : 3,
 			"backgroundMusic" : 0
+		},
+		{
+			"eventCode": 1001,
+			"isAdditionalEvent":true,
+			"additionalEventCode":3001,
+			"outLookEventCode": 1,
+			"paragraphText" : "Slime Attack!",
+			"dialog": "Come on, Slimes!",
+			"backgroundImage" : 0,
+			"artworkpath" : 3,
+			"backgroundMusic" : 0
+		},
+                         {
+			"eventCode": 1002,
+			"isAdditionalEvent":false,
+			"additionalEventCode":-1,
+			"outLookEventCode": 1,
+			"paragraphText" : "Coward",
+			"dialog": "You're not afraid of slimes, right?",
+			"backgroundImage" : 0,
+			"artworkpath" : 3,
+			"backgroundMusic" : 0
 		}
 	]
 }

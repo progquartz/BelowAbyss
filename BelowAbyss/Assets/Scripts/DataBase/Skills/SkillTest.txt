@@ -6,22 +6,24 @@
             "skillIconCode" : 1,
             "skillName" : "1번 스킬",
             "skillLore" : "1번 스킬입니다.",
-            "skillEffect1" : [""],
-            "skillEffect2" : [""],
-            "skillEffect3" : [""],
+            "skillEffect1" : ["R_0_CH_-5"],
+            "skillEffect2" : ["I_0_1_1"],
+            "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
-            "skillDelay" : 0.0
+            "skillDelay" : 0.0,
+            "isItemSkill" : false
         },
         {
             "skillCode" : 2,
             "skillIconCode" : 2,
             "skillName" : "2번 스킬",
             "skillLore" : "2번 스킬입니다.",
-            "skillEffect1" : [""],
-            "skillEffect2" : [""],
-            "skillEffect3" : [""],
+            "skillEffect1" : ["R_0_CH_1"],
+            "skillEffect2" : ["I_0_1_1"],
+            "skillEffect3" : ["F"],
             "skillCooltime" : 3.0,
-            "skillDelay" : 5.0
+            "skillDelay" : 5.0,
+            "isItemSkill" : false
         },
         {
             "skillCode" : 3,
@@ -32,7 +34,32 @@
             "skillEffect2" : [""],
             "skillEffect3" : [""],
             "skillCooltime" : 2.0,
-            "skillDelay" : 0.0
+            "skillDelay" : 0.0,
+            "isItemSkill" : false
+        },
+        {
+            "skillCode" : 4,
+            "skillIconCode" : 4,
+            "skillName" : "4번 스킬",
+            "skillLore" : "4번 스킬입니다.",
+            "skillEffect1" : [""],
+            "skillEffect2" : [""],
+            "skillEffect3" : [""],
+            "skillCooltime" : 2.0,
+            "skillDelay" : 0.0,
+            "isItemSkill" : true
+        },
+        {
+            "skillCode" : 5,
+            "skillIconCode" : 5,
+            "skillName" : "5번 스킬",
+            "skillLore" : "5번 스킬입니다.",
+            "skillEffect1" : [""],
+            "skillEffect2" : [""],
+            "skillEffect3" : [""],
+            "skillCooltime" : 2.0,
+            "skillDelay" : 0.0,
+            "isItemSkill" : true
         }
     ]
 }

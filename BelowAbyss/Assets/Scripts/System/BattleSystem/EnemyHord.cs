@@ -99,21 +99,25 @@ public class EnemyHord : MonoBehaviour
         enemyHolder.Add(transform.GetChild(lastIndex + 1).gameObject);
 
         // 체력 관련
-        enemies[lastIndex+1].stat.maxHp = data.MaxHealth;
-        enemies[lastIndex+1].stat.currentHp = data.MaxHealth;
+        enemies[lastIndex + 1].stat.maxHp = data.MaxHealth;
+        enemies[lastIndex + 1].stat.currentHp = data.MaxHealth;
 
         // 사이즈 / 추가 효과 관련.
-        enemies[lastIndex+1].stat.size = data.Size;
-        enemies[lastIndex+1].stat.additionalEffect = data.additionalEffect;
-        enemies[lastIndex+1].stat.additionalEffectCooltime = data.additionalEffectCoolTime;
+        enemies[lastIndex + 1].stat.size = data.Size;
+
+        enemies[lastIndex + 1].stat.additionalEffect1 = data.additionalEffect1;
+        enemies[lastIndex + 1].stat.additionalEffect2 = data.additionalEffect2;
+        enemies[lastIndex + 1].stat.additionalEffect3 = data.additionalEffect3;
+        enemies[lastIndex + 1].stat.additionalEffectCoolTime = data.additionalEffectCoolTime;
 
         // 공격 관련
-        enemies[lastIndex+1].stat.attackDamage = data.attackDamage;
-        enemies[lastIndex+1].stat.attackSpeed = data.attackSpeed;
+        enemies[lastIndex + 1].stat.attackDamage = data.attackDamage;
+        enemies[lastIndex + 1].stat.attackSpeed = data.attackSpeed;
 
         // 코드 관련 업데이트
-        enemies[lastIndex+1].stat.enemySpriteCode = data.enemySpriteCode;
-        enemies[lastIndex+1].stat.enemyCode = data.EnemyCode;
+        enemies[lastIndex + 1].stat.enemySpriteCode = data.enemySpriteCode;
+        enemies[lastIndex + 1].stat.enemyCode = data.EnemyCode;
+
         if (lastIndex == -1)
         {
             enemies[lastIndex + 1].stat.position = 0;

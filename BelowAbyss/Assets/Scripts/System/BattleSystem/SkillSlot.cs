@@ -155,6 +155,14 @@ public class SkillSlot : MonoBehaviour
     private void UseSkill()
     {
         Debug.Log(skillData.skillCode + "]" + skillData.skillName + " 을 사용합니다.");
+        if (skillData.skillEffect1[0] != "")
+        {
+            for(int i = 0; i < skillData.skillEffect1.Length; i++)
+            {
+                EffectData effData = new EffectData(skillData.skillEffect1[i], skillData.skillEffect2[i], skillData.skillEffect3[i]);
+                EffectManager.instance.AmplifyEffect(effData);
+            }
+        }
     }
 
 

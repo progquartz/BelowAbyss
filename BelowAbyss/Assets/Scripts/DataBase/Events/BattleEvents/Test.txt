@@ -33,6 +33,17 @@
             "backgroundImage" : 0,
 			"artworkpath" : 1,
 			"backgroundMusic" : 0
+        },
+        {
+			"eventCode": 3001,
+			"isAdditionalEvent":true,
+			"additionalEventCode":4001,
+			"outLookEventCode": 1,
+            "hordCount" : 3,
+            "hordData" : ["5 5 5 5", "5 5 5 6", "6 5 5 5"],
+            "backgroundImage" : 0,
+			"artworkpath" : 1,
+			"backgroundMusic" : 0
         }
     ]
 }

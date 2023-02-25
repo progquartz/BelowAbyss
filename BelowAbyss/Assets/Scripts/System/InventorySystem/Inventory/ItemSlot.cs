@@ -30,7 +30,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void CursorEnter()
     {
         isCursorEntered = true;
-
+        descriptionUI.AppearUsageTable(transform.GetSiblingIndex(), transform);
     }
 
     public void CursorExit()
@@ -39,20 +39,39 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         isCursorEntered = false;
         cursorOnTime = 0.0f;
         descriptionUI.Disappear();
+        descriptionUI.DisappearUsageTable();
     }
 
     private void Update()
     {
-        if(isCursorEntered && !isUIOpened)
+        if(isCursorEntered)
         {
-            cursorOnTime += Time.deltaTime;
-            if(cursorOnTime > 1.3f)
+            CheckKeyPressing();
+            if (!isUIOpened)
             {
-                isUIOpened = true;
-                //여기에서 불러오면됨.
-                descriptionUI.Appear(transform.GetSiblingIndex(), transform);
+                cursorOnTime += Time.deltaTime;
+                if (cursorOnTime > 1.3f)
+                {
+                    isUIOpened = true;
+                    //여기에서 불러오면됨.
+                    descriptionUI.Appear(transform.GetSiblingIndex(), transform);
+                }
             }
+
+           
         } 
+    }
+
+    private void CheckKeyPressing()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Inventory.instance.UseItem(transform.GetSiblingIndex(), transform);
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            Inventory.instance.DropItem(transform.GetSiblingIndex(), transform);
+        }
     }
 
 }

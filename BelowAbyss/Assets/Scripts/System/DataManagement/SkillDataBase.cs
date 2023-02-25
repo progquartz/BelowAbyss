@@ -22,7 +22,7 @@ public class SkillDataBase : MonoBehaviour
 
     public SkillDatas skillDatas = new SkillDatas();
 
-    public SkillData FindSkillData(int skillCode)
+    public SkillData GetSkillData(int skillCode)
     {
         return skillDatas.FindSkillData(skillCode);
     }
