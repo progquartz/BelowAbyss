@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SkillInventorySlot : MonoBehaviour
 {
@@ -15,20 +16,6 @@ public class SkillInventorySlot : MonoBehaviour
     private float cursorOnTime = 0.0f;
     [SerializeField]
     private GameObject descriptionUI;
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            Debug.Log("좌클릭!");
-            //holder.OnClickButton(transform.GetSiblingIndex());
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            Debug.Log("우클릭!");
-            //holder.OnRightClickButton(transform.GetSiblingIndex(), this.transform);
-        }
-    }
 
     public void OnClick()
     {

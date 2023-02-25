@@ -27,6 +27,11 @@ public class ThemeDataBase : MonoBehaviour
         return themes.FindTheme(themeName);
     }
 
+    public int GetThemeCode(string themeName)
+    {
+        return themes.FindThemeCode(themeName);
+    }
+
     public int GetRandomEventFromTheme(string themeName)
     {
         int randomNum = Random.Range(0, themes.FindTheme(themeName).eventList.Length);
@@ -64,5 +69,17 @@ public class Themes
             }
         }
         return null;
+    }
+
+    public int FindThemeCode(string themeName)
+    {
+        for (int i = 0; i < themes.Length; i++)
+        {
+            if (themes[i].themeCode == themeName)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

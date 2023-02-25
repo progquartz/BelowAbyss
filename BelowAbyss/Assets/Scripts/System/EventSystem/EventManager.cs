@@ -16,6 +16,25 @@ using UnityEngine;
 */
 
 [System.Serializable]
+public class LootingEvents
+{
+    public LootingData[] lootingEvents;
+
+    public LootingData FindEvent(int eventcode)
+    {
+        for (int i = 0; i < lootingEvents.Length; i++)
+        {
+            if (lootingEvents[i].eventCode == eventcode)
+            {
+                return lootingEvents[i];
+            }
+        }
+        return null;
+    }
+}
+
+
+[System.Serializable]
 public class BattleEvents
 {
     public BattleEvent[] battleEvents;
@@ -97,22 +116,32 @@ public class EventManager : MonoBehaviour
     public DialogEvents DialogEventList = new DialogEvents();
     public SelectionEvents SelectionEventList = new SelectionEvents();
     public BattleEvents BattleEventList = new BattleEvents();
+    public LootingEvents LootingEventList = new LootingEvents();
 
     public EventType[] EventToEventType = new EventType[10000];
 
     public void LoadEvent(int eventCode)
     {
-        Debug.Log(eventCode + "에 대한 이벤트 호출 요청 발생.");
+        
         switch (EventToEventType[eventCode])
         {
             case EventType.DIALOG:
+                Debug.Log(eventCode + "에 대한 다이얼로그 이벤트 호출 요청 발생.");
                 Dialog.instance.Appear(DialogEventList.FindEvent(eventCode));
                 break;
             case EventType.SELECTION:
+                Debug.Log(eventCode + "에 대한 선택 이벤트 호출 요청 발생.");
                 Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
                 break;
             case EventType.BATTLE:
+                Debug.Log(eventCode + "에 대한 전투 이벤트 호출 요청 발생.");
                 BattleManager.instance.BattlePhaseBegin(BattleEventList.FindEvent(eventCode));
+                break;
+            case EventType.LOOTING:
+                Debug.Log(eventCode + "에 대한 루팅 이벤트 호출 요청 발생.");
+                InventoryHolder tmp = GameObject.Find("InventoryHolder").GetComponent<InventoryHolder>();
+                tmp.OnOpeningLootingTable();
+                LootingSystem.instance.LootTableOpen(LootingEventList.FindEvent(eventCode));
                 break;
         }
     }

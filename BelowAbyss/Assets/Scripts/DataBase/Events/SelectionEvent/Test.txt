@@ -40,6 +40,19 @@
 			"backgroundMusic" : 0,
 			"selectionDialog" : ["test 10", "test 11", "test 12","test 20"],
 			"selectionEvent" : [10,11,12,20]
+		},
+                         {
+			"eventCode": 2001,
+			"isAdditionalEvent":false,
+			"additionalEventCode":-1,
+			"outLookEventCode": 1,
+			"paragraphText" : "Beware Of Slime",
+			"dialog": "A bunch of slimes are coming!",
+			"backgroundImage" : 0,
+			"artworkpath" : 3,
+			"backgroundMusic" : 0,
+			"selectionDialog" : ["Come on!", "I'm coward.."],
+			"selectionEvent" : [1001,1002]
 		}
 	]
 }

@@ -66,6 +66,8 @@ public class MapVisual : MonoBehaviour
                         break;
                     case EventType.SELECTION:
                         break;
+                    case EventType.LOOTING:
+                        break;
                 }
             }
         }

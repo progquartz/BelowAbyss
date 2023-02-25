@@ -76,13 +76,84 @@ public class SkillInventory : MonoBehaviour
             unusedSkillDB.Add(new SkillData());
         }
 
-
+        
 
     }
 
     private void Update()
     {
         UpdateSprite();
+    }
+
+    public void PutItemSkillInSlot(int skillCode)
+    {
+        int slotsToPut;
+
+        slotsToPut = GetEmptySlot();
+        if(slotsToPut != -1)
+        {
+            usingSkillDB[slotsToPut] = SkillDataBase.instance.GetSkillData(skillCode);
+            usingSkillUI[slotsToPut].SetupSkillData(SkillDataBase.instance.GetSkillData(skillCode));
+        }
+        else
+        {
+            slotsToPut = GetNoneItemSkillSlot();
+            if(slotsToPut != -1)
+            {
+                usingSkillDB[slotsToPut] =  SkillDataBase.instance.GetSkillData(skillCode);
+                usingSkillUI[slotsToPut].SetupSkillData(SkillDataBase.instance.GetSkillData(skillCode));
+            }
+            else
+            {
+                // 모든 슬롯이 아이템 전용 슬롯으로 가득 차 있다.
+                Debug.Log("모든 스킬 슬롯이 아이템 스킬 전용 슬롯으로 되어 설정이 불가능합니다!");
+            }
+        }
+    }
+
+    public void DropItemSkillInSlot(int skillCode)
+    {
+        int skillIndex = FindSkillIndex(skillCode);
+        if(skillIndex != -1)
+        {
+            usingSkillDB[skillIndex] = new SkillData();
+            usingSkillUI[skillIndex].SetupSkillData(new SkillData());
+        }
+    }
+
+    private int FindSkillIndex(int skillCode)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if(usingSkillDB[i].skillCode == skillCode)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    private int GetEmptySlot()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if(usingSkillDB[i].skillCode == 0)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int GetNoneItemSkillSlot()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if (!usingSkillDB[i].isItemSkill)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private bool CheckSkillAvailable(int skillCode)
@@ -195,10 +266,11 @@ public class SkillInventory : MonoBehaviour
     {
         if(!CheckSkillAvailable(skillCode))
         {
-            unusedSkillDB[lastSkillAvailableIndex] = SkillDataBase.instance.FindSkillData(skillCode);
+            unusedSkillDB[lastSkillAvailableIndex] = SkillDataBase.instance.GetSkillData(skillCode);
             lastSkillAvailableIndex++;
         }
     }
 
+    
 
 }

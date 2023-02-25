@@ -12,7 +12,7 @@ public class SkillUIHolder : MonoBehaviour
 
 
     /// <summary>
-    /// 아이템 슬롯에 대한 좌클릭을 했을 경우 호출되는 함수.
+    /// 스킬 슬롯에 대한 좌클릭을 했을 경우 호출되는 함수.
     /// </summary>
     /// <param name="index"></param>
     public void OnClickButton(int index)
@@ -44,7 +44,7 @@ public class SkillUIHolder : MonoBehaviour
                 }
             }
         }
-        else // 만약 아이템을 쥐고 있다면.
+        else // 만약 스킬을 쥐고 있다면.
         {
             if (getter == "UnusedSkillInventorySlots") // 사용안하는 곳이라면.
             {
@@ -73,17 +73,17 @@ public class SkillUIHolder : MonoBehaviour
                 {
                     if (CheckWhetherSkillSlotAvailable(holdingSkillCode))
                     {
-                        SkillInventory.instance.usingSkillDB[index] = SkillDataBase.instance.FindSkillData(holdingSkillCode);
-                        SkillInventory.instance.usingSkillUI[index].SetupSkillData(SkillDataBase.instance.FindSkillData(holdingSkillCode));
+                        SkillInventory.instance.usingSkillDB[index] = SkillDataBase.instance.GetSkillData(holdingSkillCode);
+                        SkillInventory.instance.usingSkillUI[index].SetupSkillData(SkillDataBase.instance.GetSkillData(holdingSkillCode));
                         isHoldingSkill = false;
                         holdingSkillCode = 0;
                     }
                     else
                     {
                         SkillInventory.instance.usingSkillUI[GetSkillSlot(holdingSkillCode)].SetupSkillData(new SkillData());
-                        SkillInventory.instance.usingSkillUI[index].SetupSkillData(SkillDataBase.instance.FindSkillData(holdingSkillCode));
+                        SkillInventory.instance.usingSkillUI[index].SetupSkillData(SkillDataBase.instance.GetSkillData(holdingSkillCode));
                         SkillInventory.instance.usingSkillDB[GetSkillSlot(holdingSkillCode)] = new SkillData();
-                        SkillInventory.instance.usingSkillDB[index] = SkillDataBase.instance.FindSkillData(holdingSkillCode);
+                        SkillInventory.instance.usingSkillDB[index] = SkillDataBase.instance.GetSkillData(holdingSkillCode);
                         isHoldingSkill = false;
                         holdingSkillCode = 0;
                     }
@@ -92,8 +92,8 @@ public class SkillUIHolder : MonoBehaviour
                 {
                     if (CheckWhetherSkillSlotAvailable(holdingSkillCode))
                     {
-                        SkillInventory.instance.usingSkillDB[index] = SkillDataBase.instance.FindSkillData(holdingSkillCode);
-                        SkillInventory.instance.usingSkillUI[index].SetupSkillData(SkillDataBase.instance.FindSkillData(holdingSkillCode));
+                        SkillInventory.instance.usingSkillDB[index] = SkillDataBase.instance.GetSkillData(holdingSkillCode);
+                        SkillInventory.instance.usingSkillUI[index].SetupSkillData(SkillDataBase.instance.GetSkillData(holdingSkillCode));
                         isHoldingSkill = false;
                         holdingSkillCode = 0;
                     }
@@ -158,8 +158,16 @@ public class SkillUIHolder : MonoBehaviour
         
         if (skillGetting.skillCode != 0)
         {
-            holdingSkillCode = skillGetting.skillCode;
-            return true;
+            if (!skillGetting.isItemSkill)
+            {
+                holdingSkillCode = skillGetting.skillCode;
+                return true;
+            }
+            else
+            {
+                Debug.Log("스킬 기반의 스킬은 빠질 수 없음!!");
+                return false;
+            }
         }
         else
         {

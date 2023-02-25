@@ -251,8 +251,15 @@ public class EffectManager : MonoBehaviour
         return true;
     }
 
+    public void AmplifyEffect(string s1, string s2, string s3)
+    {
+        
+        EffectData eff = new EffectData(s1, s2, s3);
+        AmplifyEffect(eff);
+    }
     public bool AmplifyEffect(EffectData effect)
     {
+        Debug.Log(effect.str1 + "에 대한 효과 발동함.");
         ResetTempDatas();
         bool dataValid = true;
 

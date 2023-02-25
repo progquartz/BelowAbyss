@@ -1,0 +1,37 @@
+{
+	"consumeItems":[
+		{
+			"itemCode" : 202,
+			"itemName" : "중형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜 기간 연구해 개발에 성공한 체력 포션.\n\n중간 크기의 병에 보관되어있다.\n\n [효과] - 체력 + 10",
+			"itemStackLimit" : 7,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : [],
+            "itemUseCode2" : [],
+            "itemUseCode3" : []
+		},
+		{
+			"itemCode" : 201,
+			"itemName" : "소형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜 기간 연구해 개발에 성공한 체력 포션.\n\n작은 크기의 병에 보관되어있다.\n\n [효과] - 체력 + 5",
+			"itemStackLimit" : 13,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : [],
+            "itemUseCode2" : [],
+            "itemUseCode3" : []
+		},
+		{
+			"itemCode" : 203,
+			"itemName" : "대형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜기간 연구해 개발에 성공한 체력 포션. \n\n여러번 사용이 가능하다.",
+			"itemStackLimit" : 15,
+            "itemUsageCount" : 3,
+            "itemUseCode1" : [],
+            "itemUseCode2" : [],
+            "itemUseCode3" : []
+		}
+	]
+}

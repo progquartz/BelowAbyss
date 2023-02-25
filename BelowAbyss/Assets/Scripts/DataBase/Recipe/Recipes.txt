@@ -7,22 +7,16 @@
             "craftingItem" : 2
         },
         {
-            "sizeX" : 1,
-            "sizeY" : 2,
-            "craftingRecipe" : [1,1],
-            "craftingItem" : 2
+            "sizeX" : 2,
+            "sizeY" : 1,
+            "craftingRecipe" : [1001,1002],
+            "craftingItem" : 3001
         },
         {
             "sizeX" : 2,
-            "sizeY" : 2,
-            "craftingRecipe" : [1,1,1,1],
-            "craftingItem" : 3
-        },
-        {
-            "sizeX" : 2,
-            "sizeY" : 2,
-            "craftingRecipe" : [2,1,1,1],
-            "craftingItem" : 3
+            "sizeY" : 1,
+            "craftingRecipe" : [1002,1001],
+            "craftingItem" : 3001
         }
     ]
 }

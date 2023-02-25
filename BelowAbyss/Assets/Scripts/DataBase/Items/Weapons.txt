@@ -1,0 +1,68 @@
+{
+	"weaponItems":[
+		{
+			"itemCode" : 101,
+			"itemName" : "장검",
+			"itemCategory" : "검",
+			"itemLore" : "벼려진 장검. 데미지 3, 공격속도 0.5, 치명타 10%",
+			"itemStackLimit" : 1,
+            "attackSpeed" : 1.0,
+            "criticalChance" : 10,
+            "hitEffect1" : ["R_0_CH_-3"],
+            "hitEffect2" : ["I_0_1_1"],
+            "hitEffect3" : ["F"],
+            "criticalEffect1" : [""],
+            "criticalEffect2" : [""],
+            "criticalEffect3" : [""],
+            "additionalSkills" : [4]
+		},
+		{
+			"itemCode" : 102,
+			"itemName" : "단검",
+			"itemCategory" : "검",
+			"itemLore" : "벼려진 단검. 데미지 2, 공격속도 0.8, 치명타 20%",
+			"itemStackLimit" : 1,
+            "attackSpeed" : 0.5,
+            "criticalChance" : 20,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""]
+		},
+		{
+			"itemCode" : 103,
+			"itemName" : "도끼",
+			"itemCategory" : "도끼",
+			"itemLore" : "벌목용으로 사용된 도끼. 데미지 5, 공격속도 0.3, 치명타 0%",
+			"itemStackLimit" : 1,
+            "attackSpeed" : 1.5,
+            "criticalChance" : 0,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""]
+		},
+		{
+			"itemCode" : 103,
+			"itemName" : "도끼",
+			"itemCategory" : "도끼",
+			"itemLore" : "벌목용으로 사용된 도끼. 데미지 5, 공격속도 0.3, 치명타 0%",
+			"itemStackLimit" : 1,
+            "attackSpeed" : 1.5,
+            "criticalChance" : 0,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""]
+		},
+                         {
+			"itemCode" : 3001,
+			"itemName" : "Long stick",
+			"itemCategory" : "Blunt",
+			"itemLore" : "Soaked in sap and dried well. \n\n DMG: 3, SPD 1, CRIT 0%",
+			"itemStackLimit" : 1,
+            "attackSpeed" : 0.5,
+            "criticalChance" : 0,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""]
+		}
+	]
+}

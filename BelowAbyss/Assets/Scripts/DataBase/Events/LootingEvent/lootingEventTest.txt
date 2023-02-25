@@ -1,0 +1,29 @@
+{
+    "lootingEvents":
+    [
+        {
+            "eventCode" : 41,
+            "rootingItem" : [1,2],
+            "rootingMin" : [1,1],
+            "rootingMax" : [10,10]
+        },
+        {
+            "eventCode" : 42,
+            "rootingItem" : [1],
+            "rootingMin" : [1],
+            "rootingMax" : [10]
+        },
+        {
+            "eventCode" : 43,
+            "rootingItem" : [1,2,3],
+            "rootingMin" : [1,1,1],
+            "rootingMax" : [10,10,10]
+        },
+        {
+            "eventCode" : 4001,
+            "rootingItem" : [1001,1002],
+            "rootingMin" : [1,0],
+            "rootingMax" : [5,2]
+        }
+    ]
+}

@@ -20,6 +20,20 @@
 			"itemCategory" : "Category 3",
 			"itemLore" : "Third Item!",
 			"itemStackLimit" : 15
+		},
+		{
+			"itemCode" : 1001,
+			"itemName" : "Slime jelly",
+			"itemCategory" : "Ingredient",
+			"itemLore" : "Looks chewy",
+			"itemStackLimit" : 10
+		},
+		{
+			"itemCode" : 1002,
+			"itemName" : "Wood Stick",
+			"itemCategory" : "Ingredient",
+			"itemLore" : "Long, weak stick",
+			"itemStackLimit" : 20
 		}
 	]
 }

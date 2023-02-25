@@ -10,5 +10,19 @@ public class SkillData
     public string[] skillEffect3; // 스킬 효과들. (string) 배열
     public float skillCooltime;
     public float skillDelay;
-    
+    public bool isItemSkill;
+
+    public SkillData()
+    {
+        skillCode = 0;
+        skillIconCode = 0;
+        skillName = null;
+        skillLore = null;
+        skillEffect1 = null;
+        skillEffect2 = null;
+        skillEffect3 = null;
+        skillCooltime = 0;
+        skillDelay = 0;
+        isItemSkill = false;
+    }
 }

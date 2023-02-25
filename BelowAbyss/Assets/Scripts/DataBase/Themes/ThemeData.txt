@@ -21,6 +21,13 @@
             "themeLore" : "용의둥지다.",
             "eventList" : [12,22,32],
 	        "lastRoomData" : [11,21,31]
+        },
+        {
+            "themeCode" : "SlimeLand",
+            "themeName" : "Slime Land",
+            "themeLore" : "This place is wet, sticky, tangy and chewy!",
+            "eventList" : [2001],
+	        "lastRoomData" : [2001]
         }
     ]
 }

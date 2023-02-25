@@ -18,18 +18,12 @@ public class MapData : MonoBehaviour
     // valid하는지 매번 체크함.
     private bool IsMapdataValid = false;
 
-    // 맵 내에서의 플레이어 데이터.
-    // 경로와 이벤트 유형, 그리고 방까지 해서 다 합하는 것으로 진행.
-    // 첫 방은 0 -> 0
-    // 경로는 1,2, 4,5, 7,8, 10,11, 13,14 -> 3으로 나눌 시 나머지가 1,2인 수.
-    // 이벤트는 3,6,9,12 -> 3으로 나눠지는 수. (0제외)
-    // 마지막 방은 15 -> 15.
     [SerializeField]
     private int stageNum;
     [SerializeField]
     private int playerPos;
     // 맵 내의 데이터.
-    private List<bool> pathsVisited; // 나중에 기획자료 제대로 도착하면 int대신 enum으로 수정하기. paths는 혹시 몰라서 
+    private List<bool> pathsVisited; 
 
     private List<int> events;
     public List<bool> eventVisited;
@@ -55,9 +49,11 @@ public class MapData : MonoBehaviour
         // 테마 선택.
         int randomNum = Random.Range(0, ThemeDataBase.instance.stageThemeDatas.stageThemeDatas[stagenum].stageThemeData.Length);
         themeSelected = ThemeDataBase.instance.stageThemeDatas.stageThemeDatas[stagenum].stageThemeData[randomNum];
-        backupMapData.mapTheme = themeSelected;
 
-        stageLoreUI.AppearStageLore(stageNum, ThemeDataBase.instance.themes.themes[randomNum].themeName, ThemeDataBase.instance.themes.themes[randomNum].themeLore, 1.5f, 1.0f);
+        ThemeData themeData = ThemeDataBase.instance.FindThemes(themeSelected);
+        int themeCode = ThemeDataBase.instance.GetThemeCode(themeSelected);
+        backupMapData.mapTheme = themeSelected;
+        stageLoreUI.AppearStageLore(stageNum, themeData.themeName, themeData.themeLore, 1.5f, 1.0f);
 
         // 테마를 기반으로 Paths에 새로운 데이터 입력. 나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
         pathsVisited = new List<bool>();
@@ -71,7 +67,7 @@ public class MapData : MonoBehaviour
         eventVisited = new List<bool>();
         for (int i = 0; i < 4; i++)
         {
-            randomNum = Random.Range(0, ThemeDataBase.instance.FindThemes(themeSelected).eventList.Length);
+            randomNum = Random.Range(0, themeData.eventList.Length);
             int eventData = SetEventFromData(i);
             events.Add(eventData);
             backupMapData.eventList[i] = eventData;
@@ -244,6 +240,7 @@ public class MapData : MonoBehaviour
 
     public int GetEvent(int index)
     {
+        Debug.Log(events[index] + " 번 코드의 이벤트를 방문합니다!");
         return events[index];
     }
 
