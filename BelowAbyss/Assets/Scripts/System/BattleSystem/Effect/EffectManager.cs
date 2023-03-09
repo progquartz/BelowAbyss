@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public enum EffectTarget
     REALALL
 }
 
-public enum EffectType
+public enum EffectCountFor
 {
     NONE,
     CURHP,
@@ -31,10 +32,10 @@ public enum EffectType
     CURE,
     ALLHIT,
     HEALTH,
-    MIND
+    SANITY
 }
 
-public enum EffectCountFor
+public enum EffectType
 {
     NONE,
     INSTANT,
@@ -63,12 +64,12 @@ public class EffectManager : MonoBehaviour
     [SerializeField]
     private int targetCount; // 앞 또는 뒤 기준 n칸의 적.
     [SerializeField]
-    private EffectType status;
+    private EffectCountFor effData;
     [SerializeField]
     private int effectPower;
 
     [SerializeField]
-    private EffectCountFor effectIndicator;
+    private EffectType effectType;
     [SerializeField]
     private int effectCount;
 
@@ -77,6 +78,8 @@ public class EffectManager : MonoBehaviour
 
     private bool needsCondition;
     // 조건에 대해서는 조금 있다가.
+
+    public int FireTickDamage = 5; // 불의 틱당 데미지 설정.
 
 
 
@@ -97,16 +100,16 @@ public class EffectManager : MonoBehaviour
     {
         target = EffectTarget.NONE;
         targetCount = 0;
-        status = EffectType.NONE;
+        effData = EffectCountFor.NONE;
         effectPower = 0;
-        effectIndicator = EffectCountFor.NONE;
+        effectType = EffectType.NONE;
         effectCount = 0;
         playerGraphicEffectCode = null;
         enemyGraphicEffectCode = null;
         needsCondition = false;
     }
 
-    private bool PutFirstLineDatas(string str)
+    /*private bool PutFirstLineDatas(string str)
     {
         string[] strs = str.Split('_');
 
@@ -141,66 +144,121 @@ public class EffectManager : MonoBehaviour
         switch (strs[2])
         {
             case "CH":
-                status = EffectType.CURHP;
+                effData = EffectCountFor.CURHP;
                 break;
             case "MH":
-                status = EffectType.MAXHP;
+                effData = EffectCountFor.MAXHP;
                 break;
             case "CS":
-                status = EffectType.CURSAT;
+                effData = EffectCountFor.CURSAT;
                 break;
             case "MS":
-                status = EffectType.MAXSAT;
+                effData = EffectCountFor.MAXSAT;
                 break;
             case "CA":
-                status = EffectType.CURARM;
+                effData = EffectCountFor.CURARM;
                 break;
             case "DA":
-                status = EffectType.DISARM;
+                effData = EffectCountFor.DISARM;
                 break;
             case "AA":
-                status = EffectType.ALLATK;
+                effData = EffectCountFor.ALLATK;
                 break;
             case "MA":
-                status = EffectType.MELATK;
+                effData = EffectCountFor.MELATK;
                 break;
             case "SA":
-                status = EffectType.SKLATK;
+                effData = EffectCountFor.SKLATK;
                 break;
             case "PO":
-                status = EffectType.POISON;
+                effData = EffectCountFor.POISON;
                 break;
             case "BD":
-                status = EffectType.BLOOD;
+                effData = EffectCountFor.BLOOD;
                 break;
             case "FI":
-                status = EffectType.FIRE;
+                effData = EffectCountFor.FIRE;
                 break;
             case "HT":
-                status = EffectType.HEALTH;
+                effData = EffectCountFor.HEALTH;
                 break;
             case "MI":
-                status = EffectType.MIND;
+                effData = EffectCountFor.SANITY;
                 break;
             case "CU":
-                status = EffectType.CURE;
+                effData = EffectCountFor.CURE;
                 break;
             case "AH":
-                status = EffectType.ALLHIT;
+                effData = EffectCountFor.ALLHIT;
                 break;
             default:
-                status = EffectType.NONE;
+                effData = EffectCountFor.NONE;
                 break;
         }
 
         effectPower = int.Parse(strs[3]);
 
-        if (status == EffectType.NONE || target == EffectTarget.NONE)
+        if (effData == EffectCountFor.NONE || target == EffectTarget.NONE)
         {
             return false;
         }
         return true;
+    }*/
+    private bool PutFirstLineDatas(string str)
+    {
+        string[] strs = str.Split('_');
+
+        if (strs.Length != 4)
+        {
+            return false; // 정상적인 str 데이터가 들어오지 않음.
+        }
+
+        // Use a dictionary to map string values to enum values.
+        Dictionary<string, EffectTarget> targetMap = new Dictionary<string, EffectTarget>()
+    {
+        { "A", EffectTarget.ALL },
+        { "P", EffectTarget.PLAYER },
+        { "F", EffectTarget.FRONT },
+        { "B", EffectTarget.BACK },
+        { "R", EffectTarget.REALALL }
+    };
+        Dictionary<string, EffectCountFor> countMap = new Dictionary<string, EffectCountFor>()
+    {
+        { "CH", EffectCountFor.CURHP },
+        { "MH", EffectCountFor.MAXHP },
+        { "CS", EffectCountFor.CURSAT },
+        { "MS", EffectCountFor.MAXSAT },
+        { "CA", EffectCountFor.CURARM },
+        { "DA", EffectCountFor.DISARM },
+        { "AA", EffectCountFor.ALLATK },
+        { "MA", EffectCountFor.MELATK },
+        { "SA", EffectCountFor.SKLATK },
+        { "PO", EffectCountFor.POISON },
+        { "BD", EffectCountFor.BLOOD },
+        { "FI", EffectCountFor.FIRE },
+        { "HT", EffectCountFor.HEALTH },
+        { "MI", EffectCountFor.SANITY },
+        { "CU", EffectCountFor.CURE },
+        { "AH", EffectCountFor.ALLHIT }
+    };
+
+        if (!targetMap.TryGetValue(strs[0], out target))
+        {
+            target = EffectTarget.NONE;
+        }
+
+        // Combine multiple if statements into one.
+        if (!countMap.TryGetValue(strs[2], out effData) || target == EffectTarget.NONE)
+        {
+            return false;
+        }
+
+        int.TryParse(strs[1], out targetCount);
+        int.TryParse(strs[3], out effectPower);
+
+        return effData != EffectCountFor.NONE;
     }
+
 
     private bool PutSecondLineDatas(string str)
     {
@@ -214,16 +272,16 @@ public class EffectManager : MonoBehaviour
         switch (strs[0])
         {
             case "B":
-                effectIndicator = EffectCountFor.BATTLE;
+                effectType = EffectType.BATTLE;
                 break;
             case "S":
-                effectIndicator = EffectCountFor.SECOND;
+                effectType = EffectType.SECOND;
                 break;
             case "I":
-                effectIndicator = EffectCountFor.INSTANT;
+                effectType = EffectType.INSTANT;
                 break;
             default:
-                effectIndicator = EffectCountFor.NONE;
+                effectType = EffectType.NONE;
                 break;
         }
 
@@ -232,7 +290,7 @@ public class EffectManager : MonoBehaviour
         playerGraphicEffectCode = strs[2];
         enemyGraphicEffectCode = strs[3];
 
-        if (effectIndicator == EffectCountFor.NONE)
+        if (effectType == EffectType.NONE)
         {
             return false;
         }
@@ -253,7 +311,6 @@ public class EffectManager : MonoBehaviour
 
     public void AmplifyEffect(string s1, string s2, string s3)
     {
-        
         EffectData eff = new EffectData(s1, s2, s3);
         AmplifyEffect(eff);
     }
@@ -286,47 +343,115 @@ public class EffectManager : MonoBehaviour
         AmplifyEffect(testData);
     }
 
+    
     public void PutEffect()
     {
-        switch (status) // 만약 플레이어에게 버프 단위로 들어가는 스킬들 (전투 단위 버프)은 전부 PlayerStat의 List에 들어갈것.
+        switch (effData) // 만약 플레이어에게 버프 단위로 들어가는 스킬들 (전투 단위 버프)은 전부 PlayerStat의 List에 들어갈것.
         {
-            case EffectType.CURHP:
+            case EffectCountFor.CURHP:
                 CurHPChange();
                 break;
-            case EffectType.MAXHP:
+            case EffectCountFor.MAXHP:
+                MaxHPChange();
                 break;
-            case EffectType.CURSAT:
+            case EffectCountFor.CURSAT:
+                CurSatChange();
                 break;
-            case EffectType.MAXSAT:
+            case EffectCountFor.MAXSAT:
+                MaxSatChange();
                 break;
-            case EffectType.CURARM:
+            case EffectCountFor.CURARM:
                 break;
-            case EffectType.DISARM:
+            case EffectCountFor.DISARM:
                 break;
-            case EffectType.ALLATK:
+            case EffectCountFor.ALLATK:
+
                 break;
-            case EffectType.MELATK:
+            case EffectCountFor.MELATK:
                 break;
-            case EffectType.SKLATK:
+            case EffectCountFor.SKLATK:
                 break;
-            case EffectType.POISON:
+            case EffectCountFor.POISON:
+                PoisonChange();
                 break;
-            case EffectType.BLOOD:
+            case EffectCountFor.BLOOD:
+                BloodChange();
                 break;
-            case EffectType.FIRE:
+            case EffectCountFor.FIRE:
+                FireChange();
                 break;
-            case EffectType.HEALTH:
+            case EffectCountFor.HEALTH:
                 break;
-            case EffectType.MIND:
+            case EffectCountFor.SANITY:
                 break;
-            case EffectType.CURE:
+            case EffectCountFor.CURE:
                 break;
-            case EffectType.ALLHIT:
+            case EffectCountFor.ALLHIT:
                 break;
-            case EffectType.NONE:
+            case EffectCountFor.NONE:
                 break;
         }
 
+    }
+    
+
+
+    private void PoisonChange()
+    {
+        if(effectType == EffectType.INSTANT)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AddPoison(effectPower);
+            }
+        }
+    }
+
+    private void BloodChange()
+    {
+        if (effectType == EffectType.INSTANT)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AddBlood(effectPower);
+            }
+        }
+    }
+
+    private void FireChange()
+    {
+        if(effectType == EffectType.INSTANT)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AddFire(1);
+            }
+        }
+    }
+
+    private void MaxSatChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.MaxSatControl(effectPower);
+    }
+
+    private void CurSatChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.CurrentSatControl(effectPower);
+
+    }
+
+    private void MaxHPChange()
+    {
+        List<EntityStat> target = GetTarget();
+        for(int i = 0; i < target.Count; i++)
+        {
+            target[i].MaxHealthControl(effectPower); 
+        }
     }
 
     private bool CurHPChange()

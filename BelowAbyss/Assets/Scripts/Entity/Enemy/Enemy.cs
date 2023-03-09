@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private float[] additionalSkillCooltime;
     private float attackCooltimeLeft;
 
+    
     private void CheckStat()
     {
         if (stat.additionalEffect1.Length > 0)
@@ -114,6 +115,6 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
-
+        stat = new EnemyStat();
     }
 }
