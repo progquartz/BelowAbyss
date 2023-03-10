@@ -18,14 +18,136 @@ public class PlayerStat : EntityStat
 
     public List<BuffBattleData> allHitBBuffs = new List<BuffBattleData>(); // N회의 전투동안 받는 모든 공격피해 증가.
 
+    public int vitalityMaxHealth;
+    public int normalMaxHealth;
 
     public int currentSatur; // 배고픔 수치.
     public int maxSatur;
     public int currentThirst; // 목마름 수치
     public int maxThirst;
+    public int currentVitality; // 활력 수치.
+    public int maxVitality;
     public int currentSanity; // 정신 수치 체력회복에 관여
     public int maxSanity;
 
+
+    private void Update()
+    {
+        vitalityMaxHealth = currentVitality;
+        maxHp =  normalMaxHealth + vitalityMaxHealth;
+
+    }
+
+
+    public void BattleEndStatControl()
+    {
+        CurrentSanityControl(10);
+    }
+
+    public void MovingStatControl()
+    {
+        CurrentSatControl(-5);
+        CurrentThirstControl(-10);
+
+        // vitality control
+        MovingVitalityDecreasing();
+        // sanity control
+        MovingSanityDecreasing();
+    }
+
+    private void MovingVitalityDecreasing()
+    {
+        if(currentSatur >= 60)
+        {
+            CurrentVitalityControl(3);
+        }
+
+        if(currentThirst <= 5)
+        {
+            CurrentVitalityControl(-20);
+        }
+        else if(currentThirst <= 20)
+        {
+            CurrentVitalityControl(-5);
+        }
+
+        if(currentSatur <= 5)
+        {
+            CurrentVitalityControl(-8);
+        }
+        else if(currentSatur <= 20)
+        {
+            CurrentVitalityControl(-3);
+        }
+    }
+
+    private void MovingSanityDecreasing()
+    {
+        if(currentSatur >= 75)
+        {
+            CurrentSanityControl(3);
+        }
+
+        if(currentSatur <= 20)
+        {
+            CurrentSanityControl(-3);
+        }
+        
+        if(currentThirst <= 40)
+        {
+            CurrentSanityControl(-5);
+        }
+    }
+
+    public override int CurrentHPControl(int amount)
+    {
+        currentHp += amount;
+        if (currentHp > maxHp)
+        {
+            int delta = currentHp - maxHp;
+            currentHp = maxHp;
+            return delta;
+        }
+        else if (currentHp <= 0)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public override void MaxHPControl(int amount)
+    {
+        normalMaxHealth += amount;
+        maxHp = normalMaxHealth + vitalityMaxHealth;
+        if (currentHp > maxHp)
+        {
+            currentHp = maxHp;
+        }
+    }
+
+
+    public void MaxVitalityControl(int amount)
+    {
+        maxVitality += amount;
+        if(currentVitality > maxVitality)
+        {
+            currentVitality = maxVitality;
+        }
+    }
+
+    public void CurrentVitalityControl(int amount)
+    {
+        currentVitality += amount;
+        if(currentVitality > maxVitality)
+        {
+            currentVitality = maxVitality;
+        }
+        vitalityMaxHealth = currentVitality;
+        maxHp = normalMaxHealth + vitalityMaxHealth;
+    }
 
     public void CurrentSatControl(int amount)
     {
@@ -41,12 +163,12 @@ public class PlayerStat : EntityStat
         }
     }
 
-    public void currentThirstControl(int amount)
+    public void CurrentThirstControl(int amount)
     {
         currentSatur += amount;
     }
 
-    public void maxThirstControl(int amount)
+    public void MaxThirstControl(int amount)
     {
         maxThirst += amount;
         if(currentThirst > maxThirst)
@@ -55,7 +177,7 @@ public class PlayerStat : EntityStat
         }
     }
 
-    public void currentSanityControl(int amount)
+    public void CurrentSanityControl(int amount)
     {
         currentSanity += amount;
     }
@@ -145,6 +267,7 @@ public class PlayerStat : EntityStat
             buffDatas[i].buffBattleCount--;
         }
     }
+
 
 
 }

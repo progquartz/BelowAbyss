@@ -20,6 +20,8 @@ public enum EffectCountFor
     MAXHP,
     CURSAT,
     MAXSAT,
+    CURTHR,
+    MAXTHR,
     CURARM,
     DISARM,
     ALLATK,
@@ -31,7 +33,8 @@ public enum EffectCountFor
     FIRE,
     CURE,
     ALLHIT,
-    HEALTH,
+    CURVIT,
+    MAXVIT,
     SANITY
 }
 
@@ -215,19 +218,22 @@ public class EffectManager : MonoBehaviour
 
         // Use a dictionary to map string values to enum values.
         Dictionary<string, EffectTarget> targetMap = new Dictionary<string, EffectTarget>()
-    {
-        { "A", EffectTarget.ALL },
-        { "P", EffectTarget.PLAYER },
-        { "F", EffectTarget.FRONT },
-        { "B", EffectTarget.BACK },
-        { "R", EffectTarget.REALALL }
-    };
+        {
+            { "A", EffectTarget.ALL },
+            { "P", EffectTarget.PLAYER },
+            { "F", EffectTarget.FRONT },
+            { "B", EffectTarget.BACK },
+            { "R", EffectTarget.REALALL }
+        };
+
         Dictionary<string, EffectCountFor> countMap = new Dictionary<string, EffectCountFor>()
-    {
+        {
         { "CH", EffectCountFor.CURHP },
         { "MH", EffectCountFor.MAXHP },
         { "CS", EffectCountFor.CURSAT },
         { "MS", EffectCountFor.MAXSAT },
+        {"CT", EffectCountFor.CURTHR },
+        {"MT", EffectCountFor.MAXTHR },
         { "CA", EffectCountFor.CURARM },
         { "DA", EffectCountFor.DISARM },
         { "AA", EffectCountFor.ALLATK },
@@ -236,11 +242,11 @@ public class EffectManager : MonoBehaviour
         { "PO", EffectCountFor.POISON },
         { "BD", EffectCountFor.BLOOD },
         { "FI", EffectCountFor.FIRE },
-        { "HT", EffectCountFor.HEALTH },
+        { "HT", EffectCountFor.CURVIT },
         { "MI", EffectCountFor.SANITY },
         { "CU", EffectCountFor.CURE },
         { "AH", EffectCountFor.ALLHIT }
-    };
+        };
 
         if (!targetMap.TryGetValue(strs[0], out target))
         {
@@ -343,7 +349,6 @@ public class EffectManager : MonoBehaviour
         AmplifyEffect(testData);
     }
 
-    
     public void PutEffect()
     {
         switch (effData) // 만약 플레이어에게 버프 단위로 들어가는 스킬들 (전투 단위 버프)은 전부 PlayerStat의 List에 들어갈것.
@@ -360,12 +365,17 @@ public class EffectManager : MonoBehaviour
             case EffectCountFor.MAXSAT:
                 MaxSatChange();
                 break;
+            case EffectCountFor.CURTHR:
+                CurThrChange();
+                break;
+            case EffectCountFor.MAXTHR:
+                MaxThrChange();
+                break;
             case EffectCountFor.CURARM:
                 break;
             case EffectCountFor.DISARM:
                 break;
             case EffectCountFor.ALLATK:
-
                 break;
             case EffectCountFor.MELATK:
                 break;
@@ -380,9 +390,14 @@ public class EffectManager : MonoBehaviour
             case EffectCountFor.FIRE:
                 FireChange();
                 break;
-            case EffectCountFor.HEALTH:
+            case EffectCountFor.CURVIT:
+                CurrentVitalityChange();
+                break;
+            case EffectCountFor.MAXVIT:
+                MaxVitalityChange();
                 break;
             case EffectCountFor.SANITY:
+                SanityChange();
                 break;
             case EffectCountFor.CURE:
                 break;
@@ -432,6 +447,17 @@ public class EffectManager : MonoBehaviour
         }
     }
 
+    private void MaxThrChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.MaxThirstControl(effectPower);
+    }
+
+    private void CurThrChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.CurrentThirstControl(effectPower);
+    }
     private void MaxSatChange()
     {
         PlayerStat target = GetTarget()[0] as PlayerStat;
@@ -445,12 +471,30 @@ public class EffectManager : MonoBehaviour
 
     }
 
+    private void SanityChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.CurrentSanityControl(effectPower);
+    }
+
+    private void CurrentVitalityChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.CurrentVitalityControl(effectPower);
+    }
+
+    private void MaxVitalityChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.MaxVitalityControl(effectPower);
+    }
+
     private void MaxHPChange()
     {
         List<EntityStat> target = GetTarget();
         for(int i = 0; i < target.Count; i++)
         {
-            target[i].MaxHealthControl(effectPower); 
+            target[i].MaxHPControl(effectPower); 
         }
     }
 
@@ -459,7 +503,7 @@ public class EffectManager : MonoBehaviour
         List<EntityStat> target = GetTarget();
         for(int i = 0; i < target.Count; i++)
         {
-            target[i].CurrentHealthControl(effectPower);
+            target[i].CurrentHPControl(effectPower);
         }
         return false;
     }

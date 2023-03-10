@@ -32,6 +32,18 @@ public class Player : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 맵의 이벤트 이동시마다 자동으로 줄어드는 허기 . 이동과 관련된 함수.
+    /// </summary>
+    public void MovingStatControl()
+    {
+        stat.MovingStatControl();
+    }
+
+    public void BattleEndStatControl()
+    {
+        stat.BattleEndStatControl();
+    }
 
     public void CheckDeath()
     {
@@ -39,7 +51,16 @@ public class Player : MonoBehaviour
         {
             BattleManager.instance.OnPlayerDeath();
         }
+        else if(stat.currentVitality <= 0)
+        {
+            BattleManager.instance.OnPlayerDeath();
+        }
+        else if(stat.currentSanity <= 0)
+        {
+            BattleManager.instance.OnPlayerDeath();
+        }
     }
+
 
     private void Start()
     {

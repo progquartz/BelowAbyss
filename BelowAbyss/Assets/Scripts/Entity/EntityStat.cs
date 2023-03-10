@@ -44,8 +44,8 @@ public class BuffBattleData
 [System.Serializable]
 public class EntityStat : MonoBehaviour
 {
-    
     public int currentHp;
+
     public int maxHp;
 
     public int armour;
@@ -93,7 +93,7 @@ public class EntityStat : MonoBehaviour
     }
     private void Update()
     {
-        DurationBuffBufferTest();
+        RemoveExpiredBuffs();
         CheckAndEffectNegatives();
     }
 
@@ -117,7 +117,7 @@ public class EntityStat : MonoBehaviour
             if (poisonStack.buffDuration < 0)
             {
                 poisonStack.buffDuration = 1.0f;
-                CurrentHealthControl(-poisonStack.buffPower);
+                CurrentHPControl(-poisonStack.buffPower);
             }
         }
     }
@@ -135,7 +135,7 @@ public class EntityStat : MonoBehaviour
             if (bloodStack.buffDuration < 0)
             {
                 bloodStack.buffDuration = 1.0f;
-                CurrentHealthControl(-bloodStack.buffPower);
+                CurrentHPControl(-bloodStack.buffPower);
             }
         }
     }
@@ -153,7 +153,7 @@ public class EntityStat : MonoBehaviour
             if (fireDuration < 0)
             {
                 fireDuration = 1.0f;
-                CurrentHealthControl(EffectManager.instance.FireTickDamage);
+                CurrentHPControl(EffectManager.instance.FireTickDamage);
             }
         }
     }
@@ -162,26 +162,27 @@ public class EntityStat : MonoBehaviour
     /// <summary>
     /// 시간이 지난 초 단위의 버프 / 디버프를 배제하는 함수.
     /// </summary>
-    private void DurationBuffBufferTest()
+    private void RemoveExpiredBuffs()
     {
-        BufferTesting(additionalAllDamage, ref realAdditionalAllDamage);
-        BufferTesting(additionalWeaponDamage, ref realAdditionalMeleeDamage);
-        BufferTesting(additionalSkillDamage, ref realAdditionalSkillDamage);
-        BufferTesting(additionalHitDamage, ref realAdditionalHitDamage);
+        RemoveExpiredBuffs(additionalAllDamage, ref realAdditionalAllDamage);
+        RemoveExpiredBuffs(additionalWeaponDamage, ref realAdditionalMeleeDamage);
+        RemoveExpiredBuffs(additionalSkillDamage, ref realAdditionalSkillDamage);
+        RemoveExpiredBuffs(additionalHitDamage, ref realAdditionalHitDamage);
     }
 
-    private void BufferTesting(List<BuffData> target, ref int realBuffCount)
+    private void RemoveExpiredBuffs(List<BuffData> target, ref int realBuffCount)
     {
-        // delta time 계산 및 버프 주기.
         float deltaTime = Time.deltaTime;
-        for (int i = 0; i < target.Count; i++)
-        {
-            target[i].buffDuration -= deltaTime;
-        }
+        target.RemoveAll(data => {
+            data.buffDuration -= deltaTime;
+            return data.buffDuration <= 0;
+        });
 
-        // 시간 다 지난놈들 쳐내기
-        target.RemoveAll(data => data.buffDuration <= 0);
-        realBuffCount = target.Sum(data => data.buffPower);
+        realBuffCount = 0;
+        foreach (var buff in target)
+        {
+            realBuffCount += buff.buffPower;
+        }
     }
 
     /// <summary>
@@ -189,9 +190,7 @@ public class EntityStat : MonoBehaviour
     /// 만약에 체력이 초과되었을 경우에는 그 수치만큼을.
     /// 만약에 체력이 0이하로 떨어지면 -1을, 일반에는 0을 리턴함.
     /// </summary>
-    /// <param name="value">변경될 체력 수치.</param>
-    /// <returns></returns>
-    public int CurrentHealthControl(int amount)
+    public virtual int CurrentHPControl(int amount)
     {
         currentHp += amount;
         if(currentHp > maxHp)
@@ -210,7 +209,7 @@ public class EntityStat : MonoBehaviour
         }
     }
 
-    public void MaxHealthControl(int amount)
+    public virtual void MaxHPControl(int amount)
     {
         maxHp += amount;
         if(currentHp > maxHp)

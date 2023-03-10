@@ -118,7 +118,10 @@ public class MapManager : MonoBehaviour
 
     // 맵 생성, 맵 내 이동-> 내부데이터는 mapdata에서 처리, 맵 보여주기(비주얼) -> 실제는 mapvisual에서 처리.
 
-
+    /// <summary>
+    /// 다음 함수는 현재 버튼으로 호출당하고 있기 떄문에 참조가 없음.
+    /// </summary>
+    /// <param name="position"></param>
     public void Move(int position)
     {
         int currentPos = mapDatas[currentStage].GetPosition() + position;
@@ -134,6 +137,7 @@ public class MapManager : MonoBehaviour
         {
             if (!mapDatas[currentStage].eventVisited[currentPos / 3 - 1])
             {
+                Player.instance.
                 EventManager.instance.LoadEvent(mapDatas[currentStage].GetEvent(currentPos / 3 - 1));
             }
         }

@@ -5912,6 +5912,7 @@ MonoBehaviour:
     itemCategory: 
     itemLore: 
     itemStackLimit: 0
+    damage: 0
     attackSpeed: 0
     criticalChance: 0
     hitEffect1: []
@@ -18615,6 +18616,7 @@ MonoBehaviour:
     itemcode: 0
     stack: 0
     stacklimit: 0
+    damage: 0
     attackSpeed: 0
     criticalPercentage: 0
     hitEff1: []
@@ -24539,6 +24541,7 @@ MonoBehaviour:
     itemCategory: 
     itemLore: 
     itemStackLimit: 0
+    damage: 0
     attackSpeed: 0
     criticalChance: 0
     hitEffect1: []
@@ -35685,6 +35688,7 @@ MonoBehaviour:
     itemCategory: 
     itemLore: 
     itemStackLimit: 0
+    damage: 0
     attackSpeed: 0
     criticalChance: 0
     hitEffect1: []
@@ -36970,14 +36974,18 @@ MonoBehaviour:
   maxHp: 100
   armour: 0
   realAdditionalAllDamage: 0
-  realAdditionalWeaponDamage: 0
+  realAdditionalMeleeDamage: 0
   realAdditionalSkillDamage: 0
   realAdditionalHitDamage: 0
   isOnFire: 0
+  vitalityMaxHealth: 100
+  normalMaxHealth: 0
   currentSatur: 100
   maxSatur: 100
   currentThirst: 100
   maxThirst: 100
+  currentVitality: 100
+  maxVitality: 100
   currentSanity: 100
   maxSanity: 100
 --- !u!1 &1522361417
@@ -41101,6 +41109,7 @@ MonoBehaviour:
     itemCategory: 
     itemLore: 
     itemStackLimit: 0
+    damage: 0
     attackSpeed: 0
     criticalChance: 0
     hitEffect1: []
