@@ -152,6 +152,14 @@ public class PlayerStat : EntityStat
     public void CurrentSatControl(int amount)
     {
         currentSatur += amount;
+        if (currentSatur >= maxSatur)
+        {
+            currentSatur = maxSatur;
+        }
+        else if (currentSatur < 0)
+        {
+            currentSatur = 0;
+        }
     }
 
     public void MaxSatControl(int amount)
@@ -180,6 +188,10 @@ public class PlayerStat : EntityStat
     public void CurrentSanityControl(int amount)
     {
         currentSanity += amount;
+        if(currentSanity >= maxSanity)
+        {
+            currentSanity = maxSanity;
+        }
     }
 
     public void MaxsanityControl(int amount)

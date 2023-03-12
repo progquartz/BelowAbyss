@@ -137,7 +137,7 @@ public class MapManager : MonoBehaviour
         {
             if (!mapDatas[currentStage].eventVisited[currentPos / 3 - 1])
             {
-                Player.instance.
+                Player.instance.MovingStatControl();
                 EventManager.instance.LoadEvent(mapDatas[currentStage].GetEvent(currentPos / 3 - 1));
             }
         }
