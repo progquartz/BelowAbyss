@@ -21,11 +21,14 @@ public class Inventory : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(instance.gameObject);
+            FirstSetup();
         }
         else
         {
             Destroy(this.gameObject);
         }
+
+        
     }
 
     // 획득과 버려짐, 옮김부터 구현하기.
@@ -35,14 +38,6 @@ public class Inventory : MonoBehaviour
 
     public List<GameObject> slots;
     public List<GameObject> equipSlots;
-
-    // holdingitem해서 작업하기.
-
-    
-    private void Start()
-    {
-        FirstSetup();
-    }
 
     private void FirstSetup()
     {

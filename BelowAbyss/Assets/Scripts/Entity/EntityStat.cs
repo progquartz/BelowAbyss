@@ -82,6 +82,7 @@ public class EntityStat : MonoBehaviour
     private float fireDuration;
 
 
+    
     private void Start()
     {
         additionalAllDamage = new List<BuffData>();
@@ -91,7 +92,7 @@ public class EntityStat : MonoBehaviour
         poisonStack = new BuffData();
         bloodStack = new BuffData();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         RemoveExpiredBuffs();
         CheckAndEffectNegatives();
@@ -159,6 +160,11 @@ public class EntityStat : MonoBehaviour
     }
 
 
+    private void RemoveBuffsAfterFight()
+    {
+
+    }
+
     /// <summary>
     /// 시간이 지난 초 단위의 버프 / 디버프를 배제하는 함수.
     /// </summary>
@@ -186,27 +192,60 @@ public class EntityStat : MonoBehaviour
     }
 
     /// <summary>
-    /// 체력을 변경시키는 함수. 음수도 가능함.
+    /// 전체 공격 데미지 컨트롤.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void AllAttackDamageControl(int amount, char type, float duration)
+    {
+        switch (type)
+        {
+            case 'I':
+                realAdditionalAllDamage += amount;
+                break;
+            case 'S':
+                BuffData tmp = new BuffData(amount, duration);
+                additionalAllDamage.Add(tmp);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 체력을 변경시키는 함수. 음수도 가능함. 방어력부터 데미지가 들어감.
     /// 만약에 체력이 초과되었을 경우에는 그 수치만큼을.
     /// 만약에 체력이 0이하로 떨어지면 -1을, 일반에는 0을 리턴함.
     /// </summary>
     public virtual int CurrentHPControl(int amount)
     {
-        currentHp += amount;
-        if(currentHp > maxHp)
+        int delta = 0;
+        if (amount > 0)
         {
-            int delta = currentHp - maxHp;
-            currentHp = maxHp;
-            return delta;
+            currentHp += amount;
+            delta = Math.Max(0, currentHp - maxHp);
+            currentHp = Math.Min(currentHp, maxHp);
         }
-        else if(currentHp <= 0)
+        else if (amount < 0)
         {
-            return -1;
+            if (armour > 0)
+            {
+                armour += amount;
+                if (armour < 0)
+                {
+                    currentHp += armour;
+                    armour = 0;
+                }
+            }
+            else
+            {
+                currentHp += amount;
+            }
+
+            if (currentHp <= 0)
+            {
+                delta = -1;
+            }
         }
-        else
-        {
-            return 0;
-        }
+
+        return delta;
     }
 
     public virtual void MaxHPControl(int amount)
@@ -218,7 +257,7 @@ public class EntityStat : MonoBehaviour
         }
     }
 
-    public void CurrentArmourControl(int amount, double duration)
+    public void CurrentArmourControl(int amount)
     {
         armour += amount;
     }
@@ -253,30 +292,45 @@ public class EntityStat : MonoBehaviour
         realAdditionalHitDamage += amount;
     }
 
+    public void Cure()
+    {
+        isPoisoned = false;
+        poisonStack.buffPower = 0;
+        poisonStack = new BuffData();
+        isBleeding = false;
+        bloodStack.buffPower = 0;
+        bloodStack = new BuffData();
+        isOnFire = false;
+    }
+
     public void AddPoison(int amount)
     {
-        if (poisonStack != null)
+        if(poisonStack == null)
         {
-            poisonStack.buffPower += amount;
-            bool isNewPoison = poisonStack.buffPower == amount;
-            if (isNewPoison)
-            {
-                poisonStack.buffDuration = 1.0f;
-            }
+            poisonStack = new BuffData();
+        }
+        poisonStack.buffPower += amount;
+        bool isNewPoison = poisonStack.buffPower == amount;
+        if (isNewPoison)
+        {
+            poisonStack.buffDuration = 1.0f;
         }
     }
 
     public void AddBlood(int amount)
     {
-        if(bloodStack != null)
+        if(bloodStack == null)
         {
-            bloodStack.buffPower += amount;
-            bool isNewBlood = poisonStack.buffPower == amount;
-            if(isNewBlood)
-            {
-                bloodStack.buffDuration = 1.0f;
-            }
+            bloodStack = new BuffData();
         }
+        
+        bloodStack.buffPower += amount;
+        bool isNewBlood = poisonStack.buffPower == amount;
+        if(isNewBlood)
+        {
+            bloodStack.buffDuration = 1.0f;
+        }
+        
     }
 
     public void AddFire(int amount)

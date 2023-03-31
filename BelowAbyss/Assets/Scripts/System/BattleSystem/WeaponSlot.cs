@@ -126,12 +126,15 @@ public class WeaponSlot : MonoBehaviour
     {
         EffectData effectData = new EffectData();
         effectData.SetEffectData("F_1_CH_-" + (weaponData.damage + Player.instance.stat.realAdditionalMeleeDamage + Player.instance.stat.realAdditionalAllDamage).ToString() , "I_0_1_1","F");
-        for(int i = 0; i < weaponData.hitEffect1.Length; i++)
+        if(weaponData.hitEffect1.Length >= 1)
         {
-            effectData.SetEffectData(weaponData.hitEffect1[i], weaponData.hitEffect2[i], weaponData.hitEffect3[i]);
-            EffectManager.instance.AmplifyEffect(effectData);
+            for (int i = 0; i < weaponData.hitEffect1.Length; i++)
+            {
+                effectData.SetEffectData(weaponData.hitEffect1[i], weaponData.hitEffect2[i], weaponData.hitEffect3[i]);
+                EffectManager.instance.AmplifyEffect(effectData);
+            }
         }
-        if(weaponData.criticalChance != 0)
+        if(weaponData.criticalChance > 0)
         {
             int randomnum = Random.Range(1, 101); // 1에서 100까지.
             if(randomnum > weaponData.criticalChance)
@@ -142,7 +145,7 @@ public class WeaponSlot : MonoBehaviour
                 }
             }
         }
-        Debug.Log(weaponData.itemCode + "]" + weaponData.itemName + " 을 사용합니다.");
+        Debug.Log(weaponData.itemCode + "]" + weaponData.itemName + " 을 사용 " + (weaponData.damage + Player.instance.stat.realAdditionalMeleeDamage + Player.instance.stat.realAdditionalAllDamage).ToString() + "데미지.");
     }
 
 

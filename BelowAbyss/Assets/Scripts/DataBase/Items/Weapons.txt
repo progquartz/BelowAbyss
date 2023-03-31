@@ -25,7 +25,13 @@
 			"itemStackLimit" : 1,
             "damage" : 2,
             "attackSpeed" : 0.5,
-            "criticalChance" : 20
+            "criticalChance" : 20,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""],
+            "criticalEffect1" : [""],
+            "criticalEffect2" : [""],
+            "criticalEffect3" : [""]
 		},
 		{
 			"itemCode" : 103,
@@ -35,7 +41,13 @@
 			"itemStackLimit" : 1,
             "damage" : 5,
             "attackSpeed" : 1.5,
-            "criticalChance" : 0
+            "criticalChance" : 0,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""],
+            "criticalEffect1" : [""],
+            "criticalEffect2" : [""],
+            "criticalEffect3" : [""]
 		},
         {
 			"itemCode" : 3001,
@@ -45,7 +57,13 @@
 			"itemStackLimit" : 1,
             "damage" : 3,
             "attackSpeed" : 0.5,
-            "criticalChance" : 0
+            "criticalChance" : 0,
+            "hitEffect1" : [""],
+            "hitEffect2" : [""],
+            "hitEffect3" : [""],
+            "criticalEffect1" : [""],
+            "criticalEffect2" : [""],
+            "criticalEffect3" : [""]
 		}
 	]
 }

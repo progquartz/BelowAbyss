@@ -6,7 +6,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public EnemyStat stat;
-
     public SpriteRenderer sprite;
 
     private bool isEnemyHasAdditionalSkill = false;
@@ -110,11 +109,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-
     private void Start()
     {
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        stat = new EnemyStat();
+        stat = transform.GetComponent<EnemyStat>();
     }
 }
