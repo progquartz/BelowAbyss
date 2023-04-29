@@ -208,12 +208,15 @@ public class ItemHolder : MonoBehaviour
 
                         // 장비가 가지고 있는 유형의 스킬을 스킬UI에서 가져감.
                         int[] itemSkillData = ItemDataBase.instance.GetAdditionalSkillCode(holdingItemCode);
-                        for (int i = 0; i < itemSkillData.Length; i++)
+                        if(itemSkillData != null)
                         {
-                            SkillInventory.instance.PutItemSkillInSlot(itemSkillData[i]);
+                            for (int i = 0; i < itemSkillData.Length; i++)
+                            {
+                                SkillInventory.instance.PutItemSkillInSlot(itemSkillData[i]);
+                            }
                         }
 
-                            itemChanging.itemcode = holdingItemCode;
+                        itemChanging.itemcode = holdingItemCode;
                         itemChanging.stack = holdingItemStack;
                         itemChanging.stacklimit = holdingItemStackLimit;
                         DropItemHolding();

@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     private void TempFirstSetup()
     {
+        
+        Cursor.lockState = CursorLockMode.None;
         Parser.instance.ParseAllData();
         SkillInventory.instance.FirstSetup();
         MapManager.Instance.FlushAllMapDatas();
@@ -40,6 +42,11 @@ public class GameManager : MonoBehaviour
     public void StartNewGame()
     {
         TempFirstSetup();
+    }
+
+    private void Update()
+    {
+        Cursor.visible = true;
     }
 
 }

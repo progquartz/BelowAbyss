@@ -262,6 +262,14 @@ public class SkillInventory : MonoBehaviour
         return unusedSkillDB[index + visualSlotYIndex * 8];
     }
 
+    public void TestSkillLearn()
+    {
+        LearnSkill(1);
+        LearnSkill(2);
+        LearnSkill(3);
+        LearnSkill(4);
+        LearnSkill(5);
+    }
     public void LearnSkill(int skillCode)
     {
         if(!CheckSkillAvailable(skillCode))

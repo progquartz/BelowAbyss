@@ -20,20 +20,21 @@ public class LootingSystem : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(instance.gameObject);
+            LootingSlotInitializing();
         }
         else
         {
             Destroy(this.gameObject);
         }
+
     }
 
-
-    private void Start()
+    private void LootingSlotInitializing()
     {
-        for(int i = 0; i < 16; i++)
+        for (int i = 0; i < 16; i++)
         {
             lootingSlots.Add(lootingUIObject.transform.GetChild(0).GetChild(i).gameObject);
-            lootingDB.Add(new Item(0,0));
+            lootingDB.Add(new Item(0, 0));
         }
     }
 
@@ -53,9 +54,18 @@ public class LootingSystem : MonoBehaviour
 
     private void SetTableDataOpen(LootingData data)
     {
+        int zeroRootingItemCount = 0;
         for (int i = 0; i < data.rootingItem.Length; i++)
         {
-            SetLootingItem(i, data.rootingItem[i], Random.Range(data.rootingMin[i], data.rootingMax[i]));
+            int rootingItemCount = Random.Range(data.rootingMin[i], data.rootingMax[i]);
+            if(rootingItemCount != 0)
+            {
+                SetLootingItem(i - zeroRootingItemCount, data.rootingItem[i], rootingItemCount);
+            }
+            else
+            {
+                zeroRootingItemCount++;
+            }
         }
     }
 
@@ -63,7 +73,6 @@ public class LootingSystem : MonoBehaviour
     {
         lootingDB[index].itemcode = itemcode;
         lootingDB[index].stack = count;
-
     }
 
     public Item GetIndexData(int index)
