@@ -51,6 +51,10 @@ public class UISelectionHolder : MonoBehaviour
             iconButtonImage[(int)uiHolder].sprite = iconSelected[(int)uiHolder];
             iconSelectedBar[(int)currentUIOpened].SetActive(false);
             iconSelectedBar[(int)uiHolder].SetActive(true);
+
+            uiList[(int)currentUIOpened].SetActive(false);
+            uiList[(int)uiHolder].SetActive(true);
+               
             currentUIOpened = (UIHolderList)uiHolder;
         }
     }

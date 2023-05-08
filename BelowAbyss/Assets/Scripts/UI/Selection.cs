@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +15,8 @@ public class Selection : Dialog
             instance = this;
         }
     }
-
-    public Text[] selectionDialog = new Text[4];
+    
+    public TextMeshProUGUI[] selectionDialog = new TextMeshProUGUI[4];
     public GameObject[] selectionPanel = new GameObject[4];
     public int[] selectionEvent = new int[4];
 
@@ -34,15 +35,14 @@ public class Selection : Dialog
 
     private void Start()
     {
-        dialogUI = transform.GetChild(1).gameObject;
-        paragraphText = transform.GetChild(1).GetChild(0).GetComponentInChildren<Text>();
-        dialog = transform.GetChild(1).GetChild(2).GetComponent<Text>();
-        backgroundImage = transform.GetChild(0).GetComponent<Image>();
-        artworkImage = transform.GetChild(1).GetChild(1).GetComponent<Image>();
+        dialogUI = transform.GetChild(0).gameObject;
+        paragraphText = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        subparagraphText = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+        dialog = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         for(int i = 0; i < 4; i++)
         {
-            selectionPanel[i] = transform.GetChild(1).GetChild(3).GetChild(i).gameObject;
-            selectionDialog[i] = selectionPanel[i].transform.GetChild(1).GetChild(0).GetComponent<Text>();
+            selectionPanel[i] = transform.GetChild(0).GetChild(2).GetChild(i).gameObject;
+            selectionDialog[i] = selectionPanel[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         }
 
     }
@@ -50,10 +50,10 @@ public class Selection : Dialog
     public bool LoadEventCode(SelectionEvent data)
     {
         paragraphText.text = data.paragraphText;
+        subparagraphText.text = data.subparagraphText;
         dialog.text = data.dialog;
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
-        artworkImage.sprite = LoadImageBaseOnCode(data.artworkpath);
 
         for (int i = 0; i < data.selectionDialog.Length; i++)
         {

@@ -30,11 +30,9 @@ public class Inventory : MonoBehaviour
 
     // 획득과 버려짐, 옮김부터 구현하기.
     public List<Item> itemDB;
-    public List<Weapon> equipDB;
     public int slotCount = 32;
 
     public List<GameObject> slots;
-    public List<GameObject> equipSlots;
 
     // holdingitem해서 작업하기.
 
@@ -47,18 +45,11 @@ public class Inventory : MonoBehaviour
     private void FirstSetup()
     {
         slots = new List<GameObject>();
-        equipSlots = new List<GameObject>();
         itemDB = new List<Item>();
-        equipDB = new List<Weapon>();
         for (int i = 0; i < slotCount; i++)
         {
             itemDB.Add(new Item(0, 0));
-            slots.Add(transform.GetChild(2).GetChild(0).GetChild(i).gameObject);
-        }
-        for(int i = 0; i < 4; i++)
-        {
-            equipDB.Add(new Weapon(0, 0));
-            equipSlots.Add(transform.GetChild(3).GetChild(0).GetChild(i).gameObject);
+            slots.Add(transform.GetChild(1).GetChild(0).GetChild(i).gameObject);
         }
         gameObject.SetActive(false);
     }
@@ -97,33 +88,17 @@ public class Inventory : MonoBehaviour
             {
                 Sprite image;
                 image = Resources.Load<Sprite>(path + itemDB[i].itemcode.ToString());
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
+                slots[i].transform.GetChild(1).gameObject.SetActive(true);
+                slots[i].transform.GetChild(2).gameObject.SetActive(false);
+                slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
             }
             else
             {
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
-            }
-        }
-
-        for(int i = 0; i < 4; i++)
-        {
-            if (equipDB[i].itemcode != 0)
-            {
-                Sprite image;
-                image = Resources.Load<Sprite>(path + equipDB[i].itemcode.ToString());
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                equipSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(equipDB[i].stack.ToString());
-            }
-            else
-            {
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                equipSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(1).gameObject.SetActive(false);
+                slots[i].transform.GetChild(2).gameObject.SetActive(true);
+                slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
             }
         }
     }

@@ -101,10 +101,6 @@ public class DescriptionUI : MonoBehaviour
         {
             itemcode = Crafting.instance.craftingDB[index].itemcode;
         }
-        else if (getter == "EquipContents")
-        {
-            itemcode = Inventory.instance.equipDB[index].itemcode;
-        }
         else if (getter == "CraftingFinishedContents") // 아이템일 경우.
         {
             itemcode = Crafting.instance.craftedDB.itemcode;

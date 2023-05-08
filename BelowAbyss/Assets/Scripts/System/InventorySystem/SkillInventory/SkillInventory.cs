@@ -82,6 +82,7 @@ public class SkillInventory : MonoBehaviour
 
     private void Update()
     {
+        /// 스킬 업데이트 풀어줘야함!
         UpdateSprite();
     }
 

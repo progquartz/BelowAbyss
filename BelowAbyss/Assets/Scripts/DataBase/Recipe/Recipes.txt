@@ -1,20 +1,14 @@
 {
 	"recipeDatas":[
         {
-            "sizeX" : 2,
-            "sizeY" : 1,
             "craftingRecipe" : [1,1],
             "craftingItem" : 2
         },
         {
-            "sizeX" : 2,
-            "sizeY" : 1,
             "craftingRecipe" : [1001,1002],
             "craftingItem" : 3001
         },
         {
-            "sizeX" : 2,
-            "sizeY" : 1,
             "craftingRecipe" : [1002,1001],
             "craftingItem" : 3001
         }

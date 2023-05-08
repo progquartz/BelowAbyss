@@ -32,9 +32,10 @@ public class GameManager : MonoBehaviour
     private void TempFirstSetup()
     {
         Parser.instance.ParseAllData();
-        SkillInventory.instance.FirstSetup();
-        MapManager.Instance.FlushAllMapDatas();
-        MapManager.Instance.GenerateNextStage(true);
+        /// 나중에 돌려놔야 함.
+        //SkillInventory.instance.FirstSetup();
+        //MapManager.Instance.FlushAllMapDatas();
+        //MapManager.Instance.GenerateNextStage(true);
     }
 
     public void StartNewGame()

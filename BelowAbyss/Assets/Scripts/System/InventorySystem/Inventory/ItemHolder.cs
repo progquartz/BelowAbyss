@@ -88,23 +88,6 @@ public class ItemHolder : MonoBehaviour
                     isHoldingItem = true;
                 }
             }
-            else if(getter == "EquipContents")
-            {
-                int itemCode = Inventory.instance.equipDB[index].itemcode;
-                if (GetDataFromEquip(index))
-                {
-                    isHoldingItem = true;
-                    int[] itemSkillData = ItemDataBase.instance.GetAdditionalSkillCode(itemCode);
-                    for (int i = 0; i < itemSkillData.Length; i++)
-                    {
-                        SkillInventory.instance.DropItemSkillInSlot(itemSkillData[i]);
-                    }
-
-                    equipSlots.GetChild(index).GetComponent<WeaponSlot>().SetupWeaponItemData(new WeaponItemData()); // 장비 부분을 초기화.
-                                                                                                                     // 장비가 가지고 있는 유형의 스킬을 스킬UI에서 가져감.
-
-                }
-            }
         }
         else // 만약 아이템을 쥐고 있다면.
         {
@@ -194,48 +177,6 @@ public class ItemHolder : MonoBehaviour
                             Crafting.instance.CraftOneItem();
                         }
                     }
-                }
-            }
-            else if (getter == "EquipContents")
-            {
-                Item itemChanging = Inventory.instance.equipDB[index];
-                if (ItemDataBase.instance.GetType(holdingItemCode) == ItemType.WEAPON || ItemDataBase.instance.GetType(holdingItemCode) == ItemType.ARMOUR)
-                {
-                    if(itemChanging.itemcode == 0)
-                    {
-                        // 손에 든 장비 데이터를 메인 UI의 화면에서도 보이게 만듬.
-                        equipSlots.GetChild(index).GetComponent<WeaponSlot>().SetupWeaponItemData(ItemDataBase.instance.weaponItemList.Finditem(holdingItemCode)); // 장비 부분을 초기화.
-
-                        // 장비가 가지고 있는 유형의 스킬을 스킬UI에서 가져감.
-                        int[] itemSkillData = ItemDataBase.instance.GetAdditionalSkillCode(holdingItemCode);
-                        for (int i = 0; i < itemSkillData.Length; i++)
-                        {
-                            SkillInventory.instance.PutItemSkillInSlot(itemSkillData[i]);
-                        }
-
-                            itemChanging.itemcode = holdingItemCode;
-                        itemChanging.stack = holdingItemStack;
-                        itemChanging.stacklimit = holdingItemStackLimit;
-                        DropItemHolding();
-                    }
-                    else
-                    {
-                        // 손에 든 장비 데이터를 메인 UI의 화면에서도 보이게 만듬.
-                        equipSlots.GetChild(index).GetComponent<WeaponSlot>().SetupWeaponItemData(ItemDataBase.instance.weaponItemList.Finditem(holdingItemCode)); // 장비 부분을 초기화.
-                                                                                                                                                                   // 장비가 가지고 있는 유형의 스킬을 스킬UI에서 가져감.
-                        int[] itemSkillData = ItemDataBase.instance.GetAdditionalSkillCode(holdingItemCode);
-                        for (int i = 0; i < itemSkillData.Length; i++)
-                        {
-                            SkillInventory.instance.PutItemSkillInSlot(itemSkillData[i]);
-                        }
-
-                        SwapHoldingByEquip(index);
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("장비 아이템이 아닌 아이템을 장비하려고 함.");
                 }
             }
         }
@@ -375,19 +316,6 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-
-    public void SwapHoldingByEquip(int index)
-    {
-        int tempItemCode = holdingItemCode;
-        int tempItemStack = holdingItemStack;
-        int tempItemStackLimit = holdingItemStackLimit;
-        holdingItemCode = Inventory.instance.equipDB[index].itemcode;
-        holdingItemStack = Inventory.instance.equipDB[index].stack;
-        holdingItemStackLimit = Inventory.instance.equipDB[index].stacklimit;
-        Inventory.instance.equipDB[index].itemcode = tempItemCode;
-        Inventory.instance.equipDB[index].stack = tempItemStack;
-        Inventory.instance.equipDB[index].stacklimit = tempItemStackLimit;
-    }
     /// <summary>
     /// 현재 쥐고 있는 아이템을 인벤토리의 인덱스와 바꿈.
     /// </summary>
@@ -512,25 +440,6 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-    public bool GetDataFromEquip(int index)
-    {
-        Item itemGetting = Inventory.instance.equipDB[index];
-        if (itemGetting.itemcode != 0)
-        {
-            holdingItemCode = itemGetting.itemcode;
-            holdingItemStack = itemGetting.stack;
-            holdingItemStackLimit = itemGetting.stacklimit;
-            itemGetting.itemcode = 0;
-            itemGetting.stack = 0;
-            itemGetting.stacklimit = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }
     public bool GetDataFromLooting(int index)
     {
         Item itemGetting = LootingSystem.instance.GetIndexData(index);

@@ -2,6 +2,7 @@
 public class DialogEvent : Event
 {
     public string paragraphText;
+    public string subparagraphText;
     public string dialog;
     public int backgroundImage;
     public int artworkpath;
