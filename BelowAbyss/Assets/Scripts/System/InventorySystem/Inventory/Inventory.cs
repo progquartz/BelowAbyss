@@ -11,6 +11,7 @@ public enum ItemType
     WEAPON = 1,
     ARMOUR = 2,
 }
+
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
@@ -36,7 +37,11 @@ public class Inventory : MonoBehaviour
 
     // holdingitem해서 작업하기.
 
-    
+    [SerializeField]
+    private List<Button> plusButtons;
+    [SerializeField]
+    private List<Button> minusButtons;
+
     private void Start()
     {
         FirstSetup();
@@ -46,10 +51,13 @@ public class Inventory : MonoBehaviour
     {
         slots = new List<GameObject>();
         itemDB = new List<Item>();
+        int a = -1;
         for (int i = 0; i < slotCount; i++)
         {
             itemDB.Add(new Item(0, 0));
             slots.Add(transform.GetChild(1).GetChild(0).GetChild(i).gameObject);
+            plusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(i).GetChild(4).GetComponent<Button>());
+            minusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(i).GetChild(5).GetComponent<Button>());
         }
         gameObject.SetActive(false);
     }
@@ -79,6 +87,72 @@ public class Inventory : MonoBehaviour
         UpdateSprite();
     }
 
+
+    public void PressPlusButton(int buttonIndex)
+    {
+        Debug.Log(buttonIndex + "번째 +버튼을 눌렀습니다.");
+
+        if (Crafting.instance.craftingDB[0].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[0].stack++;
+            return;
+        }
+        else if (Crafting.instance.craftingDB[1].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[1].stack++;
+            return;
+        }
+
+        if (Crafting.instance.craftingDB[0].itemcode == 0)
+        {
+            Crafting.instance.craftingDB[0].itemcode = itemDB[buttonIndex].itemcode;
+            Crafting.instance.craftingDBItemIndex[0] = buttonIndex;
+            Crafting.instance.craftingDB[0].stack++;
+        }
+        else if (Crafting.instance.craftingDB[1].itemcode == 0)
+        {
+            Crafting.instance.craftingDB[1].itemcode = itemDB[buttonIndex].itemcode;
+            Crafting.instance.craftingDBItemIndex[1] = buttonIndex;
+            Crafting.instance.craftingDB[1].stack++;
+        }
+        else
+        {
+            Debug.Log("버튼 눌렀지만 생기지 않음");
+        }
+
+    }
+
+    public void PressMinusButton(int buttonIndex)
+    {
+        Debug.Log(buttonIndex + "번째 -버튼을 눌렀습니다.");
+
+        if (Crafting.instance.craftingDB[0].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[0].stack--;
+            if (Crafting.instance.craftingDB[0].stack == 0)
+            {
+                Crafting.instance.craftingDB[0].itemcode = 0;
+                Crafting.instance.craftingDBItemIndex[0] = -1;
+            }
+            return;
+        }
+        else if (Crafting.instance.craftingDB[1].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[1].stack--;
+            if (Crafting.instance.craftingDB[1].stack == 0)
+            {
+                Crafting.instance.craftingDB[1].itemcode = 0;
+                Crafting.instance.craftingDBItemIndex[1] = -1;
+            }
+            return;
+        }
+        else
+        {
+            Debug.Log("버튼 눌렀지만 생기지 않음");
+        }
+    }
+
+
     private void UpdateSprite()
     {
         string path = "Sprites/Item/"; 
@@ -92,6 +166,50 @@ public class Inventory : MonoBehaviour
                 slots[i].transform.GetChild(2).gameObject.SetActive(false);
                 slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = image;
                 slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
+                slots[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemName);
+                slots[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemLore);
+
+
+                if ((Crafting.instance.craftingDB[0].itemcode == itemDB[i].itemcode) )
+                {
+                    if(Crafting.instance.craftingDB[0].stack < itemDB[i].stack)
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                    }
+                    
+                }
+                else if ((Crafting.instance.craftingDB[1].itemcode == itemDB[i].itemcode))
+                {
+                    if (Crafting.instance.craftingDB[1].stack < itemDB[i].stack)
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                    }
+                }
+                else if ((Crafting.instance.craftingDB[0].itemcode == 0 || Crafting.instance.craftingDB[1].itemcode == 0))
+                {
+                    slots[i].transform.GetChild(4).gameObject.SetActive(true);
+                }
+                else
+                {
+                    slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                }
+
+                if(itemDB[i].itemcode == Crafting.instance.craftingDB[0].itemcode || itemDB[i].itemcode == Crafting.instance.craftingDB[1].itemcode)
+                {
+                    slots[i].transform.GetChild(5).gameObject.SetActive(true);
+                }
+                else
+                {
+                    slots[i].transform.GetChild(5).gameObject.SetActive(false);
+                }
             }
             else
             {
@@ -99,6 +217,10 @@ public class Inventory : MonoBehaviour
                 slots[i].transform.GetChild(2).gameObject.SetActive(true);
                 slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = null;
                 slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                slots[i].transform.GetChild(5).gameObject.SetActive(false);
             }
         }
     }
@@ -147,7 +269,7 @@ public class Inventory : MonoBehaviour
     /// <param name="itemcode"></param>
     /// <param name="stack"></param>
     /// <returns></returns>
-    private bool GetItem(int itemcode, int stack)
+    public bool GetItem(int itemcode, int stack)
     {
         // 만약에  sameitemexist상태이지만 item에서 불가능 판정을 내려서 남는 아이템을 넘기면 이를 int값으로 저장.
         // 

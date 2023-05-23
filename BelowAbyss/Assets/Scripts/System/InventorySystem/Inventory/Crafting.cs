@@ -18,6 +18,7 @@ public class Crafting : MonoBehaviour
     }
 
     public List<Item> craftingDB;
+    public List<int> craftingDBItemIndex;
     public int slotCount = 2;
 
     public Item craftedDB;
@@ -25,6 +26,7 @@ public class Crafting : MonoBehaviour
     public List<GameObject> slots;
     public GameObject craftedSlot;
     public int currentCraftableItem = 0;
+
 
     private void Start()
     {
@@ -37,6 +39,8 @@ public class Crafting : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             craftingDB.Add(new Item(0, 0));
+            craftingDBItemIndex.Add(-1);
+            craftingDB[i].stacklimit = 999;
             slots.Add(transform.GetChild(0).GetChild(i).gameObject);
         }
         craftedDB = new Item(0,0);
@@ -49,6 +53,8 @@ public class Crafting : MonoBehaviour
         UpdateSprite();
         CheckCrafting();
     }
+
+
     private void UpdateSprite()
     {
         string path = "Sprites/Item/";
@@ -91,43 +97,55 @@ public class Crafting : MonoBehaviour
 
     }
 
-    public bool PutItemInCraftingSlot(int itemCode)
+    /// <summary>
+    /// 인벤토리에서 줄어드는건 crafting에서 처리해야함.
+    /// </summary>
+    /// <param name="itemCode"></param>
+    /// <param name="slot"></param>
+    /// <returns></returns>
+    public void PutItemInCraftingSlot(int itemCode, int slot)
     {
-        // 인벤토리에 +버튼 누르면 나올거.
-        // 만약 이 기능에서 true값이 리턴 되었다고 하면, 이제 해당 아이템 바는 활성화 상태가 되면서 -가 활성화됨.
+        craftingDB[slot].itemcode = itemCode;
+        craftingDB[slot].stack++;
     }
 
-    public bool MinusItemInCraftingSlot(int itemCode)
+    public void MinusItemInCraftingSlot(int slot)
     {
-        // 인벤토리에 -버튼 누르면 나올거.
+        craftingDB[slot].stack--;
+        if(craftingDB[slot].stack <= 0)
+        {
+            craftingDB[slot].itemcode = 0;
+        }
     }
 
 
-    public void CraftOneItem()
+    public void CraftItem()
     {
         if(currentCraftableItem != 0)
         {
-            for (int i = 0; i < slotCount; i++)
-            {
-                if(craftingDB[i].itemcode != 0)
-                {
-                    MinusStackIndex(i);
-                }
-            }
+            MinusStackIndex(0, craftedDB.stack);
+            MinusStackIndex(1, craftedDB.stack);
+            Inventory.instance.GetItem(currentCraftableItem, craftedDB.stack);
         }
-        
     }
 
-    public bool MinusStackIndex(int i)
+    public bool MinusStackIndex(int index, int stack)
     {
         print("빼짐!");
-        if(craftingDB[i].stack > 0)
+        if(craftingDB[index].stack > 0)
         {
-            craftingDB[i].stack--;
-            if (craftingDB[i].stack == 0)
+            craftingDB[index].stack -= stack;
+            Inventory.instance.itemDB[craftingDBItemIndex[index]].stack -= stack;
+            if (craftingDB[index].stack <= 0)
             {
-                craftingDB[i].itemcode = 0;
-                craftingDB[i].stacklimit = 0;
+                craftingDB[index].itemcode = 0;
+                craftingDB[index].stack = 0;
+            }
+            if(Inventory.instance.itemDB[craftingDBItemIndex[index]].stack <= 0)
+            {
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].stack = 0;
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].itemcode = 0;
+                craftingDBItemIndex[index] = -1;
             }
             return true;
         }
@@ -145,7 +163,6 @@ public class Crafting : MonoBehaviour
         int itemcode = ItemDataBase.instance.SearchRecipe(item1, item2);
         if(itemcode != -1)
         {
-            print("예수!");
             currentCraftableItem = itemcode;
             craftedDB.itemcode = itemcode;
             craftedDB.stack = count;

@@ -77,7 +77,7 @@ public class ItemHolder : MonoBehaviour
                 if (GetOneFromCrafted())
                 {
                     isHoldingItem = true;
-                    Crafting.instance.CraftOneItem();
+                    Crafting.instance.CraftItem();
                 }
 
             }
@@ -174,7 +174,7 @@ public class ItemHolder : MonoBehaviour
                     {
                         if (GetOneFromCrafted())
                         {
-                            Crafting.instance.CraftOneItem();
+                            Crafting.instance.CraftItem();
                         }
                     }
                 }
