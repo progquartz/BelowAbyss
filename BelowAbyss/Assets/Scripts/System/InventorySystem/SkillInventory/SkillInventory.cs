@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,6 +53,11 @@ public class SkillInventory : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
+
+    private void Start()
+    {
+        FirstSetup();
+    }
     /// <summary>
     ///  이 함수는 GameManager에서 실행되고 있음.
     /// </summary>
@@ -60,15 +66,16 @@ public class SkillInventory : MonoBehaviour
         unusedSkillDB = new List<SkillData>();
         usingSkillUI = new List<SkillSlot>();
 
-        GameObject skillSlotUI = GameObject.Find("MainUI").transform.GetChild(0).gameObject;
         for (int i = 0; i < unusedSlotCount; i++)
         {
-            unusedSlot.Add(transform.GetChild(0).GetChild(5).GetChild(1).GetChild(i).gameObject);
+            unusedSkillDB.Add(new SkillData());
+            unusedSlot.Add(transform.GetChild(1).GetChild(0).GetChild(i).gameObject);
         }
+        GameObject usingSkillSlotParent = GameObject.Find("SkillSlots");
         for(int i = 0; i < usingSlotCount; i++)
         {
-            usingSlot.Add(transform.GetChild(0).GetChild(5).GetChild(0).GetChild(i).gameObject);
-            usingSkillUI.Add(skillSlotUI.transform.GetChild(i).GetComponent<SkillSlot>());
+            usingSlot.Add(usingSkillSlotParent.transform.GetChild(i).gameObject);
+            usingSkillUI.Add(usingSkillSlotParent.transform.GetChild(i).GetComponent<SkillSlot>());
             usingSkillDB.Add(new SkillData());
         }
         for(int i = 0; i < skillDBCount; i++)
@@ -176,7 +183,7 @@ public class SkillInventory : MonoBehaviour
         UpdateButtons();
 
         UpdateUnUsedSlot();
-        UpdateUsingSlot();
+        //UpdateUsingSlot();
     }
 
     private void UpdateUsingSlot()
@@ -205,41 +212,29 @@ public class SkillInventory : MonoBehaviour
         string path = "Sprites/Skill/";
         for (int i = 0; i < unusedSlotCount; i++)
         {
-            int visualYIndex = visualSlotYIndex * 8 + i;
-            if (unusedSkillDB[visualYIndex].skillIconCode > 0 && unusedSkillDB[visualYIndex].skillCode > 0)
+            if(unusedSkillDB[i].skillCode != 0)
             {
                 Sprite image;
-                image = Resources.Load<Sprite>(path + unusedSkillDB[visualYIndex].skillIconCode.ToString());
-                unusedSlot[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                unusedSlot[i].transform.GetComponent<Image>().sprite = image;
+                image = Resources.Load<Sprite>(path + unusedSkillDB[i].skillIconCode.ToString());
+                unusedSlot[i].transform.GetChild(4).gameObject.SetActive(true);
+                unusedSlot[i].transform.GetChild(4).GetComponent<Image>().sprite = image;
+                unusedSlot[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text =
+                    SkillDataBase.instance.GetSkillData(unusedSkillDB[i].skillCode).skillName.ToString();
+                unusedSlot[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text =
+                    SkillDataBase.instance.GetSkillData(unusedSkillDB[i].skillCode).skillLore.ToString();
             }
             else
             {
-                unusedSlot[i].transform.GetComponent<Image>().sprite = null;
-                unusedSlot[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                unusedSlot[i].transform.GetChild(4).gameObject.SetActive(false);
+                unusedSlot[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                unusedSlot[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
     }
 
     private void UpdateButtons()
     {
-        if (visualSlotYIndex == 0)
-        {
-            upButton.GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f, 1);
-        }
-        else
-        {
-            upButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        }
 
-        if (visualSlotYIndex == 6)
-        {
-            downButton.GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f, 1);
-        }
-        else
-        {
-            downButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        }
     }
 
     public void PressUpButton()
