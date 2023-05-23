@@ -31,10 +31,11 @@ public class Inventory : MonoBehaviour
 
     // 획득과 버려짐, 옮김부터 구현하기.
     public List<Item> itemDB;
+    public List<int> hotSlotDB;
     public int slotCount = 32;
 
     public List<GameObject> slots;
-
+    public List<GameObject> hotSlots;
     // holdingitem해서 작업하기.
 
     [SerializeField]
@@ -59,13 +60,17 @@ public class Inventory : MonoBehaviour
             plusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(i).GetChild(4).GetComponent<Button>());
             minusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(i).GetChild(5).GetComponent<Button>());
         }
+        for(int i = 0; i < 2; i++)
+        {
+            hotSlotDB.Add(-1);
+        }
         gameObject.SetActive(false);
     }
 
     public void Test()
     {
-        GetItem(1, 1);
-        GetItem(2, 10);
+        GetItem(201, 1);
+        GetItem(202, 10);
     }
 
     public void Test2()
@@ -87,6 +92,64 @@ public class Inventory : MonoBehaviour
         UpdateSprite();
     }
 
+    public void PressHotIcon(int index)
+    {
+        if(hotSlotDB[index] != -1)
+        {
+            PressItemIcon(hotSlotDB[index]);
+        }
+    }
+
+    public void LongPressHotIcon(int index)
+    {
+        hotSlotDB[index] = -1;
+    }
+
+    public void PressItemIcon(int index)
+    {
+        Debug.Log(index + "번째 슬롯의 아이템을 사용합니다.");
+        if(itemDB[index].itemcode != 0)
+        {
+            Debug.Log("통과");
+            UseItem(index);
+            if (itemDB[index].stack <= 0)
+            {
+                if (hotSlotDB[0] == index)
+                {
+                    hotSlotDB[0] = -1;
+                }
+                if (hotSlotDB[1] == index)
+                {
+                    hotSlotDB[1] = -1;
+                }
+            }
+
+        }
+    }
+
+    public void LongPressItemIcon(int index)
+    {
+        if(itemDB[index].itemcode != 0)
+        {
+            if (hotSlotDB[0] != -1 && hotSlotDB[1] != -1)
+            {
+                Debug.Log("핫 슬롯 등록할 곳 없음!");
+            }
+            else if (hotSlotDB[0] == -1 && hotSlotDB[1] != index)
+            {
+                hotSlotDB[0] = index;
+            }
+            else if (hotSlotDB[1] == -1 && hotSlotDB[0] != index)
+            {
+                hotSlotDB[1] = index;
+            }
+            else if (hotSlotDB[0] == -1 && hotSlotDB[1] == -1)
+            {
+                hotSlotDB[0] = index;
+            }
+
+        }
+    }
 
     public void PressPlusButton(int buttonIndex)
     {
@@ -223,19 +286,32 @@ public class Inventory : MonoBehaviour
                 slots[i].transform.GetChild(5).gameObject.SetActive(false);
             }
         }
+
+
+        for(int i = 0; i < 2; i++)
+        {
+            if(hotSlotDB[i] != -1)
+            {
+                Sprite image;
+                image = Resources.Load<Sprite>(path + itemDB[hotSlotDB[i]].itemcode.ToString());
+                hotSlots[i].transform.GetChild(1).gameObject.SetActive(true);
+                hotSlots[i].transform.GetChild(1).GetComponent<Image>().sprite = image;
+                hotSlots[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemDB[hotSlotDB[i]].stack.ToString();
+            }
+            else
+            {
+                hotSlots[i].transform.GetChild(1).gameObject.SetActive(false);
+                hotSlots[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
     }
 
-    public void UseItem(int index, Transform cursorOn)
+    public void UseItem(int index)
     {
-        string getter = cursorOn.parent.name;
-
         int itemcode = 0;
-        if (getter == "InventoryContents") // 인벤토리일 경우.
-        {
-            itemcode = Inventory.instance.itemDB[index].itemcode;
-        }
-
-        if (ItemDataBase.instance.GetType( itemcode) == ItemType.CONSUMPTION)
+        itemcode = itemDB[index].itemcode;
+        Debug.Log("아이템코드는" + itemcode);
+        if (ItemDataBase.instance.GetType(itemcode) == ItemType.CONSUMPTION)
         {
             Debug.Log(index + "번째 인덱스의 " + itemcode + "번 아이템 사용 호출");
             ConsumeItemData data = ItemDataBase.instance.LoadItemData(itemcode) as ConsumeItemData;

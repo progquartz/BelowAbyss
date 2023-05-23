@@ -1,8 +1,8 @@
 {
 	"recipeDatas":[
         {
-            "craftingRecipe" : [1,2],
-            "craftingItem" : 3
+            "craftingRecipe" : [201,202],
+            "craftingItem" : 203
         },
         {
             "craftingRecipe" : [1001,1002],
