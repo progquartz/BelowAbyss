@@ -1,160 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapVisual : MonoBehaviour
 {
 
     public MapData mapdata;
 
-    [SerializeField]
-    List<SpriteRenderer> paths = new List<SpriteRenderer>();
-    [SerializeField]
-    List<SpriteRenderer> events = new List<SpriteRenderer>();
+    
+    public GameObject mapFront;
+    public GameObject mapBack;
+    public RectTransform mapFrontPos;
+    public RectTransform mapBackPos;
 
-    [SerializeField]
-    SpriteRenderer startRoom;
-    [SerializeField]
-    SpriteRenderer endRoom;
+    public bool moveTrigger = false;
+    public bool isMoving = false;
 
-    // 색들
-    Color NORMAL = new Color(0.31f, 0.31f, 0.31f, 1f);
-    Color VISITED = new Color(0.64f, 0.64f, 0.64f, 1f);
-    Color PLAYERPOS = new Color(0.6f, 0.87f, 0.63f, 1f);
-    Color BATTLE = new Color();
-    Color TRAIT = new Color();
-    Color MOVEMENT = new Color();
+    private float min_PosX = -1100;
+    private float max_PosX = 1100;
+    public int step = 7;
+    private float per_step;
+    public float beforeMarker;
+    public float afterMarker;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        startRoom = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        endRoom = transform.GetChild(2).GetComponent<SpriteRenderer>();
-        for (int i = 0; i < 10; i++)
-        {
-            paths.Add(transform.GetChild(3).GetChild(i).GetComponent<SpriteRenderer>());
-        }
-        for (int i = 0; i < 4; i++)
-        {
-            events.Add(transform.GetChild(4).GetChild(i).GetComponent<SpriteRenderer>());
-        }
+        mapFrontPos = mapFront.GetComponent<RectTransform>();
+        mapBackPos = mapBack.GetComponent<RectTransform>();
+
+        per_step = Mathf.Abs((max_PosX - min_PosX) / step);
+        // 점점 줄어들어가게 됨. 맵은 뒤로 움직여야 플레이어는 앞으로 움직임.
+        beforeMarker = max_PosX;
+        afterMarker = beforeMarker - per_step;
     }
-
-    public void UpdateVisual()
+    public void MoveFront()
     {
-        UpdateVisualOnVisited();
-
-        UpdateVisualOnPlayerPos();
-        
-
+        moveTrigger = true;
     }
-
-    private void UpdateVisualOnEvents()
+    
+    private void Update()
     {
-        for(int i = 0; i < 4; i++)
+        if(moveTrigger)
         {
-            if (mapdata.GetEventVisited(i))
+            print("아이구야");
+            if(mapFrontPos.localPosition.x > afterMarker)
             {
-                var eventCode = mapdata.GetEvent(i);
-                EventType eventType =  EventManager.instance.LoadEventType(eventCode);
-                switch (eventType)
+                isMoving = true;
+                mapFrontPos.localPosition = new Vector3(mapFrontPos.localPosition.x - (per_step * 0.5f * Time.deltaTime) , mapFrontPos.localPosition.y, 0);
+                mapBackPos.localPosition = new Vector3(mapBackPos.localPosition.x - (per_step * 0.5f * Time.deltaTime), mapBackPos.localPosition.y, 0);
+            }
+            else
+            {
+                isMoving = false;
+                moveTrigger = false;
+                beforeMarker = afterMarker;
+                afterMarker = beforeMarker - per_step;
+                if(afterMarker < min_PosX)
                 {
-                    case EventType.BATTLE:
-                        break;
-                    case EventType.DIALOG:
-                        break;
-                    case EventType.SELECTION:
-                        break;
-                    case EventType.LOOTING:
-                        break;
+                    afterMarker = min_PosX;
                 }
             }
         }
-
-    }
-
-    private void UpdateVisualOnVisited()
-    {
         
-        for (int i = 0; i < 10; i++)
-        {
-            if (mapdata.GetPathVisited(i))
-            {
-                ChangeColor(paths[i], VISITED);
-            }
-            else
-            {
-                ChangeColor(paths[i], NORMAL);
-            }
-        }
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (mapdata.GetEventVisited(i))
-            {
-                ChangeColor(events[i], VISITED);
-            }
-            else
-            {
-                ChangeColor(events[i], NORMAL);
-            }
-        }
-        
-
-        if (mapdata.GetRoomVisited())
-        {
-            ChangeColor(endRoom, VISITED);
-        }
-        else
-        {
-            ChangeColor(endRoom, NORMAL);
-        }
-
-        ChangeColor(startRoom, VISITED);
-
-
-    }
-
-    private void UpdateVisualOnPlayerPos()
-    {
-        if (mapdata.GetPosition() == 0)
-        {
-            ChangeColor(startRoom, PLAYERPOS);
-            return;
-        }
-        if(mapdata.GetPosition() == 15)
-        {
-            ChangeColor(endRoom, PLAYERPOS);
-            return;
-        }
-        // 이벤트의 경우.
-        if(mapdata.GetPosition() % 3 == 0)
-        {
-            ChangeColor(events[mapdata.GetPosition() / 3 - 1], PLAYERPOS);
-            return;
-        }
-        if (mapdata.GetPosition() % 3 == 1)
-        {
-            ChangeColor(paths[(2 * (mapdata.GetPosition() / 3))], PLAYERPOS);
-            return;
-        }
-        if(mapdata.GetPosition() % 3 == 2)
-        {
-            ChangeColor(paths[(2 * (mapdata.GetPosition() / 3)) + 1], PLAYERPOS);
-            return;
-        }
-    }
-    
-
-    private void ChangeColor(SpriteRenderer target, Color color)
-    {
-        target.color = color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateVisual();
     }
 }

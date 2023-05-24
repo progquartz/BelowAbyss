@@ -21,7 +21,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private int currentStage; // 현재 진행중인 스테이지
     [SerializeField]
-    private MapVisual MapVisual;
+    private MapVisual mapVisual;
     [SerializeField]
     private GameObject mapdataPrefab;
     [SerializeField]
@@ -68,7 +68,7 @@ public class MapManager : MonoBehaviour
         mapDatas = null;
         currentStage = -1;
         mapDatas = new List<MapData>();
-        MapVisual = GetComponent<MapVisual>();
+        mapVisual = GetComponent<MapVisual>();
     }
 
     private void Start()
@@ -107,7 +107,7 @@ public class MapManager : MonoBehaviour
         if (isChangeStageInstantly)
         {
             currentStage = mapDatas.Count-1;
-            MapVisual.mapdata = mapDatas[currentStage];
+            mapVisual.mapdata = mapDatas[currentStage];
             mapDatas[currentStage].MapFirstSetup(currentStage, stageLoreUI);
         }
         else
@@ -138,10 +138,17 @@ public class MapManager : MonoBehaviour
             }
         }
 
-
-        mapDatas[currentStage].SetPosition(currentPos);
-        MapVisual.UpdateVisual();
+        print("실행은ㄷ ㅚ었냐");
+        StartCoroutine(MoveMapVisual(currentPos));
         
+        
+    }
+
+    IEnumerator MoveMapVisual(int currentPos)
+    {
+        mapVisual.MoveFront();
+        yield return new WaitForSeconds(2.0f);
+        mapDatas[currentStage].SetPosition(currentPos);
     }
 
     public void GoToNextStage()
@@ -152,7 +159,6 @@ public class MapManager : MonoBehaviour
     public void MoveTo(int position)
     {
         mapDatas[currentStage].SetPosition(position);
-        MapVisual.UpdateVisual();
     }
 
     private void DeleteMap()
