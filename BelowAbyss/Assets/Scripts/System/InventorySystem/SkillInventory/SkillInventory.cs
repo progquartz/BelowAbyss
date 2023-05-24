@@ -22,7 +22,8 @@ public class SkillInventory : MonoBehaviour
     }
 
     public List<SkillData> unusedSkillDB; // 전체 인벤 데이터.
-    public List<SkillData> usingSkillDB; // 사용 스킬 인벤 데이터.
+    public List<int> usingSkillDB; // 사용 스킬 인벤 데이터.
+    public List<SkillSlot> usingIngameSkillUI;
     public List<SkillSlot> usingSkillUI;
 
     public int unusedSlotCount = 32;
@@ -35,7 +36,7 @@ public class SkillInventory : MonoBehaviour
     [SerializeField]
     private List<GameObject> unusedSlot;
     [SerializeField]
-    private List<GameObject> usingSlot;
+    private List<GameObject> usingInvenSlot;
 
     [SerializeField]
     private GameObject upButton;
@@ -64,7 +65,7 @@ public class SkillInventory : MonoBehaviour
     public void FirstSetup()
     {
         unusedSkillDB = new List<SkillData>();
-        usingSkillUI = new List<SkillSlot>();
+        usingIngameSkillUI = new List<SkillSlot>();
 
         for (int i = 0; i < unusedSlotCount; i++)
         {
@@ -74,9 +75,10 @@ public class SkillInventory : MonoBehaviour
         GameObject usingSkillSlotParent = GameObject.Find("SkillSlots");
         for(int i = 0; i < usingSlotCount; i++)
         {
-            usingSlot.Add(usingSkillSlotParent.transform.GetChild(i).gameObject);
+            usingInvenSlot.Add(transform.GetChild(0).GetChild(0).GetChild(i).gameObject);
             usingSkillUI.Add(usingSkillSlotParent.transform.GetChild(i).GetComponent<SkillSlot>());
-            usingSkillDB.Add(new SkillData());
+            usingIngameSkillUI.Add(usingSkillSlotParent.transform.GetChild(i).GetComponent<SkillSlot>());
+            usingSkillDB.Add(-1);
         }
         for(int i = 0; i < skillDBCount; i++)
         {
@@ -87,45 +89,39 @@ public class SkillInventory : MonoBehaviour
 
     }
 
+    public void PressPlusButton(int buttonIndex)
+    {
+        int slotIndex = GetEmptySlot();
+        usingSkillDB[slotIndex] = buttonIndex;
+        usingSkillUI[slotIndex].SetupSkillData(unusedSkillDB[buttonIndex]);
+    }
+
+    public void PressMinusButton(int buttonIndex)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            if(usingSkillDB[i] == buttonIndex)
+            {
+                usingSkillDB[i] = -1;
+                usingSkillUI[i].DeleteSkillData();
+            }
+        }
+    }
+
     private void Update()
     {
         /// 스킬 업데이트 풀어줘야함!
         UpdateSprite();
     }
 
-    public void PutItemSkillInSlot(int skillCode)
-    {
-        int slotsToPut;
-
-        slotsToPut = GetEmptySlot();
-        if(slotsToPut != -1)
-        {
-            usingSkillDB[slotsToPut] = SkillDataBase.instance.GetSkillData(skillCode);
-            usingSkillUI[slotsToPut].SetupSkillData(SkillDataBase.instance.GetSkillData(skillCode));
-        }
-        else
-        {
-            slotsToPut = GetNoneItemSkillSlot();
-            if(slotsToPut != -1)
-            {
-                usingSkillDB[slotsToPut] =  SkillDataBase.instance.GetSkillData(skillCode);
-                usingSkillUI[slotsToPut].SetupSkillData(SkillDataBase.instance.GetSkillData(skillCode));
-            }
-            else
-            {
-                // 모든 슬롯이 아이템 전용 슬롯으로 가득 차 있다.
-                Debug.Log("모든 스킬 슬롯이 아이템 스킬 전용 슬롯으로 되어 설정이 불가능합니다!");
-            }
-        }
-    }
 
     public void DropItemSkillInSlot(int skillCode)
     {
         int skillIndex = FindSkillIndex(skillCode);
         if(skillIndex != -1)
         {
-            usingSkillDB[skillIndex] = new SkillData();
-            usingSkillUI[skillIndex].SetupSkillData(new SkillData());
+            usingSkillDB[skillIndex] = -1;
+            usingIngameSkillUI[skillIndex].SetupSkillData(new SkillData());
         }
     }
 
@@ -133,7 +129,7 @@ public class SkillInventory : MonoBehaviour
     {
         for(int i = 0; i < 8; i++)
         {
-            if(usingSkillDB[i].skillCode == skillCode)
+            if(unusedSkillDB[usingSkillDB[i]].skillCode == skillCode)
             {
                 return i;
             }
@@ -144,7 +140,7 @@ public class SkillInventory : MonoBehaviour
     {
         for(int i = 0; i < 8; i++)
         {
-            if(usingSkillDB[i].skillCode == 0)
+            if(usingSkillDB[i] == -1)
             {
                 return i;
             }
@@ -152,17 +148,6 @@ public class SkillInventory : MonoBehaviour
         return -1;
     }
 
-    private int GetNoneItemSkillSlot()
-    {
-        for(int i = 0; i < 8; i++)
-        {
-            if (!usingSkillDB[i].isItemSkill)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     private bool CheckSkillAvailable(int skillCode)
     {
@@ -179,11 +164,13 @@ public class SkillInventory : MonoBehaviour
 
     private void UpdateSprite()
     {
+        UpdateUnUsedSlot();
+        UpdateUsingSlot();
+
         // 위와 아래로 가는 스프라이트 안눌리는거 표시하는거 넣어야 함.
         UpdateButtons();
 
-        UpdateUnUsedSlot();
-        //UpdateUsingSlot();
+
     }
 
     private void UpdateUsingSlot()
@@ -191,21 +178,21 @@ public class SkillInventory : MonoBehaviour
         string path = "Sprites/Skill/";
         for (int i = 0; i < usingSlotCount; i++)
         {
-            if (usingSkillDB[i].skillIconCode > 0 && usingSkillDB[i].skillCode > 0)
+            if (usingSkillDB[i] != -1)
             {
+                print(i + "번째 사용 슬롯 켜짐");
                 Sprite image;
-                image = Resources.Load<Sprite>(path + usingSkillDB[i].skillIconCode.ToString());
-                usingSlot[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                usingSlot[i].transform.GetComponent<Image>().sprite = image;
+                image = Resources.Load<Sprite>(path + unusedSkillDB[usingSkillDB[i]].skillIconCode.ToString());
+                usingInvenSlot[i].transform.GetChild(0).gameObject.SetActive(true);
+                usingInvenSlot[i].transform.GetChild(0).GetComponent<Image>().sprite = image;
             }
             else
             {
-                usingSlot[i].transform.GetComponent<Image>().sprite = null;
-                usingSlot[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                usingInvenSlot[i].transform.GetChild(0).gameObject.SetActive(false);
             }
         }
-
     }
+
 
     private void UpdateUnUsedSlot()
     {
@@ -230,26 +217,33 @@ public class SkillInventory : MonoBehaviour
                 unusedSlot[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
+
     }
 
     private void UpdateButtons()
     {
-
-    }
-
-    public void PressUpButton()
-    {
-        if(visualSlotYIndex > 0)
+        for(int i = 0; i < unusedSlotCount; i++)
         {
-            visualSlotYIndex--;
+            // 스킬코드중 모든 애들을 +로 뜨게 만들고...
+            if(unusedSkillDB[i].skillCode != 0)
+            {
+                unusedSlot[i].transform.GetChild(2).gameObject.SetActive(true);
+                unusedSlot[i].transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+            {
+                unusedSlot[i].transform.GetChild(1).gameObject.SetActive(false);
+                unusedSlot[i].transform.GetChild(2).gameObject.SetActive(false);
+            }
         }
-    }
-
-    public void PressDownButton()
-    {
-        if(visualSlotYIndex < (skillDBCount / 8) - 4)
+        for(int i = 0; i < usingSlotCount; i++)
         {
-            visualSlotYIndex++;
+            // 이러면 사용된거니까 -가 뜨게 만들기.
+            if(usingSkillDB[i] != -1)
+            {
+                unusedSlot[usingSkillDB[i]].transform.GetChild(2).gameObject.SetActive(false);
+                unusedSlot[usingSkillDB[i]].transform.GetChild(1).gameObject.SetActive(true);
+            }
         }
     }
 
