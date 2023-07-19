@@ -81,13 +81,6 @@ public class ItemHolder : MonoBehaviour
                 }
 
             }
-            else if(getter == "LootingContents")
-            {
-                if (GetDataFromLooting(index))
-                {
-                    isHoldingItem = true;
-                }
-            }
         }
         else // 만약 아이템을 쥐고 있다면.
         {
@@ -440,24 +433,6 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-    public bool GetDataFromLooting(int index)
-    {
-        Item itemGetting = LootingSystem.instance.GetIndexData(index);
-        if (itemGetting.itemcode != 0)
-        {
-            holdingItemCode = itemGetting.itemcode;
-            holdingItemStack = itemGetting.stack;
-            holdingItemStackLimit = itemGetting.stacklimit;
-            itemGetting.itemcode = 0;
-            itemGetting.stack = 0;
-            itemGetting.stacklimit = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     /// <summary>
     /// 인벤토리에서 해당 인덱스의 아이템 데이터들을 가지고 오는 함수. 정상적으로 가져올 경우  true를, 아닐 경우 false값을 출력한다.

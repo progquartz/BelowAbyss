@@ -119,12 +119,90 @@ public class MapManager : MonoBehaviour
     // 맵 생성, 맵 내 이동-> 내부데이터는 mapdata에서 처리, 맵 보여주기(비주얼) -> 실제는 mapvisual에서 처리.
 
 
-    public void Move(int position)
+    public void MoveFront()
     {
-        int currentPos = mapDatas[currentStage].GetPosition() + position;
+        if(mapDatas[currentStage].GetPosition() < 15)
+        {
+            int currentPos = mapDatas[currentStage].GetPosition() + 3;
+            MoveStatMinus();
+            PlayerAnimation.instance.SetMove(true);
+            StartCoroutine(MoveMapVisual(currentPos));
+        }
+        else
+        {
+            Debug.Log("맵 끝난겨~");
+            PlayerAnimation.instance.SetMove(true);
+            StartCoroutine(SwitchStage());
+        }
+    }
+
+    private void MoveStatMinus()
+    {
+        PlayerStat stat = Player.instance.stat;
+        int vitalDelta = 0;
+        int sanityDelta = 0;
+
+        // vital Calc
+        if(stat.currentSatur <= 5)
+        {
+            vitalDelta -= 8;
+        }
+        else if(stat.currentSatur <= 20)
+        {
+            vitalDelta -= 3;
+        }
+        else if(stat.currentSatur >= 60)
+        {
+            vitalDelta += 3;
+        }
+        if(stat.currentThirst <= 5)
+        {
+            vitalDelta -= 20;
+        }
+        else if(stat.currentThirst <= 20)
+        {
+            vitalDelta -= 5;
+        }
+        
+        // SanityCalc
+        if (stat.currentSatur <= 20)
+        {
+            sanityDelta -= 3;
+        }
+        else if (stat.currentSatur >= 75)
+        {
+            sanityDelta += 3;
+        }
+        if (stat.currentThirst <= 40)
+        {
+            sanityDelta -= 5;
+        }
+
+        Player.instance.stat.CurrentVitalControl(vitalDelta);
+        Player.instance.stat.CurrentSanityControl(sanityDelta);
+        Player.instance.stat.CurrentSaturControl(-5);
+        Player.instance.stat.CurrentThirstControl(-10);
+    }
+
+    IEnumerator SwitchStage()
+    {
+        
+        mapVisual.SwitchStage(); // 플레이어가 배경 안으로 들어감.
+
+        yield return new WaitWhile(() => mapVisual.isMoving);
+        GenerateNextStage(true);
+        MoveFront();
+
+    }
+    IEnumerator MoveMapVisual(int currentPos)
+    {
+        mapVisual.MoveFront();
+        yield return new WaitWhile(() => mapVisual.isMoving);
+        //yield return new WaitForSecondsRealtime(2.0f);
 
         if (currentPos == 15)
         {
+            Debug.Log("이놈 보스만나는데요?");
             if (!mapDatas[currentStage].roomVisited)
             {
                 EventManager.instance.LoadEvent(mapDatas[currentStage].GetBossEvent());
@@ -132,23 +210,17 @@ public class MapManager : MonoBehaviour
         }
         else if (currentPos % 3 == 0 && currentPos != 0)
         {
+            Debug.Log("일반 맵 로드");
             if (!mapDatas[currentStage].eventVisited[currentPos / 3 - 1])
             {
                 EventManager.instance.LoadEvent(mapDatas[currentStage].GetEvent(currentPos / 3 - 1));
+                PlayerAnimation.instance.EventSoundEffect();
             }
         }
 
-        print("실행은ㄷ ㅚ었냐");
-        StartCoroutine(MoveMapVisual(currentPos));
-        
-        
-    }
 
-    IEnumerator MoveMapVisual(int currentPos)
-    {
-        mapVisual.MoveFront();
-        yield return new WaitForSeconds(2.0f);
         mapDatas[currentStage].SetPosition(currentPos);
+        PlayerAnimation.instance.SetMove(false);
     }
 
     public void GoToNextStage()

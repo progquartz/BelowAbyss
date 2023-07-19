@@ -53,7 +53,7 @@ public class MapData : MonoBehaviour
         ThemeData themeData = ThemeDataBase.instance.FindThemes(themeSelected);
         int themeCode = ThemeDataBase.instance.GetThemeCode(themeSelected);
         backupMapData.mapTheme = themeSelected;
-        stageLoreUI.AppearStageLore(stageNum, themeData.themeName, themeData.themeLore, 1.5f, 1.0f);
+        //stageLoreUI.AppearStageLore(stageNum, themeData.themeName, themeData.themeLore, 1.5f, 1.0f);
 
         // 테마를 기반으로 Paths에 새로운 데이터 입력. 나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
         pathsVisited = new List<bool>();

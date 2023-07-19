@@ -1,0 +1,29 @@
+ButtonClick
+버튼 클릭 시 출력되는 소리
+
+Footstep
+발소리. 4프레임에 한번씩 출력하시면 됩니다
+
+ItemPickup
+아이템 획득 시 출력되는 소리
+
+MeetEvent
+이벤트와 조우 시 느낌표 이펙트와 함께 출력되는 소리
+
+MoveItemInSlot
+아이템을 슬롯(퀵슬롯, 스킬 슬롯, 조합 슬롯)에 장착하거나 해제할 때 출력되는 소리
+
+Music_Forest
+숲 배경 맵 배경음악. 루프 부탁드립니다.
+
+SinarioTyping
+https://cloudpark-studio.tistory.com/2 이거 적용시에 같이 쓰면 좋을꺼 같은 사운드
+
+StageName
+스테이지 이름 띄울때 같이 재생되는 소리.
+
+UseItem
+아이템 사용 시 출력되는 소리
+
+Warning_Gage
+게이지(현재 체력/신체/정신/허기/갈증)가 25보다 적을 경우, 이동 시에 출력되는 경고음

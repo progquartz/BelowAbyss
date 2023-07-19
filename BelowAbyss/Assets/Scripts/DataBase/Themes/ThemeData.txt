@@ -28,6 +28,13 @@
             "themeLore" : "This place is wet, sticky, tangy and chewy!",
             "eventList" : [2001],
 	        "lastRoomData" : [2001]
+        },
+        {
+            "themeCode" : "LittleForest",
+            "themeName" : "작은 숲",
+            "themeLore" : "작고 밝은 숲이다",
+            "eventList" : [2002],
+	        "lastRoomData" : [2002]
         }
     ]
 }

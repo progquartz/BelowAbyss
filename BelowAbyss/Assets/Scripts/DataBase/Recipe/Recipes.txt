@@ -11,6 +11,22 @@
         {
             "craftingRecipe" : [1002,1001],
             "craftingItem" : 3001
+        },
+        {
+            "craftingRecipe" : [2004,1003],
+            "craftingItem" : 2005
+        },
+        {
+            "craftingRecipe" : [1003,2004],
+            "craftingItem" : 2005
+        },
+        {
+            "craftingRecipe" : [2006,1003],
+            "craftingItem" : 2007
+        },
+        {
+            "craftingRecipe" : [1003,2006],
+            "craftingItem" : 2007
         }
     ]
 }

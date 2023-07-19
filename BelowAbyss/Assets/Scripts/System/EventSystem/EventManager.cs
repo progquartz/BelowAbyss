@@ -127,10 +127,12 @@ public class EventManager : MonoBehaviour
         {
             case EventType.DIALOG:
                 Debug.Log(eventCode + "에 대한 다이얼로그 이벤트 호출 요청 발생.");
-                Dialog.instance.Appear(DialogEventList.FindEvent(eventCode));
+                UISelectionHolder.instance.OpenUI(2);
+                Selection.instance.Appear(DialogEventList.FindEvent(eventCode));
                 break;
             case EventType.SELECTION:
                 Debug.Log(eventCode + "에 대한 선택 이벤트 호출 요청 발생.");
+                UISelectionHolder.instance.OpenUI(2);
                 Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
                 break;
             case EventType.BATTLE:
@@ -139,9 +141,10 @@ public class EventManager : MonoBehaviour
                 break;
             case EventType.LOOTING:
                 Debug.Log(eventCode + "에 대한 루팅 이벤트 호출 요청 발생.");
-                InventoryHolder tmp = GameObject.Find("InventoryHolder").GetComponent<InventoryHolder>();
-                tmp.OnOpeningLootingTable();
-                LootingSystem.instance.LootTableOpen(LootingEventList.FindEvent(eventCode));
+                UISelectionHolder.instance.OpenUI(1);
+                LootingData lootData = LootingEventList.FindEvent(eventCode);
+                LootingSystem.instance.LootTableOpen(lootData);
+                MapManager.Instance.MoveFront();
                 break;
         }
     }

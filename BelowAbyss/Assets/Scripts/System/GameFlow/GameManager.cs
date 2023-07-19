@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
         Parser.instance.ParseAllData();
         /// 나중에 돌려놔야 함.
         //SkillInventory.instance.FirstSetup();
-        //MapManager.Instance.FlushAllMapDatas();
-        //MapManager.Instance.GenerateNextStage(true);
+        MapManager.Instance.FlushAllMapDatas();
+        MapManager.Instance.GenerateNextStage(true);
     }
 
     public void StartNewGame()

@@ -180,7 +180,6 @@ public class SkillInventory : MonoBehaviour
         {
             if (usingSkillDB[i] != -1)
             {
-                print(i + "번째 사용 슬롯 켜짐");
                 Sprite image;
                 image = Resources.Load<Sprite>(path + unusedSkillDB[usingSkillDB[i]].skillIconCode.ToString());
                 usingInvenSlot[i].transform.GetChild(0).gameObject.SetActive(true);
@@ -203,6 +202,7 @@ public class SkillInventory : MonoBehaviour
             {
                 Sprite image;
                 image = Resources.Load<Sprite>(path + unusedSkillDB[i].skillIconCode.ToString());
+                unusedSlot[i].transform.GetChild(5).gameObject.SetActive(false);
                 unusedSlot[i].transform.GetChild(4).gameObject.SetActive(true);
                 unusedSlot[i].transform.GetChild(4).GetComponent<Image>().sprite = image;
                 unusedSlot[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text =
@@ -212,6 +212,7 @@ public class SkillInventory : MonoBehaviour
             }
             else
             {
+                unusedSlot[i].transform.GetChild(5).gameObject.SetActive(true);
                 unusedSlot[i].transform.GetChild(4).gameObject.SetActive(false);
                 unusedSlot[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
                 unusedSlot[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";

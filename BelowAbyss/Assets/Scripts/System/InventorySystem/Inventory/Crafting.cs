@@ -41,10 +41,10 @@ public class Crafting : MonoBehaviour
             craftingDB.Add(new Item(0, 0));
             craftingDBItemIndex.Add(-1);
             craftingDB[i].stacklimit = 999;
-            slots.Add(transform.GetChild(0).GetChild(i).gameObject);
+            slots.Add(transform.GetChild(0).GetChild(i+1).gameObject);
         }
         craftedDB = new Item(0,0);
-        craftedSlot = transform.GetChild(0).GetChild(2).gameObject;
+        craftedSlot = transform.GetChild(0).GetChild(3).gameObject;
 
     }
 

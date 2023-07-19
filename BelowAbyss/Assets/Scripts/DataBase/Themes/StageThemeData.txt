@@ -2,10 +2,22 @@
     "stageThemeDatas":
     [
         {
-            "stageThemeData" : ["SlimeLand"]
+            "stageThemeData" : ["LittleForest"]
         },
         {
-            "stageThemeData" : ["Grassland", "Hell"]
+            "stageThemeData" : ["LittleForest"]
+        },
+        {
+            "stageThemeData" : ["LittleForest"]
+        },
+        {
+            "stageThemeData" : ["LittleForest"]
+        },
+        {
+            "stageThemeData" : ["LittleForest"]
+        },
+        {
+            "stageThemeData" : ["LittleForest"]
         },
         {
             "stageThemeData" : ["Grassland", "DragonNest"]

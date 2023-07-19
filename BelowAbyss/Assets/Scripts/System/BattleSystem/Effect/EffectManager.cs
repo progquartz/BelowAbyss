@@ -20,6 +20,12 @@ public enum EffectType
     CURSAT,
     MAXSAT,
     CURARM,
+    CURTHR,
+    MAXTHR,
+    CURMIN,
+    MAXMIN,
+    CURVIT,
+    MAXVIT,
     DISARM,
     ALLATK,
     MELATK,
@@ -30,8 +36,6 @@ public enum EffectType
     FIRE,
     CURE,
     ALLHIT,
-    HEALTH,
-    MIND
 }
 
 public enum EffectCountFor
@@ -152,6 +156,12 @@ public class EffectManager : MonoBehaviour
             case "MS":
                 status = EffectType.MAXSAT;
                 break;
+            case "CT":
+                status = EffectType.CURTHR;
+                break;
+            case "MT":
+                status = EffectType.MAXTHR;
+                break;
             case "CA":
                 status = EffectType.CURARM;
                 break;
@@ -176,11 +186,17 @@ public class EffectManager : MonoBehaviour
             case "FI":
                 status = EffectType.FIRE;
                 break;
-            case "HT":
-                status = EffectType.HEALTH;
+            case "CV":
+                status = EffectType.CURVIT;
+                break;
+            case "MV":
+                status = EffectType.MAXVIT;
                 break;
             case "MI":
-                status = EffectType.MIND;
+                status = EffectType.CURMIN;
+                break;
+            case "MM":
+                status = EffectType.MAXMIN;
                 break;
             case "CU":
                 status = EffectType.CURE;
@@ -296,6 +312,7 @@ public class EffectManager : MonoBehaviour
             case EffectType.MAXHP:
                 break;
             case EffectType.CURSAT:
+                CurSatChange();
                 break;
             case EffectType.MAXSAT:
                 break;
@@ -315,9 +332,20 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.FIRE:
                 break;
-            case EffectType.HEALTH:
+            case EffectType.CURVIT:
+                CurVitChange();
                 break;
-            case EffectType.MIND:
+            case EffectType.MAXVIT:
+                break;
+            case EffectType.CURMIN:
+                CurMinChange();
+                break;
+            case EffectType.MAXMIN:
+                break;
+            case EffectType.CURTHR:
+                CurThrChange();
+                break;
+            case EffectType.MAXTHR:
                 break;
             case EffectType.CURE:
                 break;
@@ -336,6 +364,34 @@ public class EffectManager : MonoBehaviour
         {
             target[i].CurrentHealthControl(effectPower);
         }
+        return false;
+    }
+
+    private bool CurSatChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentSaturControl(effectPower);
+        return false;
+    }
+
+    private bool CurMinChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentSanityControl(effectPower);
+        return false;
+    }
+
+    private bool CurVitChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentVitalControl(effectPower);
+        return false;
+    }
+
+    private bool CurThrChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentThirstControl(effectPower);
         return false;
     }
 

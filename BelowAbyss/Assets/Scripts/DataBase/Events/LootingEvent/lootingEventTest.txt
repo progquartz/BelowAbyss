@@ -3,7 +3,7 @@
     [
         {
             "eventCode" : 41,
-            "rootingItem" : [1,2],
+            "rootingItem" : [201,202],
             "rootingMin" : [1,1],
             "rootingMax" : [10,10]
         },
@@ -24,6 +24,18 @@
             "rootingItem" : [1001,1002],
             "rootingMin" : [1,0],
             "rootingMax" : [5,2]
+        },
+        {
+            "eventCode" : 4002,
+            "rootingItem" : [2004,1003],
+            "rootingMin" : [3,2],
+            "rootingMax" : [6,4]
+        },
+        {
+            "eventCode" : 4003,
+            "rootingItem" : [2006,1003],
+            "rootingMin" : [3,2],
+            "rootingMax" : [6,4]
         }
     ]
 }

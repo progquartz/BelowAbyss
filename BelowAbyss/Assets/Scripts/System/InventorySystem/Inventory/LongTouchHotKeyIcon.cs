@@ -7,6 +7,7 @@ public class LongTouchHotKeyIcon : MonoBehaviour
     // 버튼 일반 클릭
     public void ButtonClick()
     {
+        UISoundEffect.instance.ButtonClickSound();
         Inventory.instance.PressHotIcon(transform.parent.GetSiblingIndex());
     }
 

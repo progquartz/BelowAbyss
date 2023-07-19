@@ -15,6 +15,8 @@ public enum UIHolderList
 
 public class UISelectionHolder : MonoBehaviour
 {
+    public static UISelectionHolder instance;
+
     [SerializeField]
     private UIHolderList currentUIOpened = UIHolderList.Inventory;
 
@@ -31,10 +33,20 @@ public class UISelectionHolder : MonoBehaviour
 
     private void Awake()
     {
-        for(int i = 0; i < 5;  i++)
+        if (instance == null)
         {
-            iconSelectedBar[i] = transform.GetChild(0).GetChild(i).gameObject;
-            iconButtonImage[i] = transform.GetChild(1).GetChild(i).GetComponent<Image>();
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        for (int i = 0; i < 5;  i++)
+        {
+            iconSelectedBar[i] = transform.GetChild(1).GetChild(i).gameObject;
+            iconButtonImage[i] = transform.GetChild(2).GetChild(i).GetComponent<Image>();
         }
         OpenUI(1);
     }
@@ -52,8 +64,16 @@ public class UISelectionHolder : MonoBehaviour
             iconSelectedBar[(int)currentUIOpened].SetActive(false);
             iconSelectedBar[(int)uiHolder].SetActive(true);
 
-            uiList[(int)currentUIOpened].SetActive(false);
-            uiList[(int)uiHolder].SetActive(true);
+
+            for(int i = 0; i < uiList[(int)currentUIOpened].transform.childCount; i++)
+            {
+                uiList[(int)currentUIOpened].transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            for(int i = 0; i < uiList[(int)uiHolder].transform.childCount; i++)
+            {
+                uiList[(int)uiHolder].transform.GetChild(i).gameObject.SetActive(true);
+            }
                
             currentUIOpened = (UIHolderList)uiHolder;
         }

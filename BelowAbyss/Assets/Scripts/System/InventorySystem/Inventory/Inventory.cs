@@ -64,7 +64,6 @@ public class Inventory : MonoBehaviour
         {
             hotSlotDB.Add(-1);
         }
-        gameObject.SetActive(false);
     }
 
     public void Test()
@@ -102,11 +101,13 @@ public class Inventory : MonoBehaviour
 
     public void LongPressHotIcon(int index)
     {
+        UISoundEffect.instance.EquipUnEquipSound();
         hotSlotDB[index] = -1;
     }
 
     public void PressItemIcon(int index)
     {
+        UISoundEffect.instance.UseItemSound();
         Debug.Log(index + "번째 슬롯의 아이템을 사용합니다.");
         if(itemDB[index].itemcode != 0)
         {
@@ -134,6 +135,7 @@ public class Inventory : MonoBehaviour
             if (hotSlotDB[0] != -1 && hotSlotDB[1] != -1)
             {
                 Debug.Log("핫 슬롯 등록할 곳 없음!");
+                return;
             }
             else if (hotSlotDB[0] == -1 && hotSlotDB[1] != index)
             {
@@ -147,6 +149,7 @@ public class Inventory : MonoBehaviour
             {
                 hotSlotDB[0] = index;
             }
+            UISoundEffect.instance.EquipUnEquipSound();
 
         }
     }
@@ -406,5 +409,10 @@ public class Inventory : MonoBehaviour
     {
         Item item = new Item(0, 0);
         itemDB[index] = item;
+    }
+
+    public void InventoryClickSound()
+    {
+        UISoundEffect.instance.ButtonClickSound();
     }
 }

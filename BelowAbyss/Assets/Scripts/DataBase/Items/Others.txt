@@ -34,6 +34,13 @@
 			"itemCategory" : "Ingredient",
 			"itemLore" : "Long, weak stick",
 			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1003,
+			"itemName" : "나무 그릇",
+			"itemCategory" : "재료",
+			"itemLore" : "단단한 열매의 껍질로 보인다",
+			"itemStackLimit" : 32
 		}
 	]
 }

@@ -24,7 +24,6 @@ public class Dialog : MonoBehaviour
     protected TextMeshProUGUI dialog;
     
     protected GameObject backgroundImage;
-    public GameObject dialogUI;
     public int nextEvent;
     public bool isNextEventExist;
 
@@ -33,34 +32,11 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
-        dialogUI = transform.GetChild(0).gameObject;
         paragraphText = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         subparagraphText = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
         dialog = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
-    public void Appear()
-    {
-        dialogUI.SetActive(true);
-    }
-
-    public void Appear(DialogEvent data)
-    {
-        dialogUI.SetActive(true);
-        if (LoadEventCode(data))
-        {
-            Debug.Log("정상적으로 " + data.eventCode + " 번의 이벤트 로드 완료.");
-        }
-        else
-        {
-            Debug.Log( data.eventCode + " 번의 이벤트 로드 중 문제 발생.");
-        }
-    }
-
-    public void Disappear()
-    {
-        dialogUI.SetActive(false);
-    }
 
     /// <summary>
     /// 이벤트를 로드하는 함수. 만약에 정상적으로 로드되지 않았을 경우, false값을 내보냄.
@@ -79,8 +55,6 @@ public class Dialog : MonoBehaviour
 
     public void NextButtonPressed()
     {
-        Disappear();
-        backgroundImage.gameObject.SetActive(false);
         if (isNextEventExist)
         {
             EventManager.instance.LoadEvent(nextEvent);
