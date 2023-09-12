@@ -937,6 +937,8 @@ GameObject:
   m_Component:
   - component: {fileID: 19146172}
   - component: {fileID: 19146173}
+  - component: {fileID: 19146174}
+  - component: {fileID: 19146175}
   m_Layer: 0
   m_Name: EnemyHolder(0)
   m_TagString: Untagged
@@ -971,29 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fde60f86f81aff43a1ee4c8557db983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat:
-    currentHp: 0
-    maxHp: 0
-    armour: 0
-    additionalAllDamage: 0
-    additionalWeaponDamage: 0
-    additionalSkillDamage: 0
-    poisionStack: 0
-    bloodStack: 0
-    onFire: 0
-    additionalHitDamage: 0
-    size: 0
-    enemyCode: 0
-    position: 0
-    enemySpriteCode: 
-    attackDamage: 0
-    attackSpeed: 0
-    additionalEffect1: []
-    additionalEffect2: []
-    additionalEffect3: []
-    additionalEffectCoolTime: []
-    additionalEffectSprite: 
-    soundCode: 0
+  stat: {fileID: 0}
   sprite: {fileID: 0}
 --- !u!1 &19892261
 GameObject:
@@ -5901,6 +5881,8 @@ GameObject:
   m_Component:
   - component: {fileID: 103992633}
   - component: {fileID: 103992634}
+  - component: {fileID: 103992635}
+  - component: {fileID: 103992636}
   m_Layer: 0
   m_Name: EnemyHolder (2)
   m_TagString: Untagged
@@ -5935,29 +5917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fde60f86f81aff43a1ee4c8557db983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat:
-    currentHp: 0
-    maxHp: 0
-    armour: 0
-    additionalAllDamage: 0
-    additionalWeaponDamage: 0
-    additionalSkillDamage: 0
-    poisionStack: 0
-    bloodStack: 0
-    onFire: 0
-    additionalHitDamage: 0
-    size: 0
-    enemyCode: 0
-    position: 0
-    enemySpriteCode: 
-    attackDamage: 0
-    attackSpeed: 0
-    additionalEffect1: []
-    additionalEffect2: []
-    additionalEffect3: []
-    additionalEffectCoolTime: []
-    additionalEffectSprite: 
-    soundCode: 0
+  stat: {fileID: 0}
   sprite: {fileID: 0}
 --- !u!1 &107242659
 GameObject:
@@ -12580,9 +12540,9 @@ MonoBehaviour:
     str3: 
   target: 0
   targetCount: 0
-  status: 0
+  effData: 0
   effectPower: 0
-  effectIndicator: 0
+  effectType: 0
   effectCount: 0
 --- !u!1 &218400032
 GameObject:
@@ -15196,7 +15156,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &266370414
@@ -41600,6 +41560,7 @@ MonoBehaviour:
     itemcode: 0
     stack: 0
     stacklimit: 0
+    damage: 0
     attackSpeed: 0
     criticalPercentage: 0
     hitEff1: []
@@ -56402,7 +56363,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &996159132
@@ -63849,6 +63810,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1145295991}
   - component: {fileID: 1145295992}
+  - component: {fileID: 1145295993}
+  - component: {fileID: 1145295994}
   m_Layer: 0
   m_Name: EnemyHolder (3)
   m_TagString: Untagged
@@ -63883,29 +63846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fde60f86f81aff43a1ee4c8557db983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat:
-    currentHp: 0
-    maxHp: 0
-    armour: 0
-    additionalAllDamage: 0
-    additionalWeaponDamage: 0
-    additionalSkillDamage: 0
-    poisionStack: 0
-    bloodStack: 0
-    onFire: 0
-    additionalHitDamage: 0
-    size: 0
-    enemyCode: 0
-    position: 0
-    enemySpriteCode: 
-    attackDamage: 0
-    attackSpeed: 0
-    additionalEffect1: []
-    additionalEffect2: []
-    additionalEffect3: []
-    additionalEffectCoolTime: []
-    additionalEffectSprite: 
-    soundCode: 0
+  stat: {fileID: 0}
   sprite: {fileID: 0}
 --- !u!1 &1151755345
 GameObject:
@@ -73278,6 +73219,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1315042401}
   - component: {fileID: 1315042402}
+  - component: {fileID: 1315042403}
+  - component: {fileID: 1315042404}
   m_Layer: 0
   m_Name: EnemyHolder (1)
   m_TagString: Untagged
@@ -73312,29 +73255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fde60f86f81aff43a1ee4c8557db983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat:
-    currentHp: 0
-    maxHp: 0
-    armour: 0
-    additionalAllDamage: 0
-    additionalWeaponDamage: 0
-    additionalSkillDamage: 0
-    poisionStack: 0
-    bloodStack: 0
-    onFire: 0
-    additionalHitDamage: 0
-    size: 0
-    enemyCode: 0
-    position: 0
-    enemySpriteCode: 
-    attackDamage: 0
-    attackSpeed: 0
-    additionalEffect1: []
-    additionalEffect2: []
-    additionalEffect3: []
-    additionalEffectCoolTime: []
-    additionalEffectSprite: 
-    soundCode: 0
+  stat: {fileID: 0}
   sprite: {fileID: 0}
 --- !u!1 &1315646149
 GameObject:
@@ -79292,7 +79213,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1441375815
@@ -82985,8 +82906,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1872967473}
         m_TargetAssemblyTypeName: SkillInventory, Assembly-CSharp
-        m_MethodName: LearnSkill
-        m_Mode: 3
+        m_MethodName: TestSkillLearn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -83201,6 +83122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521029654}
   - component: {fileID: 1521029655}
+  - component: {fileID: 1521029656}
   m_Layer: 0
   m_Name: PlayerHolder
   m_TagString: Untagged
@@ -87005,7 +86927,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1579717761
@@ -143033,7 +142955,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_SortingLayerID: 0
   m_SortingOrder: 3
   m_TargetDisplay: 0

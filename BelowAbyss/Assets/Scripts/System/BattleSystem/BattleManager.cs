@@ -53,6 +53,10 @@ public class BattleManager : MonoBehaviour
         {
             EventManager.instance.LoadEvent(additionalEvent);
         }
+        else
+        {
+            Player.instance.BattleEndStatControl();
+        }
     }
 
     public void OnPlayerDeath()
