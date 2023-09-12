@@ -1,7 +1,6 @@
 [System.Serializable]
 public class Weapon : Item
 {
-    public int damage;
     public float attackSpeed;
     public int criticalPercentage;
 

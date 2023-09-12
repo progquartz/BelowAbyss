@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class EnemyHord : MonoBehaviour
 {
     private float[] enemyHolderRowXpositionData = new float[4] {0,250,500,750};

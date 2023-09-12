@@ -1,7 +1,6 @@
 [System.Serializable]
 public class WeaponItemData : OtherItemData
 {
-    public int damage;
     public double attackSpeed; // 공격속도 //0.7
     public int criticalChance; // 치명타 확률
 

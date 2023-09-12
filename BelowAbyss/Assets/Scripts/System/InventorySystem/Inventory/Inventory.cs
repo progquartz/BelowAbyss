@@ -22,14 +22,11 @@ public class Inventory : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(instance.gameObject);
-            FirstSetup();
         }
         else
         {
             Destroy(this.gameObject);
         }
-
-        
     }
 
     // 획득과 버려짐, 옮김부터 구현하기.

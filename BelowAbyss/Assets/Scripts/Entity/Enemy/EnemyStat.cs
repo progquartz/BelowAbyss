@@ -18,5 +18,5 @@ public class EnemyStat : EntityStat
 
 
     public int soundCode;
-
+    
 }

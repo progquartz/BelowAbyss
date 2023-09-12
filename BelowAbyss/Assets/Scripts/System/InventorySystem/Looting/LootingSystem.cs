@@ -42,7 +42,6 @@ public class LootingSystem : MonoBehaviour
 
     private void SetTableItemDataOpen(LootingData data)
     {
-        int zeroRootingItemCount = 0;
         for (int i = 0; i < data.rootingItem.Length; i++)
         {
             Inventory.instance.GetItem(data.rootingItem[i], Random.Range(data.rootingMin[i], data.rootingMax[i]));
