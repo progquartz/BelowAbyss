@@ -89,13 +89,23 @@ public class EffectManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
     }
+
+    private void Start()
+    {
+        if (!GameManager.instance.isFirstGame)
+        {
+            enemyHordManager = BattleManager.instance.enemyHord;
+            playerStat = Player.instance;
+        }
+    }
+
+
 
     private void ResetTempDatas()
     {

@@ -9,7 +9,8 @@ public class PlayerStatGauge : MonoBehaviour
     public RectTransform[] statGauges = new RectTransform[4];
     public float maxSize = 126;
 
-    PlayerStat stat;
+    [SerializeField]
+    private PlayerStat stat;
 
     private void Start()
     {
@@ -21,15 +22,20 @@ public class PlayerStatGauge : MonoBehaviour
     }
     private void Update()
     {
-        statGauges[0].offsetMax = new Vector2(statGauges[0].offsetMax.x, -getPercentSize((float)stat.currentVital/ (float)stat.maxVital));
-        statGauges[1].offsetMax = new Vector2(statGauges[1].offsetMax.x, -getPercentSize((float)stat.currentSanity / (float)stat.maxSanity));
-        statGauges[2].offsetMax = new Vector2(statGauges[2].offsetMax.x, -getPercentSize((float)stat.currentSatur / (float)stat.maxSatur));
-        statGauges[3].offsetMax = new Vector2(statGauges[3].offsetMax.x, -getPercentSize((float)stat.currentThirst / (float)stat.maxThirst));
+
+        statGauges[0].localScale = new Vector3(1, (float)stat.currentHp/ (float)stat.maxHp, 1);
+        statGauges[1].localScale = new Vector3(1, (float)stat.currentSanity / (float)stat.maxSanity, 1);
+        statGauges[2].localScale = new Vector3(1, (float)stat.currentSatur / (float)stat.maxSatur, 1);
+        statGauges[3].localScale = new Vector3(1, (float)stat.currentThirst / (float)stat.maxThirst, 1);
     }
 
     public void IsStatInDanger()
     {
-        if(stat.currentVital <= 25 || stat.currentHp <= 25 || stat.currentSanity <= 25 ||
+        if (stat == null)
+        {
+            stat = Player.instance.stat;
+        }
+        if (stat.currentHp <= 25 || stat.currentHp <= 25 || stat.currentSanity <= 25 ||
            stat.currentSatur <= 25 || stat.currentThirst <= 25)
         {
             StartCoroutine(WarningSound());

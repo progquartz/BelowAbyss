@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class InventoryGridLayoutSetting : MonoBehaviour
 {
     private GridLayoutGroup glg;
+    [SerializeField]
+    private Canvas mainCanvas;
     private float lastWidth;
     private float lastHeight;
     private float cellAspectRatio;
@@ -25,11 +27,22 @@ public class InventoryGridLayoutSetting : MonoBehaviour
         lastWidth = glg.cellSize.x;
         lastHeight = glg.cellSize.y;
         cellAspectRatio = lastWidth / lastHeight;
-        cellPhoneHeight = Screen.height;
-        cellPhoneWidth = Screen.width;
+
+        Debug.Log("해상도 " + mainCanvas.pixelRect.width + " * " + mainCanvas.pixelRect.height);
+        cellPhoneWidth = mainCanvas.pixelRect.width;
+        cellPhoneHeight = mainCanvas.pixelRect.height;
+        //cellPhoneHeight = Screen.height;
+        //cellPhoneWidth = Screen.width;
 
         glg.cellSize = new Vector2(cellPhoneWidth, lastHeight * Screen.width / lastWidth);
 
+    }
+
+    private void Update()
+    {
+        
+
+        
     }
 
 }

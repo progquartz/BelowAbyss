@@ -20,8 +20,7 @@ public class MapManager : MonoBehaviour
     private List<MapData> mapDatas;
     [SerializeField]
     private int currentStage; // 현재 진행중인 스테이지
-    [SerializeField]
-    private MapVisual mapVisual;
+    public MapVisual mapVisual;
     [SerializeField]
     private GameObject mapdataPrefab;
     [SerializeField]
@@ -39,8 +38,7 @@ public class MapManager : MonoBehaviour
         // Singletone
         if (null == instance)
         {   
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            instance = this;            
         }
         else
         {
@@ -51,6 +49,8 @@ public class MapManager : MonoBehaviour
     /// <summary>
     /// Singletone
     /// </summary>
+    /// 
+
     public static MapManager Instance
     {
         get
@@ -73,8 +73,18 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
+        if(!GameManager.instance.isFirstGame)
+        {
+            FlushAllMapDatas();
+            GenerateNextStage(true);
+        }
     }
 
+    public void OnGameOver()
+    {
+        FlushAllMapDatas();
+        //GenerateNextStage(true);
+    }
     /// <summary>
     /// 현재 Mapmanager가 가지고 있는 MapData의 해당 인덱스 데이터가 Valid한지 확인함.
     /// </summary>
@@ -108,12 +118,23 @@ public class MapManager : MonoBehaviour
         {
             currentStage = mapDatas.Count-1;
             mapVisual.mapdata = mapDatas[currentStage];
-            mapDatas[currentStage].MapFirstSetup(currentStage, stageLoreUI);
+            mapDatas[currentStage].MapThemeSelection(currentStage);
+            mapVisual.ChangeMapEncounterEvent();
+            mapDatas[currentStage].MapFirstSetup(currentStage);
+            if(currentStage == 0)
+            {
+                mapVisual.ChangeMapSpriteTheme();
+            }
         }
         else
         {
             mapDatas[mapDatas.Count-1].MapFirstSetup(mapDatas.Count-1);
         }
+    }
+
+    public string GetCurrentMapTheme()
+    {
+        return mapDatas[currentStage].themeSelected;
     }
 
     // 맵 생성, 맵 내 이동-> 내부데이터는 mapdata에서 처리, 맵 보여주기(비주얼) -> 실제는 mapvisual에서 처리.
@@ -124,6 +145,7 @@ public class MapManager : MonoBehaviour
         if(mapDatas[currentStage].GetPosition() < 15)
         {
             int currentPos = mapDatas[currentStage].GetPosition() + 3;
+            MapManager.instance.mapVisual.HeadToNextEvent();
             MoveStatMinus();
             PlayerAnimation.instance.SetMove(true);
             StartCoroutine(MoveMapVisual(currentPos));
@@ -139,29 +161,29 @@ public class MapManager : MonoBehaviour
     private void MoveStatMinus()
     {
         PlayerStat stat = Player.instance.stat;
-        int vitalDelta = 0;
+        int healthDelta = 0;
         int sanityDelta = 0;
 
         // vital Calc
         if(stat.currentSatur <= 5)
         {
-            vitalDelta -= 8;
+            healthDelta -= 8;
         }
         else if(stat.currentSatur <= 20)
         {
-            vitalDelta -= 3;
+            healthDelta -= 3;
         }
         else if(stat.currentSatur >= 60)
         {
-            vitalDelta += 3;
+            healthDelta += 3;
         }
         if(stat.currentThirst <= 5)
         {
-            vitalDelta -= 20;
+            healthDelta -= 20;
         }
         else if(stat.currentThirst <= 20)
         {
-            vitalDelta -= 5;
+            healthDelta -= 5;
         }
         
         // SanityCalc
@@ -178,7 +200,7 @@ public class MapManager : MonoBehaviour
             sanityDelta -= 5;
         }
 
-        Player.instance.stat.CurrentVitalControl(vitalDelta);
+        Player.instance.stat.CurrentHealthControl(healthDelta);
         Player.instance.stat.CurrentSanityControl(sanityDelta);
         Player.instance.stat.CurrentSaturControl(-5);
         Player.instance.stat.CurrentThirstControl(-10);
@@ -189,9 +211,11 @@ public class MapManager : MonoBehaviour
         
         mapVisual.SwitchStage(); // 플레이어가 배경 안으로 들어감.
 
-        yield return new WaitWhile(() => mapVisual.isMoving);
         GenerateNextStage(true);
+
+        yield return new WaitWhile(() => mapVisual.isMoving);
         MoveFront();
+        
 
     }
     IEnumerator MoveMapVisual(int currentPos)
@@ -223,11 +247,6 @@ public class MapManager : MonoBehaviour
         PlayerAnimation.instance.SetMove(false);
     }
 
-    public void GoToNextStage()
-    {
-        GenerateNextStage(true);
-    }
-
     public void MoveTo(int position)
     {
         mapDatas[currentStage].SetPosition(position);
@@ -235,6 +254,16 @@ public class MapManager : MonoBehaviour
 
     private void DeleteMap()
     {
+    }
+
+    public int GetStageNum()
+    {
+        return currentStage;
+    }
+
+    public int GetTileNum()
+    {
+        return mapDatas[currentStage].GetPosition();
     }
     
 }

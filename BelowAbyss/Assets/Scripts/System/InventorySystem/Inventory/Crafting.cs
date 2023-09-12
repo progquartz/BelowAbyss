@@ -185,7 +185,7 @@ public class Crafting : MonoBehaviour
     {
         int item1 = craftingDB[0].itemcode;
         int item2 = craftingDB[1].itemcode;
-        int count = craftingDB[0].stack > craftingDB[1].stack ? craftingDB[0].stack : craftingDB[1].stack;
+        int count = craftingDB[0].stack < craftingDB[1].stack ? craftingDB[0].stack : craftingDB[1].stack;
         CheckCraftingRecipeAvailable(item1, item2, count);
 
     }

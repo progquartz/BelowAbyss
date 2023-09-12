@@ -70,7 +70,7 @@ public class SkillInventory : MonoBehaviour
         for (int i = 0; i < unusedSlotCount; i++)
         {
             unusedSkillDB.Add(new SkillData());
-            unusedSlot.Add(transform.GetChild(1).GetChild(0).GetChild(i).gameObject);
+            unusedSlot.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).gameObject);
         }
         GameObject usingSkillSlotParent = GameObject.Find("SkillSlots");
         for(int i = 0; i < usingSlotCount; i++)
@@ -149,7 +149,7 @@ public class SkillInventory : MonoBehaviour
     }
 
 
-    private bool CheckSkillAvailable(int skillCode)
+    public bool CheckSkillAvailable(int skillCode)
     {
         for(int i = 0; i < skillDBCount; i++)
         {
@@ -253,7 +253,7 @@ public class SkillInventory : MonoBehaviour
         return unusedSkillDB[index + visualSlotYIndex * 8];
     }
 
-    public void LearnSkill(int skillCode)
+    public void GetSkill(int skillCode)
     {
         if(!CheckSkillAvailable(skillCode))
         {

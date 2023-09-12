@@ -130,10 +130,13 @@ public class Selection : Dialog
         CleanUp();
         if(isSelectionEventloaded)
         {
+            MapManager.Instance.mapVisual.EncounterEventToggleSelection(index);
             EventManager.instance.LoadEvent(selectionEvent[index]);
         }
         else
         {
+            Debug.Log("버튼 누름");
+            MapManager.Instance.mapVisual.EncounterEventToggleSelection(index);
             MapManager.Instance.MoveFront();
         }
         

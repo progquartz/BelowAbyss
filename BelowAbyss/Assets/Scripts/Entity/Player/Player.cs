@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
     public PlayerStat stat;
+    public bool isPlayerDead = false;
+
     /// <summary>
     /// 전투 이전에 저장되어야 하는 
     /// </summary>
@@ -16,7 +18,6 @@ public class Player : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -31,16 +32,20 @@ public class Player : MonoBehaviour
 
     }
 
-
-    public void CheckDeath()
+    public void PlayerStatReset()
     {
-        if (stat.currentHp <= 0)
-        {
-            BattleManager.instance.OnPlayerDeath();
-        }
+        stat.ResetPlayerStat();
     }
 
 
-
+    public void CheckDeath()
+    {
+        if (stat.currentHp <= 0 && !isPlayerDead)
+        {
+            BattleManager.instance.OnPlayerDeath();
+            PlayerStatReset();
+            isPlayerDead = true;
+        }
+    }
 
 }

@@ -1,0 +1,169 @@
+{
+	"consumeItems":[
+		{
+			"itemCode" : 2001,
+			"itemName" : "중형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜 기간 연구해 개발에 성공한 체력 포션.\n\n중간 크기의 병에 보관되어있다.\n\n [효과] - 체력 + 10",
+			"itemStackLimit" : 7,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : [],
+            "itemUseCode2" : [],
+            "itemUseCode3" : []
+		},
+		{
+			"itemCode" : 2002,
+			"itemName" : "소형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜 기간 연구해 개발에 성공한 체력 포션.\n\n작은 크기의 병에 보관되어있다.\n\n [효과] - 체력 + 5",
+			"itemStackLimit" : 13,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : [],
+            "itemUseCode2" : [],
+            "itemUseCode3" : []
+		},
+		{
+			"itemCode" : 2003,
+			"itemName" : "대형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜기간 연구해 개발에 성공한 체력 포션. \n\n여러번 사용이 가능하다.",
+			"itemStackLimit" : 15,
+            "itemUsageCount" : 3,
+            "itemUseCode1" : [],
+            "itemUseCode2" : [],
+            "itemUseCode3" : []
+		},
+		{
+			"itemCode" : 2004,
+			"itemName" : "붉은 열매",
+			"itemCategory" : "음식",
+			"itemLore" : "단맛이 강한 단단한 열매",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CT_7", "P_0_CS_7"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F"]
+		},
+		{
+			"itemCode" : 2005,
+			"itemName" : "붉은 열매 잼",
+			"itemCategory" : "음식",
+			"itemLore" : "굉장히 끈적하고 달다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CS_15"],
+            "itemUseCode2" : ["I_0_1_1"],
+            "itemUseCode3" : ["F"]
+		},
+		{
+			"itemCode" : 2006,
+			"itemName" : "보라 열매",
+			"itemCategory" : "음식",
+			"itemLore" : "과즙으로 가득 찬 열매",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CT_14", "P_0_CS_3"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F"]
+		},
+		{
+			"itemCode" : 2007,
+			"itemName" : "보라 열매 즙",
+			"itemCategory" : "음식",
+			"itemLore" : "맛이 있기보단, 마시기 좋다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CT_20"],
+            "itemUseCode2" : ["I_0_1_1"],
+            "itemUseCode3" : ["F"]
+		},
+		{
+			"itemCode" : 2008,
+			"itemName" : "고깃 조각",
+			"itemCategory" : "음식",
+			"itemLore" : "살아있던 유기체의 질긴 살점",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CS_12"],
+            "itemUseCode2" : ["I_0_1_1"],
+            "itemUseCode3" : ["F"]
+		},
+		{
+			"itemCode" : 2009,
+			"itemName" : "구더기",
+			"itemCategory" : "음식",
+			"itemLore" : "역하지만 배를 채우기엔 완벽하다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_MI_-20", "P_0_CS_10", "P_0_CT_10"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F", "F"]
+		},
+		{
+			"itemCode" : 2010,
+			"itemName" : "미트볼",
+			"itemCategory" : "음식",
+			"itemLore" : "이런 공간에서 맛보기 힘든 귀한 음식",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_MI_+10", "P_0_CS_25"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F"]
+		},
+		{
+			"itemCode" : 2011,
+			"itemName" : "벌레 꼬치",
+			"itemCategory" : "음식",
+			"itemLore" : "덜 역하지만, 여전히 역하다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_MI_-5", "P_0_CS_20"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F"]
+		},
+		{
+			"itemCode" : 2012,
+			"itemName" : "고기 꼬치",
+			"itemCategory" : "음식",
+			"itemLore" : "누린내가 조금 난다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_MI_2", "P_0_CS_22"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F"]
+		},
+		{
+			"itemCode" : 2013,
+			"itemName" : "물이 담긴 병",
+			"itemCategory" : "음식",
+			"itemLore" : "이렇게 깨끗한 물은 특히 귀중하다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CS_30"],
+            "itemUseCode2" : ["I_0_1_1"],
+            "itemUseCode3" : ["F"]
+		},
+		{
+			"itemCode" : 2014,
+			"itemName" : "수제 과실주",
+			"itemCategory" : "음식",
+			"itemLore" : "고통받는 정신을 위한 마취제",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_MI_20", "P_0_CS_15", "P_0_CT_30"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F", "F"]
+		},
+		{
+			"itemCode" : 2015,
+			"itemName" : "수제 음료수",
+			"itemCategory" : "음식",
+			"itemLore" : "단 한병으로 갈증을 해결한다",
+			"itemStackLimit" : 99,
+            "itemUsageCount" : 1,
+            "itemUseCode1" : ["P_0_CT_60", "P_0_MI_5"],
+            "itemUseCode2" : ["I_0_1_1", "I_0_1_1"],
+            "itemUseCode3" : ["F", "F"]
+		}
+	]
+}

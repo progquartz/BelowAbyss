@@ -141,10 +141,8 @@ public class EventManager : MonoBehaviour
                 break;
             case EventType.LOOTING:
                 Debug.Log(eventCode + "에 대한 루팅 이벤트 호출 요청 발생.");
-                UISelectionHolder.instance.OpenUI(1);
                 LootingData lootData = LootingEventList.FindEvent(eventCode);
                 LootingSystem.instance.LootTableOpen(lootData);
-                MapManager.Instance.MoveFront();
                 break;
         }
     }

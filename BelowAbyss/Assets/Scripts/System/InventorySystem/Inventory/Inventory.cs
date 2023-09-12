@@ -56,9 +56,9 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             itemDB.Add(new Item(0, 0));
-            slots.Add(transform.GetChild(1).GetChild(0).GetChild(i).gameObject);
-            plusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(i).GetChild(4).GetComponent<Button>());
-            minusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(i).GetChild(5).GetComponent<Button>());
+            slots.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).gameObject);
+            plusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(4).GetComponent<Button>());
+            minusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(5).GetComponent<Button>());
         }
         for(int i = 0; i < 2; i++)
         {

@@ -50,19 +50,10 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void SceneLoad(string SceneName)
+    public static void SceneLoad(string SceneName)
     {
         SceneManager.LoadScene(SceneName);
-        /* 로딩 씬 부분은 개선이 많이 되어야할듯.
-        if (SceneName != "MapScene")
-        {
-            
-        }
-        else
-        {
-            LoadingSceneManager.LoadScene(SceneName);
-        }
-        */
+        
     }
 
     public void QuitGame()

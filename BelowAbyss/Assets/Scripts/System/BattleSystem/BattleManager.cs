@@ -16,7 +16,6 @@ public class BattleManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(instance.gameObject);
         }
         else
         {
@@ -59,7 +58,10 @@ public class BattleManager : MonoBehaviour
     public void OnPlayerDeath()
     {
         isBattleStarted = false;
+
         Debug.Log("게임 오버!");
+        GameManager.instance.GameOver();
+        
     }
 
 

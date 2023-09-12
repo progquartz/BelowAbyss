@@ -26,6 +26,41 @@ public class PlayerStat : EntityStat
     public int currentSanity; // 정신 수치 체력회복에 관여
     public int maxSanity;
 
+    public void ResetPlayerStat()
+    {
+        currentVital = 100;
+        maxVital = 100;
+        currentSatur = 100;
+        maxSatur = 100;
+        currentThirst = 100; // 목마름 수치
+        maxThirst = 100;
+        currentSanity = 100; // 정신 수치 체력회복에 관여
+        maxSanity = 100;
+
+        maxHpBuffs = new List<Tuple<int, int>>(); 
+        currentArmourBuffs = new List<Tuple<int, int>>(); 
+
+        allAttackBuffs = new List<Tuple<int, int>>(); 
+        skillAttackBuffs = new List<Tuple<int, int>>(); 
+        meleeAttackBuffs = new List<Tuple<int, int>>(); 
+
+        allHitBuffs = new List<Tuple<int, int>>();
+
+        currentHp = 100;
+        maxHp = 100;
+
+        armour = 0;
+
+        additionalAllDamage = 0; // 가하는 모든 데미지 추가.
+        additionalWeaponDamage = 0; // 가하는 무기 데미지 추가.
+        additionalSkillDamage = 0; // 가하는 스킬 데미지 추가
+
+        poisionStack = 0; // 독 스택. 매 초 N만큼의 데미지를 줌.
+        bloodStack = 0; // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음.
+        onFire = false; // 불 붙음 여부. 불이 붙었을 경우 1초마다 정해진 만큼의 피해를 줌.
+        additionalHitDamage = 0; // 피격 추가 데미지 여부.
+    }
+
     public void CurrentThirstControl(int amount)
     {
         int tmpthirst = currentThirst + amount;
