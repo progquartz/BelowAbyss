@@ -18,7 +18,6 @@ public class Parser : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(instance.gameObject);
         }
         else
         {
@@ -39,6 +38,7 @@ public class Parser : MonoBehaviour
 
     public TextAsset textBattleData;
     public TextAsset skillData;
+    public TextAsset traitData;
 
     public TextAsset OtherItems;
     public TextAsset WeaponItems;
@@ -47,14 +47,15 @@ public class Parser : MonoBehaviour
     public TextAsset RecipeDatas;
 
     public TextAsset EnemyDatas;
-
-    public TextAsset ThemeDatas;
     public TextAsset stageThemeDatas;
     
 
     private void Start()
     {
-        //ParseAllData();
+        if (!GameManager.instance.isFirstGame)
+        {
+            ParseAllData();
+        }
     }
 
     public void ParseAllData()
@@ -83,6 +84,10 @@ public class Parser : MonoBehaviour
         // 스킬 데이터 로드.
         SkillDataBase.instance.skillDatas = JsonUtility.FromJson<SkillDatas>(skillData.text);
 
+        // 특성 데이터 로드
+        TraitDataBase.instance.traitDatas = JsonUtility.FromJson<TraitDatas>(traitData.text);
+
+
         // 전투 이벤트 데이터 로드.
         EventManager.instance.BattleEventList = JsonUtility.FromJson<BattleEvents>(textBattleData.text);
         for (int i = 0; i < EventManager.instance.BattleEventList.battleEvents.Length; i++)
@@ -91,7 +96,6 @@ public class Parser : MonoBehaviour
         }
 
         // 테마 데이터 로드.
-        ThemeDataBase.instance.themes = JsonUtility.FromJson<Themes>(ThemeDatas.text);
         ThemeDataBase.instance.stageThemeDatas = JsonUtility.FromJson<StageThemeDatas>(stageThemeDatas.text);
 
         ItemDataBase itemData = ItemDataBase.instance;

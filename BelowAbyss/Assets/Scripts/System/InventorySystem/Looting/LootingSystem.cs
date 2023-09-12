@@ -7,20 +7,14 @@ using UnityEngine.UI;
 public class LootingSystem : MonoBehaviour
 {
     public static LootingSystem instance;
-    private List<GameObject> lootingSlots = new List<GameObject>();
-    public List<Item> lootingDB = new List<Item>();
-    private int slotCount = 16;
 
-    [SerializeField]
-    private GameObject lootingUIObject;
-    
-    private void Awake()
+    void Awake()
     {
-        if (instance == null)
+        // Singletone
+        if (null == instance)
         {
             instance = this;
-            DontDestroyOnLoad(instance.gameObject);
-            LootingSlotInitializing();
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -29,76 +23,100 @@ public class LootingSystem : MonoBehaviour
 
     }
 
-    private void LootingSlotInitializing()
-    {
-        for (int i = 0; i < 16; i++)
-        {
-            lootingSlots.Add(lootingUIObject.transform.GetChild(0).GetChild(i).gameObject);
-            lootingDB.Add(new Item(0, 0));
-        }
-    }
-
-    public void Test1()
-    {
-        EventManager.instance.LoadEvent(41);
-    }
-
     public void LootTableOpen(LootingData data)
     {
-        if (!lootingUIObject.activeInHierarchy)
+        UISoundEffect.instance.ItemPickUpSound();
+        SetTableItemDataOpen(data);
+        SetTableSkillDataOpen(data);
+        SetTableTraitDataOpen(data);
+        SetTableEffectDataOpen(data);
+        if(data.isLastEvent)
         {
-            lootingUIObject.SetActive(true);
+            MapManager.Instance.MoveFront();
         }
-        SetTableDataOpen(data);
+        else
+        {
+            EventManager.instance.LoadEvent(data.additionalEventCode);
+        }
     }
 
-    private void SetTableDataOpen(LootingData data)
+    private void SetTableItemDataOpen(LootingData data)
     {
         int zeroRootingItemCount = 0;
         for (int i = 0; i < data.rootingItem.Length; i++)
         {
-            int rootingItemCount = Random.Range(data.rootingMin[i], data.rootingMax[i]);
-            if(rootingItemCount != 0)
-            {
-                SetLootingItem(i - zeroRootingItemCount, data.rootingItem[i], rootingItemCount);
-            }
-            else
-            {
-                zeroRootingItemCount++;
-            }
+            Inventory.instance.GetItem(data.rootingItem[i], Random.Range(data.rootingMin[i], data.rootingMax[i]));
         }
     }
 
-    private void SetLootingItem(int index, int itemcode, int count)
+    private void SetTableSkillDataOpen(LootingData data)
     {
-        lootingDB[index].itemcode = itemcode;
-        lootingDB[index].stack = count;
-    }
-
-    public Item GetIndexData(int index)
-    {
-        return lootingDB[index];
-    }
-
-    private void Update()
-    {
-        string path = "Sprites/Item/";
-        for (int i = 0; i < slotCount; i++)
+        if(data.isSkillRootRandom)
         {
-            if (lootingDB[i].itemcode != 0)
+            bool isAllSkillAvailable = true;
+            List<int> notAvailableSkillCode = new List<int>();
+            for(int i = 0; i < data.rootingSkill.Length; i++)
             {
-                Sprite image;
-                image = Resources.Load<Sprite>(path + lootingDB[i].itemcode.ToString());
-                lootingSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                lootingSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                lootingSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(lootingDB[i].stack.ToString());
+                if(!SkillInventory.instance.CheckSkillAvailable(data.rootingSkill[i]))
+                {
+                    isAllSkillAvailable = false;
+                    notAvailableSkillCode.Add(data.rootingSkill[i]);
+                }
             }
-            else
+
+            if(!isAllSkillAvailable)
             {
-                lootingSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                lootingSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                lootingSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                int randomNum = Random.Range(1, notAvailableSkillCode.Count) - 1;
+                SkillInventory.instance.GetSkill(randomNum);
             }
         }
+        else
+        {
+            for (int i = 0; i < data.rootingSkill.Length; i++)
+            {
+                SkillInventory.instance.GetSkill(data.rootingSkill[i]);
+            }
+        }
+        
     }
+
+    private void SetTableTraitDataOpen(LootingData data)
+    {
+        if(data.isTraitRootRandom)
+        {
+            bool isAllTraitAvailable = true;
+            List<int> notAvailableTraitCode = new List<int>();
+            for (int i = 0; i < data.rootingTrait.Length; i++)
+            {
+                if (!TraitInventory.instance.CheckTraitAvailable(data.rootingTrait[i]))
+                {
+                    isAllTraitAvailable = false;
+                    notAvailableTraitCode.Add(data.rootingTrait[i]);
+                }
+            }
+            if (!isAllTraitAvailable)
+            {
+                int randomNum = Random.Range(1, notAvailableTraitCode.Count) - 1;
+                TraitInventory.instance.GetTrait(randomNum);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < data.rootingTrait.Length; i++)
+            {
+                TraitInventory.instance.GetTrait(data.rootingTrait[i]);
+            }
+        }
+        
+    }
+
+    private void SetTableEffectDataOpen(LootingData data)
+    {
+        for(int i = 0; i < data.rootingEffect1.Length; i++)
+        {
+            EffectData tmp = new EffectData(data.rootingEffect1[i], data.rootingEffect2[i], data.rootingEffect3[i]);
+            EffectManager.instance.AmplifyEffect(tmp);
+        }
+    }
+
 }

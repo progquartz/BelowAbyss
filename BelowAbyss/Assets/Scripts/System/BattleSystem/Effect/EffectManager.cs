@@ -23,6 +23,12 @@ public enum EffectCountFor
     CURTHR,
     MAXTHR,
     CURARM,
+    CURTHR,
+    MAXTHR,
+    CURMIN,
+    MAXMIN,
+    CURVIT,
+    MAXVIT,
     DISARM,
     ALLATK,
     MELATK,
@@ -33,9 +39,6 @@ public enum EffectCountFor
     FIRE,
     CURE,
     ALLHIT,
-    CURVIT,
-    MAXVIT,
-    SANITY
 }
 
 public enum EffectType
@@ -91,13 +94,23 @@ public class EffectManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
     }
+
+    private void Start()
+    {
+        if (!GameManager.instance.isFirstGame)
+        {
+            enemyHordManager = BattleManager.instance.enemyHord;
+            playerStat = Player.instance;
+        }
+    }
+
+
 
     private void ResetTempDatas()
     {
@@ -159,6 +172,12 @@ public class EffectManager : MonoBehaviour
             case "MS":
                 effData = EffectCountFor.MAXSAT;
                 break;
+            case "CT":
+                status = EffectType.CURTHR;
+                break;
+            case "MT":
+                status = EffectType.MAXTHR;
+                break;
             case "CA":
                 effData = EffectCountFor.CURARM;
                 break;
@@ -183,11 +202,17 @@ public class EffectManager : MonoBehaviour
             case "FI":
                 effData = EffectCountFor.FIRE;
                 break;
-            case "HT":
-                effData = EffectCountFor.HEALTH;
+            case "CV":
+                status = EffectType.CURVIT;
+                break;
+            case "MV":
+                status = EffectType.MAXVIT;
                 break;
             case "MI":
-                effData = EffectCountFor.SANITY;
+                status = EffectType.CURMIN;
+                break;
+            case "MM":
+                status = EffectType.MAXMIN;
                 break;
             case "CU":
                 effData = EffectCountFor.CURE;
@@ -368,7 +393,7 @@ public class EffectManager : MonoBehaviour
             case EffectCountFor.MAXHP: //  P,E [I]
                 MaxHPChange();
                 break;
-            case EffectCountFor.CURSAT: //  P [I]
+            case EffectType.CURSAT:
                 CurSatChange();
                 break;
             case EffectCountFor.MAXSAT: // P [I]
@@ -396,11 +421,20 @@ public class EffectManager : MonoBehaviour
             case EffectCountFor.POISON: // P,E [I]
                 PoisonChange();
                 break;
-            case EffectCountFor.BLOOD: // P,E [I]
-                BloodChange();
+            case EffectType.CURVIT:
+                CurVitChange();
                 break;
-            case EffectCountFor.FIRE: // P,E [I]
-                FireChange();
+            case EffectType.MAXVIT:
+                break;
+            case EffectType.CURMIN:
+                CurMinChange();
+                break;
+            case EffectType.MAXMIN:
+                break;
+            case EffectType.CURTHR:
+                CurThrChange();
+                break;
+            case EffectType.MAXTHR:
                 break;
             case EffectCountFor.CURVIT: // P [I]
                 CurrentVitalityChange();
@@ -569,6 +603,34 @@ public class EffectManager : MonoBehaviour
         {
             target[i].CurrentHPControl(effectPower);
         }
+        return false;
+    }
+
+    private bool CurSatChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentSaturControl(effectPower);
+        return false;
+    }
+
+    private bool CurMinChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentSanityControl(effectPower);
+        return false;
+    }
+
+    private bool CurVitChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentVitalControl(effectPower);
+        return false;
+    }
+
+    private bool CurThrChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.CurrentThirstControl(effectPower);
         return false;
     }
 

@@ -11,6 +11,7 @@ public enum ItemType
     WEAPON = 1,
     ARMOUR = 2,
 }
+
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
@@ -33,35 +34,45 @@ public class Inventory : MonoBehaviour
 
     // 획득과 버려짐, 옮김부터 구현하기.
     public List<Item> itemDB;
-    public List<Weapon> equipDB;
+    public List<int> hotSlotDB;
     public int slotCount = 32;
 
     public List<GameObject> slots;
-    public List<GameObject> equipSlots;
+    public List<GameObject> hotSlots;
+    // holdingitem해서 작업하기.
+
+    [SerializeField]
+    private List<Button> plusButtons;
+    [SerializeField]
+    private List<Button> minusButtons;
+
+    private void Start()
+    {
+        FirstSetup();
+    }
 
     private void FirstSetup()
     {
         slots = new List<GameObject>();
-        equipSlots = new List<GameObject>();
         itemDB = new List<Item>();
-        equipDB = new List<Weapon>();
+        int a = -1;
         for (int i = 0; i < slotCount; i++)
         {
             itemDB.Add(new Item(0, 0));
-            slots.Add(transform.GetChild(2).GetChild(0).GetChild(i).gameObject);
+            slots.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).gameObject);
+            plusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(4).GetComponent<Button>());
+            minusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(5).GetComponent<Button>());
         }
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 2; i++)
         {
-            equipDB.Add(new Weapon(0, 0));
-            equipSlots.Add(transform.GetChild(3).GetChild(0).GetChild(i).gameObject);
+            hotSlotDB.Add(-1);
         }
-        gameObject.SetActive(false);
     }
 
     public void Test()
     {
-        GetItem(1, 1);
-        GetItem(2, 10);
+        GetItem(201, 1);
+        GetItem(202, 10);
     }
 
     public void Test2()
@@ -83,6 +94,134 @@ public class Inventory : MonoBehaviour
         UpdateSprite();
     }
 
+    public void PressHotIcon(int index)
+    {
+        if(hotSlotDB[index] != -1)
+        {
+            PressItemIcon(hotSlotDB[index]);
+        }
+    }
+
+    public void LongPressHotIcon(int index)
+    {
+        UISoundEffect.instance.EquipUnEquipSound();
+        hotSlotDB[index] = -1;
+    }
+
+    public void PressItemIcon(int index)
+    {
+        UISoundEffect.instance.UseItemSound();
+        Debug.Log(index + "번째 슬롯의 아이템을 사용합니다.");
+        if(itemDB[index].itemcode != 0)
+        {
+            Debug.Log("통과");
+            UseItem(index);
+            if (itemDB[index].stack <= 0)
+            {
+                if (hotSlotDB[0] == index)
+                {
+                    hotSlotDB[0] = -1;
+                }
+                if (hotSlotDB[1] == index)
+                {
+                    hotSlotDB[1] = -1;
+                }
+            }
+
+        }
+    }
+
+    public void LongPressItemIcon(int index)
+    {
+        if(itemDB[index].itemcode != 0)
+        {
+            if (hotSlotDB[0] != -1 && hotSlotDB[1] != -1)
+            {
+                Debug.Log("핫 슬롯 등록할 곳 없음!");
+                return;
+            }
+            else if (hotSlotDB[0] == -1 && hotSlotDB[1] != index)
+            {
+                hotSlotDB[0] = index;
+            }
+            else if (hotSlotDB[1] == -1 && hotSlotDB[0] != index)
+            {
+                hotSlotDB[1] = index;
+            }
+            else if (hotSlotDB[0] == -1 && hotSlotDB[1] == -1)
+            {
+                hotSlotDB[0] = index;
+            }
+            UISoundEffect.instance.EquipUnEquipSound();
+
+        }
+    }
+
+    public void PressPlusButton(int buttonIndex)
+    {
+        Debug.Log(buttonIndex + "번째 +버튼을 눌렀습니다.");
+
+        if (Crafting.instance.craftingDB[0].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[0].stack++;
+            return;
+        }
+        else if (Crafting.instance.craftingDB[1].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[1].stack++;
+            return;
+        }
+
+        if (Crafting.instance.craftingDB[0].itemcode == 0)
+        {
+            Crafting.instance.craftingDB[0].itemcode = itemDB[buttonIndex].itemcode;
+            Crafting.instance.craftingDBItemIndex[0] = buttonIndex;
+            Crafting.instance.craftingDB[0].stack++;
+        }
+        else if (Crafting.instance.craftingDB[1].itemcode == 0)
+        {
+            Crafting.instance.craftingDB[1].itemcode = itemDB[buttonIndex].itemcode;
+            Crafting.instance.craftingDBItemIndex[1] = buttonIndex;
+            Crafting.instance.craftingDB[1].stack++;
+        }
+        else
+        {
+            Debug.Log("버튼 눌렀지만 생기지 않음");
+        }
+
+    }
+
+    public void PressMinusButton(int buttonIndex)
+    {
+        Debug.Log(buttonIndex + "번째 -버튼을 눌렀습니다.");
+
+        if (Crafting.instance.craftingDB[0].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[0].stack--;
+            if (Crafting.instance.craftingDB[0].stack == 0)
+            {
+                Crafting.instance.craftingDB[0].itemcode = 0;
+                Crafting.instance.craftingDBItemIndex[0] = -1;
+            }
+            return;
+        }
+        else if (Crafting.instance.craftingDB[1].itemcode == itemDB[buttonIndex].itemcode)
+        {
+            Crafting.instance.craftingDB[1].stack--;
+            if (Crafting.instance.craftingDB[1].stack == 0)
+            {
+                Crafting.instance.craftingDB[1].itemcode = 0;
+                Crafting.instance.craftingDBItemIndex[1] = -1;
+            }
+            return;
+        }
+        else
+        {
+            Debug.Log("버튼 눌렀지만 생기지 않음");
+        }
+    }
+
+
     private void UpdateSprite()
     {
         string path = "Sprites/Item/"; 
@@ -92,48 +231,93 @@ public class Inventory : MonoBehaviour
             {
                 Sprite image;
                 image = Resources.Load<Sprite>(path + itemDB[i].itemcode.ToString());
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
+                slots[i].transform.GetChild(1).gameObject.SetActive(true);
+                slots[i].transform.GetChild(2).gameObject.SetActive(false);
+                slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
+                slots[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemName);
+                slots[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemLore);
+
+
+                if ((Crafting.instance.craftingDB[0].itemcode == itemDB[i].itemcode) )
+                {
+                    if(Crafting.instance.craftingDB[0].stack < itemDB[i].stack)
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                    }
+                    
+                }
+                else if ((Crafting.instance.craftingDB[1].itemcode == itemDB[i].itemcode))
+                {
+                    if (Crafting.instance.craftingDB[1].stack < itemDB[i].stack)
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                    }
+                }
+                else if ((Crafting.instance.craftingDB[0].itemcode == 0 || Crafting.instance.craftingDB[1].itemcode == 0))
+                {
+                    slots[i].transform.GetChild(4).gameObject.SetActive(true);
+                }
+                else
+                {
+                    slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                }
+
+                if(itemDB[i].itemcode == Crafting.instance.craftingDB[0].itemcode || itemDB[i].itemcode == Crafting.instance.craftingDB[1].itemcode)
+                {
+                    slots[i].transform.GetChild(5).gameObject.SetActive(true);
+                }
+                else
+                {
+                    slots[i].transform.GetChild(5).gameObject.SetActive(false);
+                }
             }
             else
             {
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(1).gameObject.SetActive(false);
+                slots[i].transform.GetChild(2).gameObject.SetActive(true);
+                slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(4).gameObject.SetActive(false);
+                slots[i].transform.GetChild(5).gameObject.SetActive(false);
             }
         }
 
-        for(int i = 0; i < 4; i++)
+
+        for(int i = 0; i < 2; i++)
         {
-            if (equipDB[i].itemcode != 0)
+            if(hotSlotDB[i] != -1)
             {
                 Sprite image;
-                image = Resources.Load<Sprite>(path + equipDB[i].itemcode.ToString());
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                equipSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(equipDB[i].stack.ToString());
+                image = Resources.Load<Sprite>(path + itemDB[hotSlotDB[i]].itemcode.ToString());
+                hotSlots[i].transform.GetChild(1).gameObject.SetActive(true);
+                hotSlots[i].transform.GetChild(1).GetComponent<Image>().sprite = image;
+                hotSlots[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemDB[hotSlotDB[i]].stack.ToString();
             }
             else
             {
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                equipSlots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                equipSlots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                hotSlots[i].transform.GetChild(1).gameObject.SetActive(false);
+                hotSlots[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
     }
 
-    public void UseItem(int index, Transform cursorOn)
+    public void UseItem(int index)
     {
-        string getter = cursorOn.parent.name;
-
         int itemcode = 0;
-        if (getter == "InventoryContents") // 인벤토리일 경우.
-        {
-            itemcode = Inventory.instance.itemDB[index].itemcode;
-        }
-
-        if (ItemDataBase.instance.GetType( itemcode) == ItemType.CONSUMPTION)
+        itemcode = itemDB[index].itemcode;
+        Debug.Log("아이템코드는" + itemcode);
+        if (ItemDataBase.instance.GetType(itemcode) == ItemType.CONSUMPTION)
         {
             Debug.Log(index + "번째 인덱스의 " + itemcode + "번 아이템 사용 호출");
             ConsumeItemData data = ItemDataBase.instance.LoadItemData(itemcode) as ConsumeItemData;
@@ -167,7 +351,7 @@ public class Inventory : MonoBehaviour
     /// <param name="itemcode"></param>
     /// <param name="stack"></param>
     /// <returns></returns>
-    private bool GetItem(int itemcode, int stack)
+    public bool GetItem(int itemcode, int stack)
     {
         // 만약에  sameitemexist상태이지만 item에서 불가능 판정을 내려서 남는 아이템을 넘기면 이를 int값으로 저장.
         // 
@@ -228,5 +412,10 @@ public class Inventory : MonoBehaviour
     {
         Item item = new Item(0, 0);
         itemDB[index] = item;
+    }
+
+    public void InventoryClickSound()
+    {
+        UISoundEffect.instance.ButtonClickSound();
     }
 }

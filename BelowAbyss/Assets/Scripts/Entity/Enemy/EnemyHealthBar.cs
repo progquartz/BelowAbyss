@@ -13,7 +13,7 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField]
     private Transform healthBarHolder;
 
-    int maxSize = 200;
+    int maxSize = 100;
 
     private void Start()
     {
@@ -24,17 +24,24 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void Update()
     {
-        currentHealthBar.sizeDelta = new Vector2(((float)enemy.stat.currentHp / (float)enemy.stat.maxHp) * maxSize, 20);
-        healthBarHolder.position = Camera.main.WorldToScreenPoint(target.transform.position + new Vector3(-100, 200, 0));
-        if(enemy.stat.currentHp <= 0)
+        if(BattleManager.instance.isBattleStarted)
         {
-            healthBarBackground.gameObject.SetActive(false);
-            healthBarBackground.gameObject.SetActive(false);
+            currentHealthBar.sizeDelta = new Vector2(((float)enemy.stat.currentHp / (float)enemy.stat.maxHp) * maxSize, 20);
+            if (enemy.stat.currentHp <= 0)
+            {
+                healthBarBackground.gameObject.SetActive(false);
+                currentHealthBar.gameObject.SetActive(false);
+            }
+            else
+            {
+                healthBarBackground.gameObject.SetActive(true);
+                currentHealthBar.gameObject.SetActive(true);
+            }
         }
         else
         {
-            healthBarBackground.gameObject.SetActive(true);
-            healthBarBackground.gameObject.SetActive(true);
+            healthBarBackground.gameObject.SetActive(false);
+            healthBarBackground.gameObject.SetActive(false);
         }
     }
 }

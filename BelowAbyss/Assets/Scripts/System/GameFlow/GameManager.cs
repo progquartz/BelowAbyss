@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance; // SingleTone
-    
+    [SerializeField]
+    public GameOverUI gameOverUI;
+    public bool isFirstGame = true;
 
     void Awake()
     {
@@ -31,12 +32,17 @@ public class GameManager : MonoBehaviour
 
     private void TempFirstSetup()
     {
-        
-        Cursor.lockState = CursorLockMode.None;
-        Parser.instance.ParseAllData();
-        SkillInventory.instance.FirstSetup();
-        MapManager.Instance.FlushAllMapDatas();
-        MapManager.Instance.GenerateNextStage(true);
+        /// 첫 로딩 시에만 이렇게 로딩되게 하고, 이후 게임시에는 씬 로딩시 start로 알아서 잘 로딩될 것.
+        if(isFirstGame)
+        {
+            Parser.instance.ParseAllData();
+            MapManager.Instance. FlushAllMapDatas();
+            MapManager.Instance.GenerateNextStage(true);
+            gameOverUI = GameObject.Find("GameOverUIHolder").GetComponent<GameOverUI>();
+            EffectManager.instance.enemyHordManager = BattleManager.instance.enemyHord;
+            EffectManager.instance.playerStat = Player.instance;
+        }
+        //SkillInventory.instance.FirstSetup();
     }
 
     public void StartNewGame()
@@ -44,9 +50,11 @@ public class GameManager : MonoBehaviour
         TempFirstSetup();
     }
 
-    private void Update()
+    public void GameOver()
     {
-        Cursor.visible = true;
+        gameOverUI.OnGameOver();
+        MapManager.Instance.OnGameOver();
+        isFirstGame = false;
     }
 
 }

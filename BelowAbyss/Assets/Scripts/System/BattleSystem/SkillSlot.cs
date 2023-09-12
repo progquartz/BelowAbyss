@@ -20,7 +20,8 @@ public class SkillSlot : MonoBehaviour
     private bool isSkillEnabled = false;
     private float coolTimeLeft = 0.0f;
     private float delayNeeded;
-    
+
+
     public void TestSkillSlotGo()
     {
         SkillData tempSkillData = new SkillData();

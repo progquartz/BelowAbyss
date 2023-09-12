@@ -64,11 +64,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     private void CheckKeyPressing()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Inventory.instance.UseItem(transform.GetSiblingIndex(), transform);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             Inventory.instance.DropItem(transform.GetSiblingIndex(), transform);
         }

@@ -14,25 +14,14 @@ public class RecipeDatas
     /// <param name="sizeY"></param>
     /// <param name="table"></param>
     /// <returns></returns>
-    public int FindItemRecipies(int sizeX, int sizeY, int[] table)
+    public int FindItemRecipies(int item1, int item2)
     {
         for(int i = 0; i < recipeDatas.Length; i++) // 복잡도 이슈 있을수도 있음...
         {
-            if(recipeDatas[i].sizeX == sizeX && recipeDatas[i].sizeY == sizeY)
+            if((recipeDatas[i].craftingRecipe[0] == item1 && recipeDatas[i].craftingRecipe[1] == item2) ||
+               (recipeDatas[i].craftingRecipe[1] == item2 && recipeDatas[i].craftingRecipe[0] == item1))
             {
-                bool stillavailable = true;
-                for(int x = 0; x < table.Length; x++)
-                {
-                    if(recipeDatas[i].craftingRecipe[x] != table[x])
-                    {
-                        stillavailable = false;
-                    }
-                    
-                }
-                if(stillavailable)
-                {
-                    return recipeDatas[i].craftingItem;
-                }
+                return recipeDatas[i].craftingItem;
             }
         }
         return -1;
@@ -217,8 +206,8 @@ public class ItemDataBase : MonoBehaviour
         return itemStackLimitList[itemCode];
     }
 
-    public int SearchRecipe(int sizeX, int sizeY, int[] table)
+    public int SearchRecipe(int item1, int item2)
     {
-        return recipeDatas.FindItemRecipies(sizeX, sizeY, table);
+        return recipeDatas.FindItemRecipies(item1, item2);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthBar : MonoBehaviour
 {
@@ -9,19 +10,22 @@ public class PlayerHealthBar : MonoBehaviour
     [SerializeField]
     private RectTransform currentHealthBar;
     [SerializeField]
-    private Transform healthBarHolder;
+    private RectTransform healthBarHolder;
 
-    int maxSize = 200;
+    [SerializeField]
+    private Vector3 healthPosOffset = new Vector3(); 
+
+    int maxSize = 190;
 
     private void Start()
     {
-        healthBarHolder = transform;
+        healthBarHolder = transform.GetChild(0).GetComponent<RectTransform>();
         currentHealthBar = transform.GetChild(1).GetComponent<RectTransform>();
     }
 
     private void Update()
     {
-        currentHealthBar.sizeDelta = new Vector2( ((float)player.stat.currentHp / (float)player.stat.maxHp) * maxSize , 20);
-        healthBarHolder.position = Camera.main.WorldToScreenPoint(target.transform.position + new Vector3(-100, 200, 0));
+        transform.parent.GetComponent<Canvas>().worldCamera = Camera.main;
+        currentHealthBar.sizeDelta = new Vector2(((float)player.stat.currentHp / (float)player.stat.maxHp) * maxSize, 13);
     }
 }

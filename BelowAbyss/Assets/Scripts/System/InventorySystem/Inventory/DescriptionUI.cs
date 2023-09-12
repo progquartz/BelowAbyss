@@ -36,10 +36,6 @@ public class DescriptionUI : MonoBehaviour
         {
             itemcode = Inventory.instance.itemDB[index].itemcode;
         }
-        else if (getter == "LootingContents")
-        {
-            itemcode = LootingSystem.instance.lootingDB[index].itemcode;
-        }
 
         if (itemcode != 0)
         {
@@ -101,18 +97,9 @@ public class DescriptionUI : MonoBehaviour
         {
             itemcode = Crafting.instance.craftingDB[index].itemcode;
         }
-        else if (getter == "EquipContents")
-        {
-            itemcode = Inventory.instance.equipDB[index].itemcode;
-        }
         else if (getter == "CraftingFinishedContents") // 아이템일 경우.
         {
             itemcode = Crafting.instance.craftedDB.itemcode;
-        }
-        else if (getter == "LootingContents")
-        {
-            itemcode = LootingSystem.instance.lootingDB[index].itemcode;
-
         }
 
         if (itemcode != 0)

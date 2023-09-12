@@ -18,13 +18,15 @@ public class Crafting : MonoBehaviour
     }
 
     public List<Item> craftingDB;
-    public int slotCount = 9;
+    public List<int> craftingDBItemIndex;
+    public int slotCount = 2;
 
     public Item craftedDB;
 
     public List<GameObject> slots;
     public GameObject craftedSlot;
     public int currentCraftableItem = 0;
+
 
     private void Start()
     {
@@ -37,10 +39,12 @@ public class Crafting : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             craftingDB.Add(new Item(0, 0));
-            slots.Add(transform.GetChild(0).GetChild(i).gameObject);
+            craftingDBItemIndex.Add(-1);
+            craftingDB[i].stacklimit = 999;
+            slots.Add(transform.GetChild(0).GetChild(i+1).gameObject);
         }
         craftedDB = new Item(0,0);
-        craftedSlot = transform.GetChild(1).GetChild(0).gameObject;
+        craftedSlot = transform.GetChild(0).GetChild(3).gameObject;
 
     }
 
@@ -49,6 +53,8 @@ public class Crafting : MonoBehaviour
         UpdateSprite();
         CheckCrafting();
     }
+
+
     private void UpdateSprite()
     {
         string path = "Sprites/Item/";
@@ -58,15 +64,17 @@ public class Crafting : MonoBehaviour
             {
                 Sprite image;
                 image = Resources.Load<Sprite>(path + craftingDB[i].itemcode.ToString());
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(craftingDB[i].stack.ToString());
+                slots[i].transform.GetChild(0).gameObject.SetActive(true);
+                slots[i].transform.GetChild(1).gameObject.SetActive(false);
+                slots[i].transform.GetChild(0).GetChild(0).GetComponentInChildren<Image>().sprite = image;
+                slots[i].transform.GetChild(0).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(craftingDB[i].stack.ToString());
             }
             else
             {
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                slots[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                slots[i].transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+                slots[i].transform.GetChild(0).gameObject.SetActive(false);
+                slots[i].transform.GetChild(1).gameObject.SetActive(true);
+                slots[i].transform.GetChild(0).GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                slots[i].transform.GetChild(0).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
             }
         }
 
@@ -74,45 +82,70 @@ public class Crafting : MonoBehaviour
         {
             Sprite image;
             image = Resources.Load<Sprite>(path + craftedDB.itemcode.ToString());
-            craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = image;
-            craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-            //craftedSlot.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(craftedDB.stack.ToString());
+            craftedSlot.transform.GetChild(0).gameObject.SetActive(true);
+            craftedSlot.transform.GetChild(1).gameObject.SetActive(false);
+            craftedSlot.transform.GetChild(0).GetChild(0).GetComponentInChildren<Image>().sprite = image;
+            craftedSlot.transform.GetChild(0).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(craftedDB.stack.ToString());
         }
         else
         {
-            craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-            craftedSlot.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-            //craftedSlot.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
+            craftedSlot.transform.GetChild(0).gameObject.SetActive(false);
+            craftedSlot.transform.GetChild(1).gameObject.SetActive(true);
+            craftedSlot.transform.GetChild(0).GetChild(0).GetComponentInChildren<Image>().sprite = null;
+            craftedSlot.transform.GetChild(0).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText("");
         }
 
     }
 
+    /// <summary>
+    /// 인벤토리에서 줄어드는건 crafting에서 처리해야함.
+    /// </summary>
+    /// <param name="itemCode"></param>
+    /// <param name="slot"></param>
+    /// <returns></returns>
+    public void PutItemInCraftingSlot(int itemCode, int slot)
+    {
+        craftingDB[slot].itemcode = itemCode;
+        craftingDB[slot].stack++;
+    }
 
-    public void CraftOneItem()
+    public void MinusItemInCraftingSlot(int slot)
+    {
+        craftingDB[slot].stack--;
+        if(craftingDB[slot].stack <= 0)
+        {
+            craftingDB[slot].itemcode = 0;
+        }
+    }
+
+
+    public void CraftItem()
     {
         if(currentCraftableItem != 0)
         {
-            for (int i = 0; i < slotCount; i++)
-            {
-                if(craftingDB[i].itemcode != 0)
-                {
-                    MinusStackIndex(i);
-                }
-            }
+            MinusStackIndex(0, craftedDB.stack);
+            MinusStackIndex(1, craftedDB.stack);
+            Inventory.instance.GetItem(currentCraftableItem, craftedDB.stack);
         }
-        
     }
 
-    public bool MinusStackIndex(int i)
+    public bool MinusStackIndex(int index, int stack)
     {
         print("빼짐!");
-        if(craftingDB[i].stack > 0)
+        if(craftingDB[index].stack > 0)
         {
-            craftingDB[i].stack--;
-            if (craftingDB[i].stack == 0)
+            craftingDB[index].stack -= stack;
+            Inventory.instance.itemDB[craftingDBItemIndex[index]].stack -= stack;
+            if (craftingDB[index].stack <= 0)
             {
-                craftingDB[i].itemcode = 0;
-                craftingDB[i].stacklimit = 0;
+                craftingDB[index].itemcode = 0;
+                craftingDB[index].stack = 0;
+            }
+            if(Inventory.instance.itemDB[craftingDBItemIndex[index]].stack <= 0)
+            {
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].stack = 0;
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].itemcode = 0;
+                craftingDBItemIndex[index] = -1;
             }
             return true;
         }
@@ -125,25 +158,20 @@ public class Crafting : MonoBehaviour
     /// <summary>
     /// 아이템 조합이 가능한지를 확인하는 여부.
     /// </summary>
-    /// <param name="sizeX"></param>
-    /// <param name="sizeY"></param>
-    /// <param name="crafting"></param>
-    private void CheckCraftingRecipeAvailable(int sizeX, int sizeY, List<int> crafting)
+    private void CheckCraftingRecipeAvailable(int item1 , int item2, int count)
     {
-        int[] table = crafting.ToArray();
-        tempTable = crafting.ToArray();
-
-        int itemcode = ItemDataBase.instance.SearchRecipe(sizeX, sizeY, table);
+        int itemcode = ItemDataBase.instance.SearchRecipe(item1, item2);
         if(itemcode != -1)
         {
-            print("예수!");
             currentCraftableItem = itemcode;
             craftedDB.itemcode = itemcode;
+            craftedDB.stack = count;
         }
         else
         {
             currentCraftableItem = 0;
             craftedDB.itemcode = 0;
+            craftedDB.stack = 0;
         }
     }
 
@@ -155,47 +183,11 @@ public class Crafting : MonoBehaviour
     /// <returns></returns>
     private void CheckCrafting()
     {
-        int minX = 3;
-        int minY = 3;
-        int maxX = -1;
-        int maxY = -1;
+        int item1 = craftingDB[0].itemcode;
+        int item2 = craftingDB[1].itemcode;
+        int count = craftingDB[0].stack < craftingDB[1].stack ? craftingDB[0].stack : craftingDB[1].stack;
+        CheckCraftingRecipeAvailable(item1, item2, count);
 
-        for(int y = 0; y < 3; y++)
-        {
-            for(int x = 0; x < 3; x++)
-            {
-                if(craftingDB[y*3 + x].itemcode != 0)
-                {
-                    if (x > maxX)
-                        maxX = x;
-                    if (x < minX)
-                        minX = x;
-                    if (y > maxY)
-                        maxY = y;
-                    if (y < minY)
-                        minY = y;
-                }
-            }
-        }
-
-        if(minX != 3)
-        {
-            List<int> craftingTable = new List<int>();
-            for (int y = minY; y <= maxY; y++)
-            {
-                for (int x = minX; x <= maxX; x++)
-                {
-                    craftingTable.Add(craftingDB[y * 3 + x].itemcode);
-                }
-            }
-            CheckCraftingRecipeAvailable(maxX - minX + 1 , maxY - minY + 1 , craftingTable);
-        }
-        else
-        {
-            currentCraftableItem = 0;
-            craftedDB.stack = 0;
-            craftedDB.itemcode = 0;
-        }
     }
 
 

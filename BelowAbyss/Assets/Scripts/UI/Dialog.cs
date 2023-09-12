@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,13 @@ public class Dialog : MonoBehaviour
     }
 
     [SerializeField]
-    protected Text paragraphText;
-    protected Text dialog;
-    protected Image backgroundImage;
+    protected TextMeshProUGUI paragraphText;
     [SerializeField]
-    protected Image artworkImage;
-    public GameObject dialogUI;
+    protected TextMeshProUGUI subparagraphText;
+    [SerializeField]
+    protected TextMeshProUGUI dialog;
+    
+    protected GameObject backgroundImage;
     public int nextEvent;
     public bool isNextEventExist;
 
@@ -30,35 +32,11 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
-        dialogUI = transform.GetChild(1).gameObject;
-        paragraphText = transform.GetChild(1).GetChild(0).GetComponentInChildren<Text>();
-        dialog = transform.GetChild(1).GetChild(2).GetComponent<Text>();
-        backgroundImage = transform.GetChild(0).GetComponent<Image>();
-        artworkImage = transform.GetChild(1).GetChild(1).GetComponent<Image>();
+        paragraphText = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        subparagraphText = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+        dialog = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
-    public void Appear()
-    {
-        dialogUI.SetActive(true);
-    }
-
-    public void Appear(DialogEvent data)
-    {
-        dialogUI.SetActive(true);
-        if (LoadEventCode(data))
-        {
-            Debug.Log("정상적으로 " + data.eventCode + " 번의 이벤트 로드 완료.");
-        }
-        else
-        {
-            Debug.Log( data.eventCode + " 번의 이벤트 로드 중 문제 발생.");
-        }
-    }
-
-    public void Disappear()
-    {
-        dialogUI.SetActive(false);
-    }
 
     /// <summary>
     /// 이벤트를 로드하는 함수. 만약에 정상적으로 로드되지 않았을 경우, false값을 내보냄.
@@ -71,53 +49,12 @@ public class Dialog : MonoBehaviour
         dialog.text = data.dialog;
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
-        
-        LoadImageBaseOnCode(data.artworkpath);
-        if (LoadBackgroundImageBaseOnCode(data.backgroundImage) == null)
-        {
-            backgroundImage.gameObject.SetActive(false);
-        }
-        else
-        {
-            backgroundImage.gameObject.SetActive(true);
-        }
-            //LoadImageBaseOnCode(data.artworkpath);
-            // 이미지 및 여러 추가사항들 존재.
-            return true;
-    }
 
-
-    public Sprite LoadImageBaseOnCode(int imageCode)
-    {
-        Sprite image;
-        if(imageCode == 0)
-        {
-            return null;
-        }
-        string path = "Sprites/DialogArtwork/" + imageCode;
-        image = Resources.Load<Sprite>(path);
-        artworkImage.sprite = image;
-        //Instantiate(image, new Vector3(0, 0, 0), Quaternion.identity);
-        return image;
-    }
-
-    public Sprite LoadBackgroundImageBaseOnCode(int imageCode)
-    {
-        Sprite image;
-        if(imageCode == 0)
-        {
-            return null;
-        }
-        string path = "Textures/Background/" + imageCode;
-        image = Resources.Load<Sprite>(path);
-        backgroundImage.sprite = image;
-        return image;
+        return true;
     }
 
     public void NextButtonPressed()
     {
-        Disappear();
-        backgroundImage.gameObject.SetActive(false);
         if (isNextEventExist)
         {
             EventManager.instance.LoadEvent(nextEvent);

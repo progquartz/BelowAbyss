@@ -10,18 +10,9 @@ public class PlayerStat : EntityStat
     /// </summary>
     public List<BuffBattleData> curArmBBuffs = new List<BuffBattleData>(); // N턴동안 전투가 시작될때 N만큼의 방어력을 획득함.
 
-
-    // 전투 횟수동안 지속되는 경우.
-    public List<BuffBattleData> allAtkBBuffs = new List<BuffBattleData>(); // N회의 전투동안 가하는 모든 공격피해 증가.
-    public List<BuffBattleData> melAtkBBuffs = new List<BuffBattleData>(); // N회의 전투동안 가하는 모든 무기피해 증가.
-    public List<BuffBattleData> skiAtkBBuffs = new List<BuffBattleData>(); // N회의 전투동안 가하는 모든 스킬피해 증가.
-
-    public List<BuffBattleData> allHitBBuffs = new List<BuffBattleData>(); // N회의 전투동안 받는 모든 공격피해 증가.
-
-    public int vitalityMaxHealth;
-    public int normalMaxHealth;
-
-    public int currentSatur; // 배고픔 수치.
+    public int currentVital;
+    public int maxVital;
+    public int currentSatur;
     public int maxSatur;
     public int currentThirst; // 목마름 수치
     public int maxThirst;
@@ -30,254 +21,95 @@ public class PlayerStat : EntityStat
     public int currentSanity; // 정신 수치 체력회복에 관여
     public int maxSanity;
 
-
-    private void Update()
+    public void ResetPlayerStat()
     {
-        vitalityMaxHealth = currentVitality;
-        maxHp =  normalMaxHealth + vitalityMaxHealth;
+        currentVital = 100;
+        maxVital = 100;
+        currentSatur = 100;
+        maxSatur = 100;
+        currentThirst = 100; // 목마름 수치
+        maxThirst = 100;
+        currentSanity = 100; // 정신 수치 체력회복에 관여
+        maxSanity = 100;
 
-    }
+        maxHpBuffs = new List<Tuple<int, int>>(); 
+        currentArmourBuffs = new List<Tuple<int, int>>(); 
 
+        allAttackBuffs = new List<Tuple<int, int>>(); 
+        skillAttackBuffs = new List<Tuple<int, int>>(); 
+        meleeAttackBuffs = new List<Tuple<int, int>>(); 
 
-    public void BattleEndStatControl()
-    {
-        CurrentSanityControl(10);
-    }
+        allHitBuffs = new List<Tuple<int, int>>();
 
-    public void MovingStatControl()
-    {
-        CurrentSatControl(-5);
-        CurrentThirstControl(-10);
+        currentHp = 100;
+        maxHp = 100;
 
-        // vitality control
-        MovingVitalityDecreasing();
-        // sanity control
-        MovingSanityDecreasing();
-    }
+        armour = 0;
 
-    private void MovingVitalityDecreasing()
-    {
-        if(currentSatur >= 60)
-        {
-            CurrentVitalityControl(3);
-        }
+        additionalAllDamage = 0; // 가하는 모든 데미지 추가.
+        additionalWeaponDamage = 0; // 가하는 무기 데미지 추가.
+        additionalSkillDamage = 0; // 가하는 스킬 데미지 추가
 
-        if(currentThirst <= 5)
-        {
-            CurrentVitalityControl(-20);
-        }
-        else if(currentThirst <= 20)
-        {
-            CurrentVitalityControl(-5);
-        }
-
-        if(currentSatur <= 5)
-        {
-            CurrentVitalityControl(-8);
-        }
-        else if(currentSatur <= 20)
-        {
-            CurrentVitalityControl(-3);
-        }
-    }
-
-    private void MovingSanityDecreasing()
-    {
-        if(currentSatur >= 75)
-        {
-            CurrentSanityControl(3);
-        }
-
-        if(currentSatur <= 20)
-        {
-            CurrentSanityControl(-3);
-        }
-        
-        if(currentThirst <= 40)
-        {
-            CurrentSanityControl(-5);
-        }
-    }
-
-    public override int CurrentHPControl(int amount)
-    {
-        currentHp += amount;
-        if (currentHp > maxHp)
-        {
-            int delta = currentHp - maxHp;
-            currentHp = maxHp;
-            return delta;
-        }
-        else if (currentHp <= 0)
-        {
-            return -1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public override void MaxHPControl(int amount)
-    {
-        normalMaxHealth += amount;
-        maxHp = normalMaxHealth + vitalityMaxHealth;
-        if (currentHp > maxHp)
-        {
-            currentHp = maxHp;
-        }
-    }
-
-
-    public void MaxVitalityControl(int amount)
-    {
-        maxVitality += amount;
-        if(currentVitality > maxVitality)
-        {
-            currentVitality = maxVitality;
-        }
-    }
-
-    public void CurrentVitalityControl(int amount)
-    {
-        currentVitality += amount;
-        if(currentVitality > maxVitality)
-        {
-            currentVitality = maxVitality;
-        }
-        vitalityMaxHealth = currentVitality;
-        maxHp = normalMaxHealth + vitalityMaxHealth;
-    }
-
-    public void CurrentSatControl(int amount)
-    {
-        currentSatur += amount;
-        if (currentSatur >= maxSatur)
-        {
-            currentSatur = maxSatur;
-        }
-        else if (currentSatur < 0)
-        {
-            currentSatur = 0;
-        }
-    }
-
-    public void MaxSatControl(int amount)
-    {
-        maxSatur += amount;
-        if(currentSatur > maxSatur)
-        {
-            currentSatur = maxSatur;
-        }
+        poisionStack = 0; // 독 스택. 매 초 N만큼의 데미지를 줌.
+        bloodStack = 0; // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음.
+        onFire = false; // 불 붙음 여부. 불이 붙었을 경우 1초마다 정해진 만큼의 피해를 줌.
+        additionalHitDamage = 0; // 피격 추가 데미지 여부.
     }
 
     public void CurrentThirstControl(int amount)
     {
-        currentSatur += amount;
+        int tmpthirst = currentThirst + amount;
+        if(tmpthirst > maxThirst)
+        {
+            tmpthirst = maxThirst;
+        }
+        else if(tmpthirst < 0)
+        {
+            tmpthirst = 0;
+        }
+        currentThirst = tmpthirst;
     }
 
-    public void MaxThirstControl(int amount)
+    public void CurrentSaturControl(int amount)
     {
-        maxThirst += amount;
-        if(currentThirst > maxThirst)
+        int tmpthirst = currentSatur + amount;
+        if (tmpthirst > maxSatur)
         {
-            currentThirst = maxThirst;
+            tmpthirst = maxSatur;
         }
+        else if (tmpthirst < 0)
+        {
+            tmpthirst = 0;
+        }
+        currentSatur = tmpthirst;
     }
 
     public void CurrentSanityControl(int amount)
     {
-        currentSanity += amount;
-        if(currentSanity >= maxSanity)
+        int tmpthirst = currentSanity + amount;
+        if (tmpthirst > maxSanity)
         {
-            currentSanity = maxSanity;
+            tmpthirst = maxSanity;
         }
-    }
-
-    public void MaxsanityControl(int amount)
-    {
-        maxSanity += amount;
-        if(currentSanity > maxSanity)
+        else if (tmpthirst < 0)
         {
-            currentSanity = maxSanity;
+            tmpthirst = 0;
         }
+        currentSanity = tmpthirst;
     }
 
-    /// <summary>
-    /// 전투가 시작할때 플레이어가 받고 있는 모든 전투 단위(B) 버프를 받게 함.
-    /// </summary>
-    public void CheckBattleBuff()
+    public void CurrentVitalControl(int amount)
     {
-        InstallAllBattleBuffs();
-    }
-
-    public void EndBattleBuff()
-    {
-        UninstallAllSecondBuffs();
-        UninstallAllBattleBuffs();
-    }
-
-    private void InstallAllBattleBuffs()
-    {
-        InstallBattleBuff(ref armour, curArmBBuffs);
-        InstallBattleBuff(ref realAdditionalMeleeDamage, melAtkBBuffs);
-        InstallBattleBuff(ref realAdditionalAllDamage, allAtkBBuffs);
-        InstallBattleBuff(ref realAdditionalSkillDamage, skiAtkBBuffs);
-        InstallBattleBuff(ref realAdditionalHitDamage, allHitBBuffs);
-    }
-
-    private void UninstallAllBattleBuffs()
-    {
-        UninstallBattleBuff(ref armour, curArmBBuffs);
-        armour = 0;
-        UninstallBattleBuff(ref realAdditionalMeleeDamage, melAtkBBuffs);
-        UninstallBattleBuff(ref realAdditionalAllDamage, allAtkBBuffs);
-        UninstallBattleBuff(ref realAdditionalSkillDamage, skiAtkBBuffs);
-        UninstallBattleBuff(ref realAdditionalHitDamage, allHitBBuffs);
-    }
-
-    private void UninstallAllSecondBuffs()
-    {
-        UninstallSecondBuff(ref realAdditionalAllDamage, additionalAllDamage);
-        UninstallSecondBuff(ref realAdditionalHitDamage, additionalHitDamage);
-        UninstallSecondBuff(ref realAdditionalSkillDamage, additionalSkillDamage);
-        UninstallSecondBuff(ref realAdditionalMeleeDamage, additionalWeaponDamage);
-    }
-
-    private void UninstallSecondBuff(ref int realbuff, List<BuffData> buffDatas)
-    {
-        int i = 0;
-        while (i < buffDatas.Count)
+        int tmpthirst = currentVital + amount;
+        if (tmpthirst > maxVital)
         {
-            realbuff -= buffDatas[i].buffPower;
-            buffDatas.RemoveAt(i);
+            tmpthirst = maxVital;
         }
-    }
-
-    private void UninstallBattleBuff(ref int realbuff, List<BuffBattleData> buffdatas)
-    {
-        int i = 0;
-        while (i < buffdatas.Count)
+        else if (tmpthirst < 0)
         {
-            if (buffdatas[i].buffBattleCount == 0)
-            {
-                realbuff -= buffdatas[i].buffPower;
-                buffdatas.RemoveAt(i);
-            }
-            else
-            {
-                i++;
-            }
+            tmpthirst = 0;
         }
-    }
-    
-    private void InstallBattleBuff(ref int realbuff, List<BuffBattleData> buffDatas)
-    {
-        for (int i = 0; i < buffDatas.Count; i++)
-        {
-            realbuff += buffDatas[i].buffPower;
-            buffDatas[i].buffBattleCount--;
-        }
+        currentVital = tmpthirst;
     }
 
 
