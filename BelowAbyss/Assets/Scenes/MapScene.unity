@@ -12545,7 +12545,6 @@ MonoBehaviour:
   ConsumeItems: {fileID: 4900000, guid: 5a47d7d5d04c6164c86df7370eef45f5, type: 3}
   RecipeDatas: {fileID: 4900000, guid: b2cc1aa9ebb25ab48bf6b12eb8510ef0, type: 3}
   EnemyDatas: {fileID: 4900000, guid: 281b13c667495a74180dd6da60042af7, type: 3}
-  ThemeDatas: {fileID: 4900000, guid: c1d0a229de9f2f3459e9cba99952ad35, type: 3}
   stageThemeDatas: {fileID: 4900000, guid: e780dcf187d14364fad65ccf8ed5394a, type: 3}
 --- !u!4 &216810678
 Transform:

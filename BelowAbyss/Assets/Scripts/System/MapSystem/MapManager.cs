@@ -46,11 +46,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Singletone
-    /// </summary>
-    /// 
-
     public static MapManager Instance
     {
         get
@@ -142,9 +137,9 @@ public class MapManager : MonoBehaviour
 
     public void MoveFront()
     {
-        if(mapDatas[currentStage].GetPosition() < 15)
+        if(mapDatas[currentStage].GetPosition() < 5)
         {
-            int currentPos = mapDatas[currentStage].GetPosition() + 3;
+            int currentPos = mapDatas[currentStage].GetPosition() + 1;
             MapManager.instance.mapVisual.HeadToNextEvent();
             MoveStatMinus();
             PlayerAnimation.instance.SetMove(true);
@@ -224,22 +219,19 @@ public class MapManager : MonoBehaviour
         yield return new WaitWhile(() => mapVisual.isMoving);
         //yield return new WaitForSecondsRealtime(2.0f);
 
-        if (currentPos == 15)
+        if (currentPos == 5)
         {
             Debug.Log("이놈 보스만나는데요?");
-            if (!mapDatas[currentStage].roomVisited)
+            if (!mapDatas[currentStage].lastRoomVisited)
             {
                 EventManager.instance.LoadEvent(mapDatas[currentStage].GetBossEvent());
             }
         }
-        else if (currentPos % 3 == 0 && currentPos != 0)
+        else if (currentPos != 0)
         {
-            Debug.Log("일반 맵 로드");
-            if (!mapDatas[currentStage].eventVisited[currentPos / 3 - 1])
-            {
-                EventManager.instance.LoadEvent(mapDatas[currentStage].GetEvent(currentPos / 3 - 1));
-                PlayerAnimation.instance.EventSoundEffect();
-            }
+            Debug.Log(currentPos - 1 + "번째 이벤트 로드");
+            EventManager.instance.LoadEvent(mapDatas[currentStage].GetEvent(currentPos - 1));
+            PlayerAnimation.instance.EventSoundEffect();
         }
 
 
@@ -250,10 +242,6 @@ public class MapManager : MonoBehaviour
     public void MoveTo(int position)
     {
         mapDatas[currentStage].SetPosition(position);
-    }
-
-    private void DeleteMap()
-    {
     }
 
     public int GetStageNum()

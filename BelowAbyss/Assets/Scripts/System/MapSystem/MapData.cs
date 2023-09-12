@@ -22,17 +22,14 @@ public class MapData : MonoBehaviour
     private int stageNum;
     [SerializeField]
     private int playerPos;
-    // 맵 내의 데이터.
-    private List<bool> pathsVisited; 
 
     private List<int> events;
-    public List<bool> eventVisited;
     public string themeSelected;
 
     private BackupMapData backupMapData = new BackupMapData();
 
     private int bossEvent; // 출발하는 이전 방도 들어갈 수 있다면, List<int>일 것이고, 아니면 그냥 int일것.
-    public bool roomVisited;
+    public bool lastRoomVisited;
 
     public enum EncounterType
     {
@@ -69,29 +66,20 @@ public class MapData : MonoBehaviour
     {
         stageNum = stagenum;
 
-        // 테마를 기반으로 Paths에 새로운 데이터 입력. 나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
-        pathsVisited = new List<bool>();
-        for (int i = 0; i < 10; i++)
-        {
-            pathsVisited.Add(false);
-        }
-
         // 테마를 기반으로 Events에 새로운 데이터 입력.나중에 계수와 수식이 붙으면 다른 함수로 분리될 수도 있음.
         events = new List<int>();
-        eventVisited = new List<bool>();
         for (int i = 0; i < 4; i++)
         {
             // 맵비주얼에서 관리하는 encounterevent객체들에서부터 데이터 받아오기.
             int eventData = MapManager.Instance.mapVisual.GetEncounterEventNormal(i);
             events.Add(eventData);
             backupMapData.eventList[i] = eventData;
-            eventVisited.Add(false);
         }
 
 
         // 가장 마지막 보스파이트 데이터.
         bossEvent = MapManager.Instance.mapVisual.GetEncounterEventLast();
-        roomVisited = false;
+        lastRoomVisited = false;
 
     }
 
@@ -112,45 +100,7 @@ public class MapData : MonoBehaviour
 
     public void SetPosition(int position)
     {
-        if (position > 15)
-        {
-            position = 15;
-        }
-        if (position < 0)
-        {
-            position = 0;
-        }
-        playerPos = position;
-        VisitPosition(position);
-    }
-
-    public void VisitPosition(int position)
-    {
-        if(position == 0)
-        {
-            return;
-        }
-        if (position == 15)
-        {
-            roomVisited = true;
-            return;
-        }
-        // 이벤트의 경우.
-        if (position % 3 == 0)
-        {
-            eventVisited[position / 3 - 1] = true;
-            return;
-        }
-        if (position % 3 == 1)
-        {
-            pathsVisited[(2 * (position / 3))] = true;
-            return;
-        }
-        if (position % 3 == 2)
-        {
-            pathsVisited[(2 * (position / 3)) + 1] = true;
-            return;
-        }
+        playerPos = Mathf.Clamp(position, 0, 5);
     }
 
     public int GetEvent(int index)
