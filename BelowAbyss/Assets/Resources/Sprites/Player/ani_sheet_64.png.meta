@@ -75,7 +75,7 @@ TextureImporter:
       213: 7028188721918785846
     second: ani_sheet_64_23
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -134,6 +135,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -149,6 +151,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -676,6 +702,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ani_sheet_64_0: 8852963219962057014
+      ani_sheet_64_1: -1617816022416810400
+      ani_sheet_64_10: 6785555967711162566
+      ani_sheet_64_11: -2885068439873874090
+      ani_sheet_64_12: -9136029209017795794
+      ani_sheet_64_13: -7240772743827823025
+      ani_sheet_64_14: 1146176610920413369
+      ani_sheet_64_15: -7268796845617156612
+      ani_sheet_64_16: 3676535613453033214
+      ani_sheet_64_17: 627498259905897259
+      ani_sheet_64_18: 532616260249775017
+      ani_sheet_64_19: 4627697146578020300
+      ani_sheet_64_2: 2819621381867241560
+      ani_sheet_64_20: -4196621372050035960
+      ani_sheet_64_21: 4235066660462929577
+      ani_sheet_64_22: 7817152909939314900
+      ani_sheet_64_23: 7028188721918785846
+      ani_sheet_64_3: 1696462713076609484
+      ani_sheet_64_4: 8957819572819209510
+      ani_sheet_64_5: -3917607388652074154
+      ani_sheet_64_6: -5372794338760255184
+      ani_sheet_64_7: -8050220840402530498
+      ani_sheet_64_8: 5909238868412063495
+      ani_sheet_64_9: -4779155105504478916
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

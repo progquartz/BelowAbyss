@@ -195,7 +195,7 @@ public class MapManager : MonoBehaviour
             sanityDelta -= 5;
         }
 
-        Player.instance.stat.CurrentHealthControl(healthDelta);
+        Player.instance.stat.CurrentHPControl(healthDelta);
         Player.instance.stat.CurrentSanityControl(sanityDelta);
         Player.instance.stat.CurrentSaturControl(-5);
         Player.instance.stat.CurrentThirstControl(-10);

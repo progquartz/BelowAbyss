@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyHord : MonoBehaviour
 {
-    private float[] enemyHolderRowXpositionData = new float[4] {0,250,500,750};
+    private float[] enemyHolderRowXpositionData = new float[3] {-24,63,150};
 
     public List<Enemy> enemies;
     public List<GameObject> enemyHolder;
@@ -97,26 +97,8 @@ public class EnemyHord : MonoBehaviour
 
         enemies.Add(transform.GetChild(lastIndex + 1).GetComponent<Enemy>());
         enemyHolder.Add(transform.GetChild(lastIndex + 1).gameObject);
+        enemies[lastIndex + 1].ChangeEnemyData(data);
 
-        // 체력 관련
-        enemies[lastIndex + 1].stat.maxHp = data.MaxHealth;
-        enemies[lastIndex + 1].stat.currentHp = data.MaxHealth;
-
-        // 사이즈 / 추가 효과 관련.
-        enemies[lastIndex + 1].stat.size = data.Size;
-
-        enemies[lastIndex + 1].stat.additionalEffect1 = data.additionalEffect1;
-        enemies[lastIndex + 1].stat.additionalEffect2 = data.additionalEffect2;
-        enemies[lastIndex + 1].stat.additionalEffect3 = data.additionalEffect3;
-        enemies[lastIndex + 1].stat.additionalEffectCoolTime = data.additionalEffectCoolTime;
-
-        // 공격 관련
-        enemies[lastIndex + 1].stat.attackDamage = data.attackDamage;
-        enemies[lastIndex + 1].stat.attackSpeed = data.attackSpeed;
-
-        // 코드 관련 업데이트
-        enemies[lastIndex + 1].stat.enemySpriteCode = data.enemySpriteCode;
-        enemies[lastIndex + 1].stat.enemyCode = data.EnemyCode;
 
         if (lastIndex == -1)
         {
@@ -140,10 +122,6 @@ public class EnemyHord : MonoBehaviour
     private void Update()
     {
         UpdateEnemyPositionData();
-        for(int i = 0; i < enemies.Count; i++)
-        {
-            enemies[i].UpdateSprite();
-        }
         CheckEnemyAllDeath();
     }
 
@@ -170,7 +148,7 @@ public class EnemyHord : MonoBehaviour
     private void UpdateEnemyPlaceHolderPosition(int enemyIndex, int position, int size)
     {
         Vector3 NewPos = new Vector3(((enemyHolderRowXpositionData[position] + enemyHolderRowXpositionData[position + size - 1])) / 2, 
-                                             0, 0);
+                                             418, 0);
         enemyHolder[enemyIndex].transform.localPosition = NewPos;
     }
 
@@ -185,16 +163,18 @@ public class EnemyHord : MonoBehaviour
         for(int i = 0; i < hordData.Count; i++)
         {
             transform.GetChild(i).gameObject.SetActive(true);
+            
 
             PlaceEnemyOnBack(hordData[i]);
-
+            // 비주얼 데이터 업데이트 이후
             enemyCount = hordData.Count;
         }
-        for(int i = hordData.Count; i < 4; i++)
+        for(int i = hordData.Count; i < 3; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
     }
+
 
     public void ElimateAllHord()
     {

@@ -6,8 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public EnemyStat stat;
-
-    public SpriteRenderer sprite;
+    public EnemyVisual enemyVisual;
 
     private bool isEnemyHasAdditionalSkill = false;
 
@@ -29,7 +28,6 @@ public class Enemy : MonoBehaviour
         attackCooltimeLeft = stat.attackSpeed;
     }
 
-
     public void CheckDeath()
     {
         if(stat.currentHp <= 0)
@@ -42,6 +40,8 @@ public class Enemy : MonoBehaviour
                     realindex++;
                 }
             }
+            enemyVisual.DeathReset();
+            enemyVisual.DeathAnimation();
             transform.GetComponentInParent<EnemyHord>().Death(realindex);
             stat.enemyCode = 0;
         }
@@ -64,6 +64,11 @@ public class Enemy : MonoBehaviour
         if (attackCooltimeLeft <= 0.0f)
         {
             Attack();
+            enemyVisual.AttackAnimationOn();
+            
+            ///Player.instance.HitAnimationOn();
+            ///
+
             attackCooltimeLeft = stat.attackSpeed;
             attackCooltimeLeft -= Time.deltaTime;
         }
@@ -83,6 +88,7 @@ public class Enemy : MonoBehaviour
     {
         EffectData atkData = new EffectData("P_0_CH_-"+stat.attackDamage.ToString() ,"I_0_1_1", "F");
         EffectManager.instance.AmplifyEffect(atkData);
+
     }
 
     private void UseSkill()
@@ -93,27 +99,34 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-    public void UpdateSprite()
-    {
-        if (stat.enemySpriteCode == null)
-        {
-            sprite.sprite = null;
-        }
-        else
-        {
-            string path = "Sprites/Enemy/";
-            Sprite image;
-            image = Resources.Load<Sprite>((path + stat.enemySpriteCode + "_idle").ToString());
-            sprite.sprite = image;
-        }
-    }
-
-
-
     private void Start()
     {
-        sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        enemyVisual = transform.GetComponentInChildren<EnemyVisual>();
+        stat = transform.GetComponent<EnemyStat>();
+    }
 
+    public void ChangeEnemyData(EnemyFormat data)
+    {
+        // 체력 관련
+        stat.maxHp = data.MaxHealth;
+        stat.currentHp = data.MaxHealth;
+        stat.size = data.Size;
+
+        stat.additionalEffect1 = data.additionalEffect1;
+        stat.additionalEffect2 = data.additionalEffect2;
+        stat.additionalEffect3 = data.additionalEffect3;
+        stat.additionalEffectCoolTime = data.additionalEffectCoolTime;
+
+        stat.attackDamage = data.attackDamage;
+        stat.attackSpeed = data.attackSpeed;
+
+        stat.enemySpriteCode = data.enemySpriteCode;
+        stat.enemyCode = data.EnemyCode;
+        ChangeEnemyVisualData();
+    }
+
+    private void ChangeEnemyVisualData()
+    {
+        enemyVisual.ChangeSpriteLibrary(stat.enemySpriteCode);
     }
 }

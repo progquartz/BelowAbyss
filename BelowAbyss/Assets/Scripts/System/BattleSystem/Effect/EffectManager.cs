@@ -52,11 +52,12 @@ public class EffectManager : MonoBehaviour
 {
     public static EffectManager instance;
 
+
     public EnemyHord enemyHordManager;
     public Player playerStat;
 
     public EffectData testData;
-
+    public int fireTickDamage = 5;
     
     /// <summary>
     /// 첫번째 문절. 대상의 
@@ -74,7 +75,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField]
     private EffectCountFor effectIndicator;
     [SerializeField]
-    private int effectCount;
+    private int effectDuration;
 
     private string playerGraphicEffectCode;
     private string enemyGraphicEffectCode;
@@ -114,7 +115,7 @@ public class EffectManager : MonoBehaviour
         status = EffectType.NONE;
         effectPower = 0;
         effectIndicator = EffectCountFor.NONE;
-        effectCount = 0;
+        effectDuration = 0;
         playerGraphicEffectCode = null;
         enemyGraphicEffectCode = null;
         needsCondition = false;
@@ -253,7 +254,7 @@ public class EffectManager : MonoBehaviour
                 break;
         }
 
-        effectCount = int.Parse(strs[1]);
+        effectDuration = int.Parse(strs[1]);
 
         playerGraphicEffectCode = strs[2];
         enemyGraphicEffectCode = strs[3];
@@ -304,8 +305,52 @@ public class EffectManager : MonoBehaviour
         }
 
         return true;
-        
     }
+
+    public bool AmplifyVisualEffect(EffectData effect, int skillVisualDataBuff = 0, int skillVisualDataAttack = 0)
+    {
+        Debug.Log(effect.str1 + "에 대한 효과 발동함.");
+        ResetTempDatas();
+        bool dataValid = true;
+
+        dataValid &= PutFirstLineDatas(effect.str1);
+        dataValid &= PutSecondLineDatas(effect.str2);
+        dataValid &= PutThirdLineDatas(effect.str3);
+
+        if (dataValid)
+        {
+            VisualSkillEffect(effect, skillVisualDataBuff, skillVisualDataAttack);
+        }
+        else
+        {
+            Debug.Log("정상적이지 않은 str형식이 로딩되어서 effect visualizing이 정상적으로 발생되지 않았음.");
+            return false;
+        }
+        return true;
+    }
+
+    private void VisualSkillEffect(EffectData effect, int skillVisualDataBuff = 0, int skillVisualDataAttack = 0)
+    {
+        List<EntityStat> targetData = GetTarget();
+        // 자신에 대한 버프 비주얼 이펙트가 존재하는 경우.
+        if (skillVisualDataBuff != 0)
+        {
+            Player.instance.GetComponentInChildren<EntitySkillVisualCaller>().CallSkillVisual(skillVisualDataBuff);
+        }
+
+        if (skillVisualDataAttack != 0)
+        {
+            if (targetData[0] is EnemyStat)
+            {
+                foreach(EnemyStat data in targetData)
+                {
+                    data.gameObject.GetComponentInChildren<EntitySkillVisualCaller>().CallSkillVisual(skillVisualDataAttack);
+                }
+            }
+        }
+    }
+
+
 
     public void TestToPutEffect()
     {
@@ -327,20 +372,26 @@ public class EffectManager : MonoBehaviour
             case EffectType.MAXSAT:
                 break;
             case EffectType.CURARM:
+                CurArmourChange();
                 break;
             case EffectType.DISARM:
+                DisArm();
                 break;
             case EffectType.ALLATK:
+                AllAttackDamageChange();
                 break;
             case EffectType.MELATK:
                 break;
             case EffectType.SKLATK:
                 break;
             case EffectType.POISON:
+                PoisonChange();
                 break;
             case EffectType.BLOOD:
+                BloodChange();
                 break;
             case EffectType.FIRE:
+                FireChange();
                 break;
             case EffectType.CURVIT:
                 CurVitChange();
@@ -358,6 +409,7 @@ public class EffectManager : MonoBehaviour
             case EffectType.MAXTHR:
                 break;
             case EffectType.CURE:
+                Cure();
                 break;
             case EffectType.ALLHIT:
                 break;
@@ -367,12 +419,115 @@ public class EffectManager : MonoBehaviour
 
     }
 
+    // p [I,S,B] / E [I, S]
+    private void AllAttackDamageChange()
+    {
+        if (effectIndicator == EffectCountFor.INSTANT)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AllAttackDamageControl(effectPower, 'I', 0.0f);
+            }
+        }
+        else if (effectIndicator == EffectCountFor.BATTLE)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AllAttackDamageControl(effectPower, 'B', effectDuration);
+            }
+        }
+        else if (effectIndicator == EffectCountFor.SECOND)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AllAttackDamageControl(effectPower, 'S', effectDuration);
+            }
+        }
+    }
+
+    private void Cure()
+    {
+        List<EntityStat> target = GetTarget();
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].Cure();
+        }
+    }
+    // P,E [I]
+    private void PoisonChange()
+    {
+        List<EntityStat> target = GetTarget();
+
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].AddPoison(effectPower);
+        }
+    }
+
+    // P,E [I]
+    private void BloodChange()
+    {
+        List<EntityStat> target = GetTarget();
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].AddBlood(effectPower);
+        }
+
+    }
+
+    // P,E [I]
+    private void FireChange()
+    {
+        List<EntityStat> target = GetTarget();
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].AddFire(1);
+        }
+    }
+
+    // P [I]
+    private void SanityChange()
+    {
+        PlayerStat target = GetTarget()[0] as PlayerStat;
+        target.CurrentSanityControl(effectPower);
+    }
+
+    private void CurArmourChange()
+    {
+        List<EntityStat> target = GetTarget();
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].CurrentArmourControl(effectPower);
+        }
+    }
+    private void DisArm()
+    {
+        List<EntityStat> target = GetTarget();
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].DisarmArmour();
+        }
+
+    }
+    // P,E [I]
+    private void MaxHPChange()
+    {
+        List<EntityStat> target = GetTarget();
+        for (int i = 0; i < target.Count; i++)
+        {
+            target[i].MaxHPControl(effectPower);
+        }
+    }
+
     private bool CurHPChange()
     {
         List<EntityStat> target = GetTarget();
         for(int i = 0; i < target.Count; i++)
         {
-            target[i].CurrentHealthControl(effectPower);
+            target[i].CurrentHPControl(effectPower);
         }
         return false;
     }
