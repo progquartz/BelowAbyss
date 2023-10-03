@@ -18,8 +18,8 @@ public class EnemyHealthBar : MonoBehaviour
     private void Start()
     {
         healthBarHolder = transform;
-        healthBarBackground = transform.GetChild(0).GetComponent<RectTransform>();
-        currentHealthBar = transform.GetChild(1).GetComponent<RectTransform>();
+        healthBarBackground = transform.GetChild(1).GetComponent<RectTransform>();
+        currentHealthBar = transform.GetChild(0).GetComponent<RectTransform>();
     }
 
     private void Update()

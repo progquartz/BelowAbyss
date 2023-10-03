@@ -4,59 +4,23 @@
             "EnemyCode" : 1,
             "MaxHealth" : 10,
             "Size" : 1,
-            "enemySpriteCode" : "uparupa",
+            "enemySpriteCode" : "JellyFish",
             "SoundCode" : 1,
             "attackDamage" : 1,
             "attackSpeed" : 1,
-            "additionalEffect1" : ["aaaaa", "aaaaaa"],
-            "additionalEffect2" : ["aaaaa", "aaaaaa"],
-            "additionalEffect3" : ["aaaaa", "aaaaaa"],
-            "additionalEffectCoolTime" : [1,3]
+            "additionalEffect1" : [],
+            "additionalEffect2" : [],
+            "additionalEffect3" : [],
+            "additionalEffectCoolTime" : []
         },
         {
             "EnemyCode" : 2,
             "MaxHealth" : 15,
-            "Size" : 2,
-            "enemySpriteCode" : "bigeye",
+            "Size" : 1,
+            "enemySpriteCode" : "Goblin",
             "SoundCode" : 2,
             "attackDamage" : 2,
             "attackSpeed" : 2
-        },
-        {
-            "EnemyCode" : 3,
-            "MaxHealth" : 20,
-            "Size" : 1,
-            "enemySpriteCode" : "sidehorn",
-            "SoundCode" : 3,
-            "attackDamage" : 3,
-            "attackSpeed" : 3
-        },
-        {
-            "EnemyCode" : 4,
-            "MaxHealth" : 25,
-            "Size" : 1,
-            "enemySpriteCode" : "balooneye",
-            "SoundCode" : 4,
-            "attackDamage" : 4,
-            "attackSpeed" : 4
-        },
-        {
-            "EnemyCode" : 5,
-            "MaxHealth" : 10,
-            "Size" : 1,
-            "enemySpriteCode" : "SmallSlime",
-            "SoundCode" : 5,
-            "attackDamage" : 1,
-            "attackSpeed" : 5
-        },   
-        {
-            "EnemyCode" : 6,
-            "MaxHealth" : 30,
-            "Size" : 1,
-            "enemySpriteCode" : "BigSlime",
-            "SoundCode" : 6,
-            "attackDamage" : 6,
-            "attackSpeed" : 1
         }
     ]
 }

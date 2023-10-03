@@ -51,14 +51,50 @@ public class PlayerStat : EntityStat
 
         armour = 0;
 
-        additionalAllDamage = 0; // 가하는 모든 데미지 추가.
-        additionalWeaponDamage = 0; // 가하는 무기 데미지 추가.
-        additionalSkillDamage = 0; // 가하는 스킬 데미지 추가
+        additionalAllDamage = new List<BuffData>(); // 가하는 모든 데미지 추가.
+        additionalWeaponDamage = new List<BuffData>(); // 가하는 무기 데미지 추가.
+        additionalSkillDamage = new List<BuffData>(); // 가하는 스킬 데미지 추가
 
-        poisionStack = 0; // 독 스택. 매 초 N만큼의 데미지를 줌.
-        bloodStack = 0; // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음.
-        onFire = false; // 불 붙음 여부. 불이 붙었을 경우 1초마다 정해진 만큼의 피해를 줌.
-        additionalHitDamage = 0; // 피격 추가 데미지 여부.
+        additionalHitDamage = new List<BuffData>(); // 피격 추가 데미지 여부.
+
+        poisonStack = new BuffData();// 독 스택. 매 초 N만큼의 데미지를 줌.
+        bloodStack = new BuffData(); // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음.
+        isOnFire = false; // 불 붙음 여부. 불이 붙었을 경우 1초마다 정해진 만큼의 피해를 줌.
+        
+    }
+    public override int CurrentHPControl(int amount)
+    {
+        int delta = 0;
+        if (amount > 0)
+        {
+            currentHp += amount;
+            delta = Math.Max(0, currentHp - maxHp);
+            currentHp = Math.Min(currentHp, maxHp);
+        }
+        else if (amount < 0)
+        {
+            if (armour > 0)
+            {
+                armour += amount;
+                if (armour < 0)
+                {
+                    currentHp += armour;
+                    armour = 0;
+                }
+            }
+            else
+            {
+                currentHp += amount;
+                Player.instance.PlayerHurtAnimation();
+            }
+
+            if (currentHp <= 0)
+            {
+                delta = -1;
+            }
+        }
+
+        return delta;
     }
 
     public void CurrentThirstControl(int amount)

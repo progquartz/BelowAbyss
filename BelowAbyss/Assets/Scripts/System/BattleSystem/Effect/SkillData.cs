@@ -10,6 +10,9 @@ public class SkillData
     public string[] skillEffect3; // 스킬 효과들. (string) 배열
     public float skillCooltime;
     public float skillDelay;
+    public int skillAniBuffCode;
+    public int skillAniAttackCode;
+    public int skillSoundCode;
     public bool isItemSkill;
 
     public SkillData()
@@ -23,6 +26,9 @@ public class SkillData
         skillEffect3 = null;
         skillCooltime = 0;
         skillDelay = 0;
+        skillAniBuffCode = 0;
+        skillAniAttackCode = 0;
+        skillSoundCode = 0;
         isItemSkill = false;
     }
 }

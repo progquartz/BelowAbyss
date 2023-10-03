@@ -7,7 +7,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     public static PlayerAnimation instance;
     public Animator animator;
-    public Animator effectAnimator;
+    
     public AudioSource effectAudioSource;
 
     [SerializeField]
@@ -49,7 +49,6 @@ public class PlayerAnimation : MonoBehaviour
 
     public void EventSoundEffect()
     {
-        effectAnimator.SetTrigger("HasEvent");
         effectAudioSource.clip = effectaudioClips[0];
         effectAudioSource.volume = 0.1f;
         effectAudioSource.Play();

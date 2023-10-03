@@ -11,6 +11,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 701,
+            "skillAniAttackCode" : 703,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -23,6 +26,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 3.0,
             "skillDelay" : 5.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -35,6 +41,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 6.0,
             "skillDelay" : 10.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -47,6 +56,9 @@
             "skillEffect3" : [""],
             "skillCooltime" : 2.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : true
         },
         {
@@ -59,6 +71,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 2.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : true
         },
         {
@@ -71,6 +86,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -83,6 +101,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -95,6 +116,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -107,6 +131,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -119,6 +146,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         },
         {
@@ -143,6 +173,9 @@
             "skillEffect3" : ["F"],
             "skillCooltime" : 5.0,
             "skillDelay" : 0.0,
+            "skillAniBuffCode" : 0,
+            "skillAniAttackCode" : 0,
+            "skillSoundCode" : 0,
             "isItemSkill" : false
         }
     ]

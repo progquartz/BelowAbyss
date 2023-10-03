@@ -47,12 +47,18 @@ public class BattleManager : MonoBehaviour
 
     public void BattlePhaseEnded()
     {
-        this.gameObject.SetActive(false);
+        PlayerAnimation.instance.SetBattle(false);
+        Player.instance.PlayerMoveToOriginalPosition();
         isBattleStarted = false;
         if (isBattleHasAdditionalEvent)
         {
             EventManager.instance.LoadEvent(additionalEvent);
         }
+        else
+        {
+            MapManager.Instance.MoveFront();
+        }
+        this.gameObject.SetActive(false);
     }
 
     public void OnPlayerDeath()
@@ -81,6 +87,7 @@ public class BattleManager : MonoBehaviour
             currentHordAgainst.Add(int.Parse(hordData[i]));
         }
         enemyHord.SpawnHord(currentHordAgainst);
+        PlayerAnimation.instance.SetBattle(true);
     }
 
     public void BattleStart()

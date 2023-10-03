@@ -12,12 +12,17 @@ public class Player : MonoBehaviour
     /// 전투 이전에 저장되어야 하는 
     /// </summary>
     public PlayerStat statBeforeBattle;
+    [SerializeField]
+    private PlayerVisualNoneAnimation visualNoneAnimation;
+    [SerializeField]
+    private PlayerMovingComponent visualAnimation;
 
     private void Awake()
     {
         if(instance == null)
         {
             instance = this;
+            PlayerStatReset();
         }
         else
         {
@@ -46,6 +51,20 @@ public class Player : MonoBehaviour
             PlayerStatReset();
             isPlayerDead = true;
         }
+    }
+
+    public void PlayerAttackAnimation()
+    {
+        visualAnimation.AttackState();
+    }
+
+    public void PlayerMoveToOriginalPosition()
+    {
+        visualAnimation.MoveToOriginalPos();
+    }
+    public void PlayerHurtAnimation()
+    {
+        visualAnimation.HurtState();
     }
 
 }
