@@ -66,7 +66,7 @@ public class LootingSystem : MonoBehaviour
             if(!isAllSkillAvailable)
             {
                 int randomNum = Random.Range(1, notAvailableSkillCode.Count) - 1;
-                SkillInventory.instance.GetSkill(randomNum);
+                SkillInventory.instance.GetSkill(notAvailableSkillCode[randomNum]);
             }
         }
         else
@@ -96,7 +96,7 @@ public class LootingSystem : MonoBehaviour
             if (!isAllTraitAvailable)
             {
                 int randomNum = Random.Range(1, notAvailableTraitCode.Count) - 1;
-                TraitInventory.instance.GetTrait(randomNum);
+                TraitInventory.instance.GetTrait(notAvailableTraitCode[ randomNum]);
             }
         }
         else

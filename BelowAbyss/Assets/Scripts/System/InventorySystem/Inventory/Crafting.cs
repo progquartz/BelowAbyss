@@ -134,18 +134,28 @@ public class Crafting : MonoBehaviour
         print("빼짐!");
         if(craftingDB[index].stack > 0)
         {
-            craftingDB[index].stack -= stack;
-            Inventory.instance.itemDB[craftingDBItemIndex[index]].stack -= stack;
-            if (craftingDB[index].stack <= 0)
+
+
+
+            if (Inventory.instance.itemDB[craftingDBItemIndex[index]].stack - stack <= 0)
+            {
+                Inventory.instance.HotSlotUnEquip(craftingDB[index].itemcode);
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].stack = 0;
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].itemcode = 0;
+                craftingDB[index].itemcode = 0;
+                craftingDB[index].stack = 0;
+
+                craftingDBItemIndex[index] = -1;
+            }
+            else if (craftingDB[index].stack - stack <= 0)
             {
                 craftingDB[index].itemcode = 0;
                 craftingDB[index].stack = 0;
             }
-            if(Inventory.instance.itemDB[craftingDBItemIndex[index]].stack <= 0)
+            else
             {
-                Inventory.instance.itemDB[craftingDBItemIndex[index]].stack = 0;
-                Inventory.instance.itemDB[craftingDBItemIndex[index]].itemcode = 0;
-                craftingDBItemIndex[index] = -1;
+                craftingDB[index].stack -= stack;
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].stack -= stack;
             }
             return true;
         }

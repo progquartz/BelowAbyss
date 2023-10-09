@@ -59,7 +59,7 @@ public class TraitInventory : MonoBehaviour
         for (int i = 0; i < traitDBCount; i++)
         {
             traitDB.Add(new TraitData());
-            traitSlot.Add(transform.GetChild(1).GetChild(0).GetChild(i).gameObject);
+            traitSlot.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).gameObject);
             
         }
     }

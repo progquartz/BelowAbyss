@@ -92,7 +92,7 @@ public class EntityStat : MonoBehaviour
         poisonStack = new BuffData();
         bloodStack = new BuffData();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         RemoveExpiredBuffs();
         CheckAndEffectNegatives();
@@ -114,9 +114,11 @@ public class EntityStat : MonoBehaviour
 
         if (isPoisoned)
         {
+
             poisonStack.buffDuration -= Time.deltaTime;
             if (poisonStack.buffDuration < 0)
             {
+                Debug.Log("아야");
                 poisonStack.buffDuration = 1.0f;
                 CurrentHPControl(-poisonStack.buffPower);
             }
