@@ -154,19 +154,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void HotSlotUnEquip(int itemCode)
-    {
-        
-        if(hotSlotDB[0] != -1 &&  itemDB[hotSlotDB[0]].itemcode == itemCode)
-        {
-            hotSlotDB[0] = -1;
-        }
-        if (hotSlotDB[1] != -1 && itemDB[hotSlotDB[1]].itemcode == itemCode)
-        {
-            hotSlotDB[1] = -1;
-        }
-    }
-
     public void PressPlusButton(int buttonIndex)
     {
         Debug.Log(buttonIndex + "번째 +버튼을 눌렀습니다.");

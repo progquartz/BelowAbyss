@@ -180,36 +180,6 @@
             "rootingEffect1" : ["P_0_MI_0"], 
             "rootingEffect2" : ["I_0_1_1"],
             "rootingEffect3" : ["F"]
-        },
-        {
-            "eventCode" : 4012,
-            "isLastEvent" : false,
-            "additionalEventCode" : 2025,
-            "rootingItem" : [],
-            "rootingMin" : [],
-            "rootingMax" : [],
-            "isSkillRootRandom" : false,
-            "rootingSkill" : [],
-            "isTraitRootRandom" : true,
-            "rootingTrait" : [4014,4015,4016,4021,4022,4023,4031,4032,4033],
-            "rootingEffect1" : ["P_0_CS_5"], 
-            "rootingEffect2" : ["I_0_1_1"],
-            "rootingEffect3" : ["F"]
-        },
-        {
-            "eventCode" : 4028,
-            "isLastEvent" : false,
-            "additionalEventCode" : 2057,
-            "rootingItem" : [],
-            "rootingMin" : [],
-            "rootingMax" : [],
-            "isSkillRootRandom" : true,
-            "rootingSkill" : [3001,1,2,3],
-            "isTraitRootRandom" : false,
-            "rootingTrait" : [],
-            "rootingEffect1" : ["P_0_CS_10"], 
-            "rootingEffect2" : ["I_0_1_1"],
-            "rootingEffect3" : ["F"]
         }
     ]
 }

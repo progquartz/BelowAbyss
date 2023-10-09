@@ -20,7 +20,7 @@ public class PlayerMovingComponent : MonoBehaviour
 
 
     // 플레이어라서 음수임.
-    private float dashXPosition = -20.0f;
+    private float dashXPosition = -40.0f;
     private float fallBackXPosition = -20.0f;
 
     // 돌진 관련 시간

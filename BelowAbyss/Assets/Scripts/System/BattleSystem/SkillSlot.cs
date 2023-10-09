@@ -163,8 +163,7 @@ public class SkillSlot : MonoBehaviour
             {
                 EffectData effData = new EffectData(skillData.skillEffect1[i], skillData.skillEffect2[i], skillData.skillEffect3[i]);
                 EffectManager.instance.AmplifyEffect(effData);
-                EffectManager.instance.AmplifyVisualEffect(effData, skillData.skillAniBuffCode , skillData.skillAniAttackCode);
-                BattleSoundManager.instance.PlaySound(skillData.skillSoundCode, 0.3f);
+                EffectManager.instance.AmplifyVisualEffect(effData, skillData.skillAniAttackCode, skillData.skillAniBuffCode);
             }
         }
     }
