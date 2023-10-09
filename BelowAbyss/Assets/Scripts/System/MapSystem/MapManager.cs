@@ -68,10 +68,8 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("돈ㅇㅁㄻㄴㅇㄻㄴㅇㄹ");
-        if (!GameManager.instance.isFirstGame)
+        if(!GameManager.instance.isFirstGame)
         {
-
             FlushAllMapDatas();
             GenerateNextStage(true);
         }
