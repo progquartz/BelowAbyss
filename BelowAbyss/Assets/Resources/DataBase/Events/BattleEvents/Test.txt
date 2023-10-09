@@ -6,7 +6,7 @@
 			"isAdditionalEvent":true,
 			"additionalEventCode":31,
 			"outLookEventCode": 1,
-            "hordCount" : 3,
+            "hordCount" : 1,
             "hordData" : ["1 1 1"],
 			"artworkpath" : 1,
 			"backgroundMusic" : 0
@@ -16,8 +16,8 @@
 			"isAdditionalEvent":false,
 			"additionalEventCode":-1,
 			"outLookEventCode": 1,
-            "hordCount" : 2,
-            "hordData" : ["2 1"],
+            "hordCount" : 1,
+            "hordData" : ["2 1 1"],
 			"artworkpath" : 1,
 			"backgroundMusic" : 0
         },
@@ -26,8 +26,8 @@
 			"isAdditionalEvent":false,
 			"additionalEventCode":-1,
 			"outLookEventCode": 1,
-            "hordCount" : 2,
-            "hordData" : ["1 1"],
+            "hordCount" : 1,
+            "hordData" : ["1 1 1"],
 			"artworkpath" : 1,
 			"backgroundMusic" : 0
         },
@@ -36,7 +36,7 @@
 			"isAdditionalEvent":true,
 			"additionalEventCode":4001,
 			"outLookEventCode": 1,
-            "hordCount" : 3,
+            "hordCount" : 1,
             "hordData" : ["1 1 1"],
 			"artworkpath" : 1,
 			"backgroundMusic" : 0

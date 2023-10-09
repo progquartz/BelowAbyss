@@ -5,7 +5,7 @@
             "MaxHealth" : 10,
             "Size" : 1,
             "enemySpriteCode" : "JellyFish",
-            "SoundCode" : 1,
+            "SoundCode" : 0,
             "attackDamage" : 1,
             "attackSpeed" : 1,
             "additionalEffect1" : [],
@@ -18,7 +18,7 @@
             "MaxHealth" : 15,
             "Size" : 1,
             "enemySpriteCode" : "Goblin",
-            "SoundCode" : 2,
+            "SoundCode" : 10001,
             "attackDamage" : 2,
             "attackSpeed" : 2
         }
