@@ -14,7 +14,7 @@
 	"traitCode" :  4011,
 	"traitName" :  "점토 조각상",
 	"traitEffectLore" :  "받는 모든 피해 1 증가",
-	"traitLore" :  "당신의 살점은 점토처럼 무르다",
+	"traitLore" :  "받는 모든 피해 1 증가",
 	"traitEffect1" : ["P_0_AH_1"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -23,7 +23,7 @@
 	"traitCode" :  4012,
 	"traitName" :  "종이 피부",
 	"traitEffectLore" :  "받는 모든 피해 2 증가",
-	"traitLore" :  "당신의 피부는 종잇장만큼 나약하다",
+	"traitLore" :  "받는 모든 피해 2 증가",
 	"traitEffect1" : ["P_0_AH_2"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -32,7 +32,7 @@
 	"traitCode" :  4013,
 	"traitName" :  "골다공증",
 	"traitEffectLore" :  "받는 모든 피해 3 증가",
-	"traitLore" :  "당신의 뼈에는 구멍이 가득하다",
+	"traitLore" :  "받는 모든 피해 3 증가",
 	"traitEffect1" : ["P_0_AH_3"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -50,7 +50,7 @@
 	"traitCode" :  4015,
 	"traitName" :  "나무껍질 피부",
 	"traitEffectLore" :  "받는 모든 피해 2 감소",
-	"traitLore" :  "당신의 피부는 나무껍질처럼 단단해진다",
+	"traitLore" :  "받는 모든 피해 2 감소",
 	"traitEffect1" : ["P_0_AH_-2"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -59,7 +59,7 @@
 	"traitCode" :  4016,
 	"traitName" :  "강철 조각상",
 	"traitEffectLore" :  "받는 모든 피해 3 감소",
-	"traitLore" :  "당신의 신체는 강철로 이루어졌다",
+	"traitLore" :  "받는 모든 피해 3 감소",
 	"traitEffect1" : ["P_0_AH_-3"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -68,7 +68,7 @@
 	"traitCode" :  4021,
 	"traitName" :  "날카로운 눈",
 	"traitEffectLore" :  "주는 모든 피해 2 증가",
-	"traitLore" :  "당신의 눈은 상대의 약점을 쉽게 파악한다",
+	"traitLore" :  "주는 모든 피해 2 증가",
 	"traitEffect1" : ["P_0_AA_2"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -77,7 +77,7 @@
 	"traitCode" :  4022,
 	"traitName" :  "뛰어난 기술",
 	"traitEffectLore" :  "주는 모든 피해 3 증가",
-	"traitLore" :  "당신의 기술은 상대의 신체를 간단히 파고든다",
+	"traitLore" :  "주는 모든 피해 3 증가",
 	"traitEffect1" : ["P_0_AA_3"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -86,7 +86,7 @@
 	"traitCode" :  4023,
 	"traitName" :  "황소의 힘",
 	"traitEffectLore" :  "주는 모든 피해 4 증가",
-	"traitLore" :  "당신의 힘은 황소에 비견된다",
+	"traitLore" :  "주는 모든 피해 4 증가",
 	"traitEffect1" : ["P_0_AA_4"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -95,7 +95,7 @@
 	"traitCode" :  4024,
 	"traitName" :  "괴력난신",
 	"traitEffectLore" :  "주는 모든 피해 5 증가",
-	"traitLore" :  "당신의 공격은 마치 꾸며낸 것처럼 치명적이다",
+	"traitLore" :  "주는 모든 피해 5 증가",
 	"traitEffect1" : ["P_0_AA_5"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -104,7 +104,7 @@
 	"traitCode" :  4031,
 	"traitName" :  "대식가",
 	"traitEffectLore" :  "허기 최대치 10 증가",
-	"traitLore" :  "당신에게 식사는 하나의 축복이다",
+	"traitLore" :  "허기 최대치 10 증가",
 	"traitEffect1" : ["P_0_MS_10"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -113,7 +113,7 @@
 	"traitCode" :  4032,
 	"traitName" :  "거대한 위장",
 	"traitEffectLore" :  "허기 최대치 20 증가",
-	"traitLore" :  "당신의 위장은 동물 한마리를 손쉽게 받아들인다",
+	"traitLore" :  "허기 최대치 20 증가",
 	"traitEffect1" : ["P_0_MS_20"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -122,7 +122,7 @@
 	"traitCode" :  4033,
 	"traitName" :  "식신",
 	"traitEffectLore" :  "허기 최대치 30 증가",
-	"traitLore" :  "당신은 열 사람보다 많은 양의 음식을 먹는다",
+	"traitLore" :  "허기 최대치 30 증가",
 	"traitEffect1" : ["P_0_MS_30"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -131,7 +131,7 @@
 	"traitCode" :  4034,
 	"traitName" :  "아귀",
 	"traitEffectLore" :  "허기 최대치 50 증가",
-	"traitLore" :  "당신은 배부름을 알 수 없다",
+	"traitLore" :  "허기 최대치 50 증가",
 	"traitEffect1" : ["P_0_MS_50"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -140,7 +140,7 @@
 	"traitCode" :  4035,
 	"traitName" :  "편식",
 	"traitEffectLore" :  "허기 최대치 10 감소",
-	"traitLore" :  "당신의 입은 배부를 때 맛없는 음식을 삼키길 거부한다",
+	"traitLore" :  "허기 최대치 10 감소",
 	"traitEffect1" : ["P_0_MS_-10"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -149,7 +149,7 @@
 	"traitCode" :  4036,
 	"traitName" :  "소화불량",
 	"traitEffectLore" :  "허기 최대치 20 감소",
-	"traitLore" :  "당신은 많은 음식을 소화함에 어려움을 겪는다",
+	"traitLore" :  "허기 최대치 20 감소",
 	"traitEffect1" : ["P_0_MS_-20"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -158,7 +158,7 @@
 	"traitCode" :  4037,
 	"traitName" :  "거식증",
 	"traitEffectLore" :  "허기 최대치 50 감소",
-	"traitLore" :  "당신은 생존이 어려울 정도로 음식을 거부한다",
+	"traitLore" :  "허기 최대치 50 감소",
 	"traitEffect1" : ["P_0_MS_50"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]
@@ -167,7 +167,7 @@
 	"traitCode" :  4048,
 	"traitName" :  "골절",
 	"traitEffectLore" :  "체력 최대치 20 감소",
-	"traitLore" :  "당신의 뼈는 부러졌다",
+	"traitLore" :  "체력 최대치 20 감소",
 	"traitEffect1" : ["P_0_MH_-20"],
 	"traitEffect2" : ["I_0_1_1"],
 	"traitEffect3" : ["F"]

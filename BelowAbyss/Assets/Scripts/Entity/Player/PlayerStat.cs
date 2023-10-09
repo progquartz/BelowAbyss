@@ -57,6 +57,8 @@ public class PlayerStat : EntityStat
 
         additionalHitDamage = new List<BuffData>(); // 피격 추가 데미지 여부.
 
+        isPoisoned = false;
+        isBleeding = false;
         poisonStack = new BuffData();// 독 스택. 매 초 N만큼의 데미지를 줌.
         bloodStack = new BuffData(); // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음.
         isOnFire = false; // 불 붙음 여부. 불이 붙었을 경우 1초마다 정해진 만큼의 피해를 줌.
@@ -97,6 +99,47 @@ public class PlayerStat : EntityStat
         return delta;
     }
 
+
+    /// <summary>
+    /// 전체 공격 데미지 컨트롤.
+    /// </summary>
+    /// <param name="amount"></param>
+    public override void AllAttackDamageControl(int amount, char type, float duration)
+    {
+        switch (type)
+        {
+            case 'I':
+                realAdditionalAllDamage += amount;
+                break;
+            case 'S':
+                BuffData tmp = new BuffData(amount, duration);
+                additionalAllDamage.Add(tmp);
+                break;
+            case 'B':
+                Tuple<int, int> tmpB = new Tuple<int, int>(amount, (int)duration);
+                allAttackBuffs.Add(tmpB);
+                break;
+        }
+    }
+
+    public override void AllHitDamageControl(int amount, char type, float duration)
+    {
+        switch (type)
+        {
+            case 'I':
+                realAdditionalHitDamage += amount;
+                break;
+            case 'S':
+                BuffData tmp = new BuffData(amount, duration);
+                additionalHitDamage.Add(tmp);
+                break;
+            case 'B':
+                Tuple<int, int> tmpB = new Tuple<int, int>(amount, (int)duration);
+                allHitBuffs.Add(tmpB);
+                break;
+        }
+    }
+
     public void CurrentThirstControl(int amount)
     {
         int tmpthirst = currentThirst + amount;
@@ -123,6 +166,24 @@ public class PlayerStat : EntityStat
             tmpthirst = 0;
         }
         currentSatur = tmpthirst;
+    }
+
+    public void MaxSaturControl(int amount)
+    {
+        maxSatur += amount;
+        if(maxSatur < 1)
+        {
+            maxSatur = 1;
+        }
+    }
+
+    public void MaxThrControl(int amount)
+    {
+        maxThirst += amount;
+        if(maxThirst < 1)
+        {
+            maxThirst = 1;
+        }
     }
 
     public void CurrentSanityControl(int amount)

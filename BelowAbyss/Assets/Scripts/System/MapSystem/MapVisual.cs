@@ -54,7 +54,6 @@ public class MapVisual : MonoBehaviour
 
     private void Start()
     {
-        
         mapFrontPos = mapFrontOfCharacter.GetComponent<RectTransform>();
         mapBackPos = mapBehindOfCharacter.GetComponent<RectTransform>();
 
@@ -101,9 +100,10 @@ public class MapVisual : MonoBehaviour
     public void ChangeMapSpriteTheme()
     {
         // 여기 이미지 로딩이 정상적으로 되지 않음.
-        string mapThemePath = "Assets/Resources/Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
-        mapFrontOfCharacter.GetComponent<Image>().sprite = IMG2Sprite.LoadNewSprite(mapThemePath + "/MapFrontOfCharacter.png") as Sprite;
-        mapBehindOfCharacter.GetComponent<Image>().sprite = IMG2Sprite.LoadNewSprite(mapThemePath + "/MapBehindOfCharacter.png") as Sprite;
+        string mapThemePath = "Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
+        Debug.Log("Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme() + "/MapFrontOfCharacter");
+        mapFrontOfCharacter.GetComponent<Image>().sprite = IMG2Sprite.LoadNewSprite(mapThemePath + "/MapFrontOfCharacter") as Sprite;
+        mapBehindOfCharacter.GetComponent<Image>().sprite = IMG2Sprite.LoadNewSprite(mapThemePath + "/MapBehindOfCharacter") as Sprite;
     }
 
     // 초기로 돌아오면서, 해당 맵의 초기 이벤트를 지정.
@@ -133,7 +133,12 @@ public class MapVisual : MonoBehaviour
     
     public void HeadToNextEvent()
     {
-        currentEncounteringEventVisual = GetEncounterEventTransform(curEncountEventIndex).GetComponent<EncounterEvent>();
+        if(curEncountEventIndex < 0)
+        {
+            curEncountEventIndex = 0;
+        }
+        Transform data = GetEncounterEventTransform(curEncountEventIndex);
+        currentEncounteringEventVisual = data.GetComponent<EncounterEvent>();
         curEncountEventIndex++;
     }
 
@@ -152,24 +157,17 @@ public class MapVisual : MonoBehaviour
     /// </summary>
     private void ChangeMapNormalEncounterEvent()
     {
-        string mapThemePath = "Assets/Resources/Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
         string mapThemePathExAsset = "Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
 
-        // 디렉토리 데이터 저장.
-        System.IO.DirectoryInfo diNormal = new DirectoryInfo(mapThemePath + "/VisualEvent/NormalRoom");
-        // 로딩 될 인카운터 데이터의 수 저장.
         int encounterNormalEventCounter = 0;
-
+        Object[] data = Resources.LoadAll(mapThemePathExAsset + "/VisualEvent/NormalRoom/");
+        Debug.Log(MapManager.Instance.GetCurrentMapTheme()+ " 에서 일반 이벤트 중 "+ data.Length+1 + "개의 이벤트 로드됨.");
         List<EncounterEvent> themeLoadedNormalEvents = new List<EncounterEvent>();
-
-        foreach (FileInfo file in diNormal.GetFiles("*.prefab"))
+        for (int i = 0; i < data.Length; i++)
         {
-            string fileName = QtzTool.TrimEnd(file.Name, ".prefab");
-
-            Debug.Log("파일명 : " + fileName);
-            GameObject loadedPrefab = Resources.Load(mapThemePathExAsset+"/VisualEvent/NormalRoom/" + fileName) as GameObject;
-            themeLoadedNormalEvents.Add(loadedPrefab.GetComponent<EncounterEvent>());
-
+            GameObject dataobj = data[i] as GameObject;
+            //Debug.Log("일반 " + encounterNormalEventCounter + " 번째 이벤트 로드 (" + data[i].name + ")");
+            themeLoadedNormalEvents.Add(dataobj.GetComponent<EncounterEvent>());
             encounterNormalEventCounter++;
         }
 
@@ -178,6 +176,7 @@ public class MapVisual : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             randomNum = Random.Range(0, encounterNormalEventCounter);
+            //Debug.Log(i + "번째 방에" + themeLoadedNormalEvents[randomNum].name + "이벤트 로드됨");
             GetEncounterEventTransform(i).gameObject.GetComponent<EncounterEvent>().ChangeData(themeLoadedNormalEvents[randomNum]);
         }
     }
@@ -190,19 +189,15 @@ public class MapVisual : MonoBehaviour
         string mapThemePath = "Assets/Resources/Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
         string mapThemePathExAsset = "Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
 
-        System.IO.DirectoryInfo diLast = new DirectoryInfo(mapThemePath + "/VisualEvent/LastRoom");
         int encounterLastEventCounter = 0;
-
+        Object[] data = Resources.LoadAll(mapThemePathExAsset + "/VisualEvent/LastRoom/");
+        Debug.Log(MapManager.Instance.GetCurrentMapTheme() + "의 마지막 방에서 " +data.Length+1 + "개의 이벤트 로드.");
         List<EncounterEvent> themeLoadedLastEvents = new List<EncounterEvent>();
-
-        foreach (FileInfo file in diLast.GetFiles("*.prefab"))
+        for (int i = 0; i < data.Length; i++)
         {
-            string fileName = QtzTool.TrimEnd(file.Name, ".prefab");
-
-            Debug.Log("파일명 : " + fileName);
-            GameObject loadedPrefab = Resources.Load(mapThemePathExAsset + "/VisualEvent/LastRoom/" + fileName) as GameObject;
-            themeLoadedLastEvents.Add(loadedPrefab.GetComponent<EncounterEvent>());
-
+            GameObject dataobj = data[i] as GameObject;
+            //Debug.Log("보스" + encounterLastEventCounter + " 번째 이벤트 로드 (" +  data[i].name + ")");
+            themeLoadedLastEvents.Add(dataobj.GetComponent<EncounterEvent>());
             encounterLastEventCounter++;
         }
 

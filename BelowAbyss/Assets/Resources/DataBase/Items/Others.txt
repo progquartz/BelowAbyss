@@ -39,14 +39,14 @@
 			"itemCode" : 1003,
 			"itemName" : "나무 그릇",
 			"itemCategory" : "재료",
-			"itemLore" : "단단한 열매의 껍질을 그릇으로 만든 것 같다.",
+			"itemLore" : "단단한 껍질로 만든 그릇.",
 			"itemStackLimit" : 99
 		},
 		{
 			"itemCode" : 1004,
 			"itemName" : "날카로운 금속 조각",
 			"itemCategory" : "재료",
-			"itemLore" : "출처가 불분명한 금속 조각. 칼 대신 사용할 수 있을 것 같다.",
+			"itemLore" : "칼 대신 사용할 수 있을 것 같다.",
 			"itemStackLimit" : 99
 		},
 		{

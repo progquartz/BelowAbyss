@@ -1,0 +1,90 @@
+{
+    "enemies" : [
+        {
+            "EnemyCode" : 1,
+            "MaxHealth" : 10,
+            "Size" : 1,
+            "enemySpriteCode" : "JellyFish",
+            "SoundCode" : 10001,
+            "attackDamage" : 2,
+            "attackSpeed" : 3,
+            "additionalEffect1" : [],
+            "additionalEffect2" : [],
+            "additionalEffect3" : [],
+            "additionalEffectCoolTime" : []
+        },
+        {
+            "EnemyCode" : 2,
+            "MaxHealth" : 15,
+            "Size" : 1,
+            "enemySpriteCode" : "Goblin",
+            "SoundCode" : 10001,
+            "attackDamage" : 2,
+            "attackSpeed" : 2
+        },
+        {
+            "EnemyCode" : 3,
+            "MaxHealth" : 15,
+            "Size" : 1,
+            "enemySpriteCode" : "JellyFish",
+            "SoundCode" : 10001,
+            "attackDamage" : 2,
+            "attackSpeed" : 3.2,
+            "additionalEffect1" : [],
+            "additionalEffect2" : [],
+            "additionalEffect3" : [],
+            "additionalEffectCoolTime" : []
+        },
+        {
+            "EnemyCode" : 4,
+            "MaxHealth" : 13,
+            "Size" : 1,
+            "enemySpriteCode" : "JellyFish",
+            "SoundCode" : 10001,
+            "attackDamage" : 2,
+            "attackSpeed" : 3.4,
+            "additionalEffect1" : [],
+            "additionalEffect2" : [],
+            "additionalEffect3" : [],
+            "additionalEffectCoolTime" : []
+        },
+                {
+            "EnemyCode" : 5,
+            "MaxHealth" : 10,
+            "Size" : 1,
+            "enemySpriteCode" : "Goblin",
+            "SoundCode" : 10001,
+            "attackDamage" : 2,
+            "attackSpeed" : 1.3
+        },
+                {
+            "EnemyCode" : 6,
+            "MaxHealth" : 11,
+            "Size" : 1,
+            "enemySpriteCode" : "Goblin",
+            "SoundCode" : 10001,
+            "attackDamage" : 2,
+            "attackSpeed" : 1.4
+        }
+        ,
+                {
+            "EnemyCode" : 7,
+            "MaxHealth" : 20,
+            "Size" : 1,
+            "enemySpriteCode" : "GoblinMage",
+            "SoundCode" : 10001,
+            "attackDamage" : 15,
+            "attackSpeed" : 4.1
+        }
+                ,
+                {
+            "EnemyCode" : 8,
+            "MaxHealth" : 25,
+            "Size" : 1,
+            "enemySpriteCode" : "Skull",
+            "SoundCode" : 10001,
+            "attackDamage" : 10,
+            "attackSpeed" : 3
+        }
+    ]
+}

@@ -14,8 +14,7 @@ using UnityEngine;
 /// </summary>
 public class MapManager : MonoBehaviour
 {
-    private static MapManager instance;
-
+    public static MapManager Instance;
     [SerializeField]
     private List<MapData> mapDatas;
     [SerializeField]
@@ -23,8 +22,7 @@ public class MapManager : MonoBehaviour
     public MapVisual mapVisual;
     [SerializeField]
     private GameObject mapdataPrefab;
-    [SerializeField]
-    private StageLoreUI stageLoreUI;
+    private int sans;
 
 
     // 맵에 추가적으로 적용되어야 하는 멀티플라이어.
@@ -36,25 +34,13 @@ public class MapManager : MonoBehaviour
     void Awake()
     {
         // Singletone
-        if (null == instance)
+        if (null == Instance)
         {   
-            instance = this;            
+            Instance = this;            
         }
         else
         {
             Destroy(this.gameObject);
-        }
-    }
-
-    public static MapManager Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
         }
     }
 
@@ -140,7 +126,7 @@ public class MapManager : MonoBehaviour
         if(mapDatas[currentStage].GetPosition() < 5)
         {
             int currentPos = mapDatas[currentStage].GetPosition() + 1;
-            MapManager.instance.mapVisual.HeadToNextEvent();
+            MapManager.Instance.mapVisual.HeadToNextEvent();
             MoveStatMinus();
             PlayerAnimation.instance.SetMove(true);
             StartCoroutine(MoveMapVisual(currentPos));
@@ -159,7 +145,7 @@ public class MapManager : MonoBehaviour
         int healthDelta = 0;
         int sanityDelta = 0;
 
-        // vital Calc
+        // health Calc
         if(stat.currentSatur <= 5)
         {
             healthDelta -= 8;
@@ -180,6 +166,10 @@ public class MapManager : MonoBehaviour
         {
             healthDelta -= 5;
         }
+
+        healthDelta += stat.currentSanity / 20;
+
+
         
         // SanityCalc
         if (stat.currentSatur <= 20)
@@ -194,7 +184,6 @@ public class MapManager : MonoBehaviour
         {
             sanityDelta -= 5;
         }
-
         Player.instance.stat.CurrentHPControl(healthDelta);
         Player.instance.stat.CurrentSanityControl(sanityDelta);
         Player.instance.stat.CurrentSaturControl(-5);

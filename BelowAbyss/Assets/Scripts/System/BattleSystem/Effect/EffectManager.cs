@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -280,10 +281,10 @@ public class EffectManager : MonoBehaviour
 
     public void AmplifyEffect(string s1, string s2, string s3)
     {
-        
         EffectData eff = new EffectData(s1, s2, s3);
         AmplifyEffect(eff);
     }
+
     public bool AmplifyEffect(EffectData effect)
     {
         Debug.Log(effect.str1 + "에 대한 효과 발동함.");
@@ -365,11 +366,13 @@ public class EffectManager : MonoBehaviour
                 CurHPChange();
                 break;
             case EffectType.MAXHP:
+                MaxHPChange();
                 break;
             case EffectType.CURSAT:
                 CurSatChange();
                 break;
             case EffectType.MAXSAT:
+                MaxSatChange();
                 break;
             case EffectType.CURARM:
                 CurArmourChange();
@@ -407,17 +410,21 @@ public class EffectManager : MonoBehaviour
                 CurThrChange();
                 break;
             case EffectType.MAXTHR:
+                MaxThrChange();
                 break;
             case EffectType.CURE:
                 Cure();
                 break;
             case EffectType.ALLHIT:
+                AllHitDamageChange();
                 break;
             case EffectType.NONE:
                 break;
         }
 
     }
+
+
 
     // p [I,S,B] / E [I, S]
     private void AllAttackDamageChange()
@@ -444,6 +451,35 @@ public class EffectManager : MonoBehaviour
             for (int i = 0; i < target.Count; i++)
             {
                 target[i].AllAttackDamageControl(effectPower, 'S', effectDuration);
+            }
+        }
+    }
+
+    // p [I,S,B] / E [I, S]
+    private void AllHitDamageChange()
+    {
+        if (effectIndicator == EffectCountFor.INSTANT)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AllHitDamageControl(effectPower, 'I', 0.0f);
+            }
+        }
+        else if (effectIndicator == EffectCountFor.BATTLE)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AllHitDamageControl(effectPower, 'B', effectDuration);
+            }
+        }
+        else if (effectIndicator == EffectCountFor.SECOND)
+        {
+            List<EntityStat> target = GetTarget();
+            for (int i = 0; i < target.Count; i++)
+            {
+                target[i].AllHitDamageControl(effectPower, 'S', effectDuration);
             }
         }
     }
@@ -522,6 +558,8 @@ public class EffectManager : MonoBehaviour
         }
     }
 
+    
+
     private bool CurHPChange()
     {
         List<EntityStat> target = GetTarget();
@@ -536,6 +574,13 @@ public class EffectManager : MonoBehaviour
     {
         PlayerStat target = Player.instance.stat;
         target.CurrentSaturControl(effectPower);
+        return false;
+    }
+
+    private bool MaxSatChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.MaxSaturControl(effectPower);
         return false;
     }
 
@@ -557,6 +602,13 @@ public class EffectManager : MonoBehaviour
     {
         PlayerStat target = Player.instance.stat;
         target.CurrentThirstControl(effectPower);
+        return false;
+    }
+
+    private bool MaxThrChange()
+    {
+        PlayerStat target = Player.instance.stat;
+        target.MaxThrControl(effectPower);
         return false;
     }
 

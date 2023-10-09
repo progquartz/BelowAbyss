@@ -9,6 +9,9 @@ public class EnemyHord : MonoBehaviour
 
     public List<Enemy> enemies;
     public List<GameObject> enemyHolder;
+    public GameObject ememyMovingPosParent;
+    [SerializeField]
+    private List<EnemyMovingPositionFollowing> enemyMovingPosFollower;
 
     public int firstIndex = 0; // 이건 몹중 처음에 있는걸 의미 (첫번째 칸을 의미하는게 아님.)
     public int lastIndex = -1; // 이건 몹중 마지막에 있는걸 의미 (마지막 칸을 의미하는게 아님)
@@ -23,7 +26,11 @@ public class EnemyHord : MonoBehaviour
     /// <param name="index"></param>
     public void Death(int index)
     {
+        enemyMovingPosFollower[index].GetBackToOriginalPosition();
+        enemyMovingPosFollower[index].GetCloseToTargetingPos();
+        enemyMovingPosFollower.Remove(enemyMovingPosFollower[index]);
         enemies.Remove(enemies[index]);
+        enemyHolder[index].GetComponentInChildren<EnemyMovingComponent>().MoveToOriginalPos();
         enemyHolder[index].SetActive(false);
         enemyHolder.Remove(enemyHolder[index]);
         enemyCount--;
@@ -42,6 +49,7 @@ public class EnemyHord : MonoBehaviour
             if(enemies[i].stat.position != indexHaveToBe)
             {
                 enemies[i].stat.position = indexHaveToBe;
+                enemyMovingPosFollower[i].AllocateNewPosition(i);
                 indexHaveToBe += enemies[i].stat.size;
             }
             else
@@ -50,6 +58,7 @@ public class EnemyHord : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// 가장 앞 열 기준으로 count만큼의 칸 내에 있는 적 열을 가져옴.
     /// </summary>
@@ -96,7 +105,10 @@ public class EnemyHord : MonoBehaviour
         EnemyFormat data = EnemyDataBase.instance.GetEnemy(enemyCode);
 
         enemies.Add(transform.GetChild(lastIndex + 1).GetComponent<Enemy>());
+        enemyMovingPosFollower.Add(ememyMovingPosParent.transform.GetChild(lastIndex + 1).GetComponent<EnemyMovingPositionFollowing>());
+        enemyMovingPosFollower[lastIndex + 1].AllocateNewPosition(lastIndex + 1);
         enemyHolder.Add(transform.GetChild(lastIndex + 1).gameObject);
+        enemies[lastIndex+1].GetComponent<EnemyStat>().ResetStat();
         enemies[lastIndex + 1].ChangeEnemyData(data);
 
 
@@ -141,7 +153,7 @@ public class EnemyHord : MonoBehaviour
         // 죽으면 리스트에서 제외되기 때문에, 업데이트가 필요함.
         for (int i = 0; i < enemyCount; i++)
         {
-            UpdateEnemyPlaceHolderPosition(i, enemies[i].stat.position ,enemies[i].stat.size);
+            //UpdateEnemyPlaceHolderPosition(i, enemies[i].stat.position ,enemies[i].stat.size);
         }
     }
 
@@ -187,41 +199,6 @@ public class EnemyHord : MonoBehaviour
         }
         enemies = new List<Enemy>();
         enemyHolder = new List<GameObject>();
-    }
-    public void Test1()
-    {
-        
-        List<int> hordData = new List<int>();
-        hordData.Add(1);
-        hordData.Add(2);
-        hordData.Add(3);
-
-
-        SpawnHord(hordData);
-    }
-
-    public void Test2()
-    {
-
-        List<int> hordData = new List<int>();
-        hordData.Add(1);
-        hordData.Add(3);
-        hordData.Add(3);
-        hordData.Add(1);
-
-
-        SpawnHord(hordData);
-    }
-
-    public void Test3()
-    {
-
-        List<int> hordData = new List<int>();
-        hordData.Add(2);
-        hordData.Add(2);
-
-
-        SpawnHord(hordData);
     }
 
 }

@@ -8,8 +8,6 @@ public enum ItemType
 {
     OTHERS = 9,
     CONSUMPTION = 3,
-    WEAPON = 1,
-    ARMOUR = 2,
 }
 
 public class Inventory : MonoBehaviour
@@ -52,7 +50,6 @@ public class Inventory : MonoBehaviour
     {
         slots = new List<GameObject>();
         itemDB = new List<Item>();
-        int a = -1;
         for (int i = 0; i < slotCount; i++)
         {
             itemDB.Add(new Item(0, 0));
@@ -151,6 +148,19 @@ public class Inventory : MonoBehaviour
             }
             UISoundEffect.instance.EquipUnEquipSound();
 
+        }
+    }
+
+    public void HotSlotUnEquip(int itemCode)
+    {
+        
+        if(hotSlotDB[0] != -1 &&  itemDB[hotSlotDB[0]].itemcode == itemCode)
+        {
+            hotSlotDB[0] = -1;
+        }
+        if (hotSlotDB[1] != -1 && itemDB[hotSlotDB[1]].itemcode == itemCode)
+        {
+            hotSlotDB[1] = -1;
         }
     }
 

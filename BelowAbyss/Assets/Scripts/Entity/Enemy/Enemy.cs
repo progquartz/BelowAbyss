@@ -65,10 +65,7 @@ public class Enemy : MonoBehaviour
         {
             Attack();
             enemyVisual.AttackAnimationOn();
-            
-            ///Player.instance.HitAnimationOn();
-            ///
-
+            BattleSoundManager.instance.PlaySound(stat.soundCode, 0.2f);
             attackCooltimeLeft = stat.attackSpeed;
             attackCooltimeLeft -= Time.deltaTime;
         }
@@ -122,6 +119,7 @@ public class Enemy : MonoBehaviour
 
         stat.enemySpriteCode = data.enemySpriteCode;
         stat.enemyCode = data.EnemyCode;
+        stat.soundCode = data.SoundCode;
         ChangeEnemyVisualData();
     }
 

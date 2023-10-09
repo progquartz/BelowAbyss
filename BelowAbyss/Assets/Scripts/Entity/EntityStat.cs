@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
+[System.Serializable]
 public class BuffData
 {
     public int buffPower;
@@ -70,11 +70,11 @@ public class EntityStat : MonoBehaviour
     // 초 단위 버프들. (영구지속은 9999로 표현)
     public List<BuffData> additionalHitDamage; // 피격 추가 데미지 여부.
 
-    private bool isPoisoned;
+    public bool isPoisoned;
     // 독 스택. 매 초 Power만큼의 데미지를 줌. duration은 negative에서 테스트한다음에 다시 초기화됨.
     public BuffData poisonStack;
 
-    private bool isBleeding;
+    public bool isBleeding;
     // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음. duration은 negative에서 테스트한다음에 다시 초기화됨.
     public BuffData bloodStack;
 
@@ -92,7 +92,7 @@ public class EntityStat : MonoBehaviour
         poisonStack = new BuffData();
         bloodStack = new BuffData();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         RemoveExpiredBuffs();
         CheckAndEffectNegatives();
@@ -114,9 +114,11 @@ public class EntityStat : MonoBehaviour
 
         if (isPoisoned)
         {
+
             poisonStack.buffDuration -= Time.deltaTime;
             if (poisonStack.buffDuration < 0)
             {
+                Debug.Log("아야");
                 poisonStack.buffDuration = 1.0f;
                 CurrentHPControl(-poisonStack.buffPower);
             }
@@ -195,7 +197,7 @@ public class EntityStat : MonoBehaviour
     /// 전체 공격 데미지 컨트롤.
     /// </summary>
     /// <param name="amount"></param>
-    public void AllAttackDamageControl(int amount, char type, float duration)
+    public virtual void AllAttackDamageControl(int amount, char type, float duration)
     {
         switch (type)
         {
@@ -205,6 +207,20 @@ public class EntityStat : MonoBehaviour
             case 'S':
                 BuffData tmp = new BuffData(amount, duration);
                 additionalAllDamage.Add(tmp);
+                break;
+        }
+    }
+
+    public virtual void AllHitDamageControl(int amount, char type, float duration)
+    {
+        switch (type)
+        {
+            case 'I':
+                realAdditionalHitDamage += amount;
+                break;
+            case 'S':
+                BuffData tmp = new BuffData(amount, duration);
+                additionalHitDamage.Add(tmp);
                 break;
         }
     }

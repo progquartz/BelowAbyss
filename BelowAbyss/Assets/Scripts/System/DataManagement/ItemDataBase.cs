@@ -46,23 +46,6 @@ public class OtherItems
     }
 }
 
-[System.Serializable]
-public class WeaponItems
-{
-    public WeaponItemData[] weaponItems;
-
-    public WeaponItemData Finditem(int itemCode)
-    {
-        for (int i = 0; i < weaponItems.Length; i++)
-        {
-            if (weaponItems[i].itemCode == itemCode)
-            {
-                return weaponItems[i];
-            }
-        }
-        return null;
-    }
-}
 
 [System.Serializable]
 public class ConsumeItems
@@ -98,7 +81,6 @@ public class ItemDataBase : MonoBehaviour
     public RecipeDatas recipeDatas = new RecipeDatas();
 
     public OtherItems otherItemList = new OtherItems();
-    public WeaponItems weaponItemList = new WeaponItems();
     public ConsumeItems consumeItemList = new ConsumeItems();
 
 
@@ -126,14 +108,6 @@ public class ItemDataBase : MonoBehaviour
             itemStackLimitList[itemcode] = otherItemList.otherItems[i].itemStackLimit;
         }
 
-        for(int i = 0; i < weaponItemList.weaponItems.Length; i++)
-        {
-            int itemcode = weaponItemList.weaponItems[i].itemCode;
-            itemNameList[itemcode] = weaponItemList.weaponItems[i].itemName;
-            itemLoreList[itemcode] = weaponItemList.weaponItems[i].itemLore;
-            itemCategoryList[itemcode] = weaponItemList.weaponItems[i].itemCategory;
-            itemStackLimitList[itemcode] = weaponItemList.weaponItems[i].itemStackLimit;
-        }
 
         for(int i  = 0; i < consumeItemList.consumeItems.Length; i++)
         {
@@ -149,11 +123,7 @@ public class ItemDataBase : MonoBehaviour
     public OtherItemData LoadItemData(int itemCode)
     {
         ItemType itemType = GetType(itemCode);
-        if(itemType == ItemType.WEAPON)
-        {
-            return weaponItemList.Finditem(itemCode);
-        }
-        else if(itemType == ItemType.OTHERS)
+        if(itemType == ItemType.OTHERS)
         {
             return otherItemList.FindItem(itemCode);
         }
@@ -164,19 +134,6 @@ public class ItemDataBase : MonoBehaviour
         else
         {
             return null;
-        }
-    }
-
-    public int[] GetAdditionalSkillCode(int itemCode)
-    {
-        if(GetType(itemCode) == ItemType.WEAPON)
-        {
-            return weaponItemList.Finditem(itemCode).additionalSkills;
-        }
-        else
-        {
-            // 아직 완성안됨.
-            return new int[1] { 0 };
         }
     }
 

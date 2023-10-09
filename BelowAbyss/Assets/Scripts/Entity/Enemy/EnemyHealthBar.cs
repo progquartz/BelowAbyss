@@ -11,15 +11,17 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField]
     private RectTransform healthBarBackground;
     [SerializeField]
+    private RectTransform healthBarUpper;
     private Transform healthBarHolder;
 
-    int maxSize = 100;
+    int maxSize = 141;
 
     private void Start()
     {
         healthBarHolder = transform;
-        healthBarBackground = transform.GetChild(1).GetComponent<RectTransform>();
-        currentHealthBar = transform.GetChild(0).GetComponent<RectTransform>();
+        healthBarBackground = transform.GetChild(0).GetComponent<RectTransform>();
+        currentHealthBar = transform.GetChild(1).GetComponent<RectTransform>();
+        healthBarUpper = transform.GetChild(2).GetComponent<RectTransform>();
     }
 
     private void Update()
@@ -31,17 +33,28 @@ public class EnemyHealthBar : MonoBehaviour
             {
                 healthBarBackground.gameObject.SetActive(false);
                 currentHealthBar.gameObject.SetActive(false);
+                healthBarUpper.gameObject.SetActive(false);
             }
             else
             {
                 healthBarBackground.gameObject.SetActive(true);
                 currentHealthBar.gameObject.SetActive(true);
+                healthBarUpper.gameObject.SetActive(true);
             }
         }
         else
         {
             healthBarBackground.gameObject.SetActive(false);
-            healthBarBackground.gameObject.SetActive(false);
+            currentHealthBar.gameObject.SetActive(false);
+            healthBarUpper.gameObject.SetActive(false);
         }
+        //this.GetComponent<RectTransform>().position =  Camera.main.WorldToScreenPoint(target.transform.position);
+        //this.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(target.transform.position);
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        Vector3 uiPos = new Vector3(screenPos.x - Screen.width + 538.4f, screenPos.y + 401f - Screen.height , 1);
+        this.GetComponent<RectTransform>().anchoredPosition = uiPos;
     }
+
+
 }

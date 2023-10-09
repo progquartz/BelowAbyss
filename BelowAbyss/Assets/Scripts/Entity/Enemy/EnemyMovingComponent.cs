@@ -102,7 +102,7 @@ public class EnemyMovingComponent : MonoBehaviour
 
     public void MoveToOriginalPos()
     {
-        transform.position = new Vector3(centerPos.position.x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(-24,413.2f,1);
         newState = EntityMovingState.IDLE;
         state = EntityMovingState.IDLE;
     }
@@ -153,6 +153,11 @@ public class EnemyMovingComponent : MonoBehaviour
     public void AttackFinished()
     {
         StartCoroutine(AttackDelay(transform, delayTime));
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = new Vector3(0,0,1);
     }
 
     // 공격 빠지기.

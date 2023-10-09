@@ -107,13 +107,6 @@ public class Parser : MonoBehaviour
             itemData.codeToItemType[itemData.otherItemList.otherItems[i].itemCode] = ItemType.OTHERS;
         }
 
-        // 무기 아이템 데이터 로드.
-        itemData.weaponItemList = JsonUtility.FromJson<WeaponItems>(WeaponItems.text);
-        for (int i = 0; i < itemData.weaponItemList.weaponItems.Length; i++)
-        {
-            itemData.codeToItemType[itemData.weaponItemList.weaponItems[i].itemCode] = ItemType.WEAPON;
-        }
-
         itemData.consumeItemList = JsonUtility.FromJson<ConsumeItems>(ConsumeItems.text);
         for(int i = 0; i < itemData.consumeItemList.consumeItems.Length; i++)
         {
