@@ -80,7 +80,8 @@ public class EntityStat : MonoBehaviour
 
     public bool isOnFire; // 화염 효과. 매초 N의 데미지.
     private float fireDuration;
-
+   
+    public EntitySkillVisualCaller entitySkillVisualCaller;
 
 
     private void Start()
@@ -91,6 +92,7 @@ public class EntityStat : MonoBehaviour
         additionalHitDamage = new List<BuffData>();
         poisonStack = new BuffData();
         bloodStack = new BuffData();
+        entitySkillVisualCaller = GetComponentInChildren<EntitySkillVisualCaller>();
     }
     private void Update()
     {
@@ -119,6 +121,7 @@ public class EntityStat : MonoBehaviour
             if (poisonStack.buffDuration < 0)
             {
                 Debug.Log("아야");
+                entitySkillVisualCaller.CallBuffVisual("effectAniPoison");
                 poisonStack.buffDuration = 1.0f;
                 CurrentHPControl(-poisonStack.buffPower);
             }
@@ -137,6 +140,7 @@ public class EntityStat : MonoBehaviour
             bloodStack.buffDuration -= Time.deltaTime;
             if (bloodStack.buffDuration < 0)
             {
+                entitySkillVisualCaller.CallBuffVisual("effectAniBlood");
                 bloodStack.buffDuration = 1.0f;
                 CurrentHPControl(-bloodStack.buffPower);
             }
@@ -156,6 +160,7 @@ public class EntityStat : MonoBehaviour
             if (fireDuration < 0)
             {
                 fireDuration = 1.0f;
+                entitySkillVisualCaller.CallBuffVisual("effectAniFire");
                 CurrentHPControl(-EffectManager.instance.fireTickDamage);
             }
         }

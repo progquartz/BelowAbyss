@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     {
         if (stat.currentHp <= 0 && !isPlayerDead)
         {
+            visualAnimation.DeathState();
             BattleManager.instance.OnPlayerDeath();
             PlayerStatReset();
             isPlayerDead = true;

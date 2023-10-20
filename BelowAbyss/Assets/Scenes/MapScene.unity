@@ -1102,6 +1102,7 @@ MonoBehaviour:
     buffPower: 0
     buffDuration: 0
   isOnFire: 0
+  entitySkillVisualCaller: {fileID: 0}
   size: 0
   enemyCode: 0
   position: 0
@@ -4857,6 +4858,7 @@ MonoBehaviour:
     buffPower: 0
     buffDuration: 0
   isOnFire: 0
+  entitySkillVisualCaller: {fileID: 0}
   size: 0
   enemyCode: 0
   position: 0
@@ -32030,7 +32032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -112.30005}
+  m_AnchoredPosition: {x: 0, y: -112.299805}
   m_SizeDelta: {x: 0, y: -224.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661906393
@@ -35219,19 +35221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d971705fa3d5e4db4d5f1fb51315c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon:
-    itemcode: 0
-    stack: 0
-    stacklimit: 0
-    attackSpeed: 0
-    criticalPercentage: 0
-    hitEff1: []
-    hitEff2: []
-    hitEff3: []
-    criticalEff1: []
-    criticalEff2: []
-    criticalEff3: []
-    additionalSkills: 
 --- !u!1 &719759459
 GameObject:
   m_ObjectHideFlags: 0
@@ -37456,6 +37445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillOriginalPrefab: {fileID: 797572043272148279, guid: baadff488d643f14b8e70b8c9d5dcfea, type: 3}
+  buffOriginalPrefab: {fileID: 2461861777749838906, guid: fc4ee390f7bab7d42a25a9032d482fad, type: 3}
 --- !u!114 &765872990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49021,6 +49011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillOriginalPrefab: {fileID: 797572043272148279, guid: baadff488d643f14b8e70b8c9d5dcfea, type: 3}
+  buffOriginalPrefab: {fileID: 2461861777749838906, guid: fc4ee390f7bab7d42a25a9032d482fad, type: 3}
 --- !u!1 &989469987
 GameObject:
   m_ObjectHideFlags: 0
@@ -66460,6 +66451,7 @@ MonoBehaviour:
     buffPower: 0
     buffDuration: 0
   isOnFire: 0
+  entitySkillVisualCaller: {fileID: 0}
   size: 0
   enemyCode: 0
   position: 0
@@ -76856,6 +76848,7 @@ MonoBehaviour:
     buffPower: 0
     buffDuration: 0
   isOnFire: 0
+  entitySkillVisualCaller: {fileID: 0}
   currentVital: 0
   maxVital: 0
   currentSatur: 0
@@ -125226,6 +125219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillOriginalPrefab: {fileID: 797572043272148279, guid: baadff488d643f14b8e70b8c9d5dcfea, type: 3}
+  buffOriginalPrefab: {fileID: 2461861777749838906, guid: fc4ee390f7bab7d42a25a9032d482fad, type: 3}
 --- !u!114 &1860943704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136360,6 +136354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillOriginalPrefab: {fileID: 797572043272148279, guid: baadff488d643f14b8e70b8c9d5dcfea, type: 3}
+  buffOriginalPrefab: {fileID: 2461861777749838906, guid: fc4ee390f7bab7d42a25a9032d482fad, type: 3}
 --- !u!114 &2051632356
 MonoBehaviour:
   m_ObjectHideFlags: 0
