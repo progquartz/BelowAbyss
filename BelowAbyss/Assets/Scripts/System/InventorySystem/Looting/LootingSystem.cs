@@ -44,6 +44,7 @@ public class LootingSystem : MonoBehaviour
     {
         for (int i = 0; i < data.rootingItem.Length; i++)
         {
+            UISelectionHolder.instance.NewToggleUI(1); // UI 선택창에서 새로 깜박이게 만듬.
             Inventory.instance.GetItem(data.rootingItem[i], Random.Range(data.rootingMin[i], data.rootingMax[i]));
         }
     }
@@ -65,6 +66,7 @@ public class LootingSystem : MonoBehaviour
 
             if(!isAllSkillAvailable)
             {
+                UISelectionHolder.instance.NewToggleUI(3); // UI 선택창에서 새로 깜박이게 만듬.
                 int randomNum = Random.Range(1, notAvailableSkillCode.Count) - 1;
                 SkillInventory.instance.GetSkill(notAvailableSkillCode[randomNum]);
             }
@@ -73,6 +75,7 @@ public class LootingSystem : MonoBehaviour
         {
             for (int i = 0; i < data.rootingSkill.Length; i++)
             {
+                UISelectionHolder.instance.NewToggleUI(3); // UI 선택창에서 새로 깜박이게 만듬.
                 SkillInventory.instance.GetSkill(data.rootingSkill[i]);
             }
         }
@@ -95,6 +98,7 @@ public class LootingSystem : MonoBehaviour
             }
             if (!isAllTraitAvailable)
             {
+                UISelectionHolder.instance.NewToggleUI(4); // UI 선택창에서 새로 깜박이게 만듬.
                 int randomNum = Random.Range(1, notAvailableTraitCode.Count) - 1;
                 TraitInventory.instance.GetTrait(notAvailableTraitCode[ randomNum]);
             }
@@ -103,6 +107,7 @@ public class LootingSystem : MonoBehaviour
         {
             for (int i = 0; i < data.rootingTrait.Length; i++)
             {
+                UISelectionHolder.instance.NewToggleUI(4); // UI 선택창에서 새로 깜박이게 만듬.
                 TraitInventory.instance.GetTrait(data.rootingTrait[i]);
             }
         }
