@@ -92,6 +92,12 @@ public class PlayerMovingComponent : MonoBehaviour
         }
     }
 
+    public void DeathState()
+    {
+        transform.GetComponentInChildren<Animator>().SetTrigger("IsDead");
+
+    }
+
     public void AttackState()
     {
         transform.GetComponentInChildren<Animator>().SetTrigger("Smash");
