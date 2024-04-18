@@ -34,12 +34,14 @@ public class Inventory : MonoBehaviour
 
     public List<GameObject> slots;
     public List<GameObject> hotSlots;
+    public List<ToggleNewImageSlot> toggleImages;
     // holdingitem해서 작업하기.
 
     [SerializeField]
     private List<Button> plusButtons;
     [SerializeField]
     private List<Button> minusButtons;
+    private List<int> ToggledItemList = new List<int>();
 
     private void Start()
     {
@@ -56,36 +58,60 @@ public class Inventory : MonoBehaviour
             slots.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).gameObject);
             plusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(4).GetComponent<Button>());
             minusButtons.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(5).GetComponent<Button>());
+            toggleImages.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(1).GetChild(2).GetComponent<ToggleNewImageSlot>());
         }
         for(int i = 0; i < 2; i++)
         {
             hotSlotDB.Add(-1);
         }
     }
-
-    public void Test()
-    {
-        GetItem(201, 1);
-        GetItem(202, 10);
-    }
-
-    public void Test2()
-    {
-        GetItem(101, 3);
-        GetItem(102, 2);
-        GetItem(103, 1);
-    }
-
-    public void Test3()
-    {
-        GetItem(201, 3);
-        GetItem(202, 2);
-        GetItem(203, 1);
-    }
+    
 
     private void Update()
     {
         UpdateSprite();
+    }
+
+    public void EnqueueToggle(int itemCode)
+    {
+        int newIndex = -1;
+        for (int i = 0; i < slotCount; i++) // 모든 슬롯카운터에 한해.
+        {
+            if (itemDB[i].itemcode == itemCode) // 해당 슬롯에 아이템이 존재한다면.
+            {
+                newIndex = i;
+                break;
+            }
+        }
+        bool isItemIndexAvailable = false;
+        for(int i = 0; i < ToggledItemList.Count; i++)
+        {
+            if(ToggledItemList[i] == newIndex && hotSlotDB[0] != newIndex && hotSlotDB[1] != newIndex)
+            {
+                isItemIndexAvailable = true;
+                break;
+            }
+        }
+
+        if(!isItemIndexAvailable)
+        {
+            ToggledItemList.Add(newIndex);
+        }
+    }
+
+    public void DequeAllSlotToggle()
+    {
+        for(int i = 0; i < ToggledItemList.Count; i++)
+        {
+            ImageBlink(ToggledItemList[i]);
+        }
+        ToggledItemList.Clear();
+    }
+
+    public void ImageBlink(int index)
+    {
+        Debug.Log(index);
+        toggleImages[index].ToggleOn();
     }
 
     public void PressHotIcon(int index)
@@ -108,6 +134,7 @@ public class Inventory : MonoBehaviour
         Debug.Log(index + "번째 슬롯의 아이템을 사용합니다.");
         if(itemDB[index].itemcode != 0)
         {
+            Crafting.instance.MinusItemInCraftingSlot(itemDB[index].itemcode);
             Debug.Log("통과");
             UseItem(index);
             if (itemDB[index].stack <= 0)
@@ -361,7 +388,6 @@ public class Inventory : MonoBehaviour
     public bool GetItem(int itemcode, int stack)
     {
         // 만약에  sameitemexist상태이지만 item에서 불가능 판정을 내려서 남는 아이템을 넘기면 이를 int값으로 저장.
-        // 
         int isNotStackable = stack;
 
         for (int i = 0; i < slotCount; i++) // 모든 슬롯카운터에 한해.
@@ -373,6 +399,7 @@ public class Inventory : MonoBehaviour
 
                 if(isNotStackable == 0) // 모든 아이템들이 정상적으로 들어갔다면 return true;
                 {
+                    EnqueueToggle(itemcode);
                     return true;
                 }
             }
@@ -390,6 +417,7 @@ public class Inventory : MonoBehaviour
                 if(isNotStackable == 0) // 만약에 다 채워졌다면.
                 {
                     Debug.Log(emp + "번의 빈 공간에" + itemcode + "번의 아이템을 넣음.");
+                    EnqueueToggle(itemcode);
                     return true;
                 }
             }
@@ -397,10 +425,11 @@ public class Inventory : MonoBehaviour
 
         // 여기까지 오면 모든 아이템 슬롯이 비지 않았고 같은 아이템 슬롯에는 해당 아이템들이 가득 찬것임.
         Debug.Log(itemcode + "번의 아이템이" + isNotStackable + "만큼 인벤토리에 저장되지 못함.");
+        EnqueueToggle(itemcode);
         return false;
+       
 
-       
-       
+
     }
 
     private void LossItem(int index, int itemcode)

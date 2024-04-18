@@ -102,9 +102,11 @@ public class EnemyMovingComponent : MonoBehaviour
 
     public void MoveToOriginalPos()
     {
-        transform.position = new Vector3(-24,413.2f,1);
+        transform.localPosition = new Vector3(0,0,1);
         newState = EntityMovingState.IDLE;
         state = EntityMovingState.IDLE;
+        dashStackCounter = 0;
+        hurtStackCounter = 0;
     }
 
     public void AttackState()

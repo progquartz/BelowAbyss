@@ -50,7 +50,7 @@ public class UISelectionHolder : MonoBehaviour
             iconSelectedBar[i] = transform.GetChild(1).GetChild(i).gameObject;
             iconButtonImage[i] = transform.GetChild(2).GetChild(i).GetComponent<Image>();
         }
-        OpenUI(1);
+        OpenUI(2);
     }
 
     public void OpenUI(int uiHolder)
@@ -61,11 +61,20 @@ public class UISelectionHolder : MonoBehaviour
         }
         else
         {
+
             itemToggledList[uiHolder].ToggleOff();
             iconButtonImage[(int)currentUIOpened].sprite = iconsUnselected[(int)currentUIOpened];
             iconButtonImage[(int)uiHolder].sprite = iconSelected[(int)uiHolder];
             iconSelectedBar[(int)currentUIOpened].SetActive(false);
             iconSelectedBar[(int)uiHolder].SetActive(true);
+            if(uiHolder == 1)
+            {
+                Inventory.instance.DequeAllSlotToggle();
+            }
+            else if(uiHolder == 3)
+            {
+                SkillInventory.instance.DequeAllSlotToggle();
+            }
 
 
             for(int i = 0; i < uiList[(int)currentUIOpened].transform.childCount; i++)

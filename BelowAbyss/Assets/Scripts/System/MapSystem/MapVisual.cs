@@ -242,7 +242,7 @@ public class MapVisual : MonoBehaviour
                 isMoving = true;
                 mapFrontPos.localPosition = new Vector3(mapFrontPos.localPosition.x - (per_step * 3.0f * Time.deltaTime), mapFrontPos.localPosition.y, 0);
                 mapBackPos.localPosition = new Vector3(mapBackPos.localPosition.x - (per_step * 3.0f * Time.deltaTime), mapBackPos.localPosition.y, 0);
-                PlayerAnimation.instance.animator.speed = 3.0f;
+                PlayerAnimation.instance.SetAnimatorSpeed(3.0f);
             }
             else
             {
@@ -266,7 +266,7 @@ public class MapVisual : MonoBehaviour
                 isMoving = true;
                 mapFrontPos.localPosition = new Vector3(mapFrontPos.localPosition.x - (per_step * 0.5f * Time.deltaTime), mapFrontPos.localPosition.y, 0);
                 mapBackPos.localPosition = new Vector3(mapBackPos.localPosition.x - (per_step * 0.5f * Time.deltaTime), mapBackPos.localPosition.y, 0);
-                PlayerAnimation.instance.animator.speed = 1.0f;
+                PlayerAnimation.instance.SetAnimatorSpeed(1.0f);
             }
             else
             {
@@ -336,7 +336,7 @@ public class MapVisual : MonoBehaviour
         }
         FadeInOutObject.transform.localPosition = new Vector3(fadeObjectMaxPosX, FadeInOutObject.transform.localPosition.y, FadeInOutObject.transform.localPosition.z);
         FadeInOutObject.SetActive(false);
-        PlayerAnimation.instance.animator.speed = 1.0f;
+        PlayerAnimation.instance.SetAnimatorSpeed(1.0f);
 
 
     }

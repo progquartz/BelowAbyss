@@ -48,6 +48,8 @@ public class BattleManager : MonoBehaviour
     public void BattlePhaseEnded()
     {
         PlayerAnimation.instance.SetBattle(false);
+        PlayerAnimation.instance.SetMove(false);
+        PlayerAnimation.instance.SetTriggerIdle();
         Player.instance.PlayerMoveToOriginalPosition();
         isBattleStarted = false;
         if (isBattleHasAdditionalEvent)

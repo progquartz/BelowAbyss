@@ -40,6 +40,8 @@ public class Enemy : MonoBehaviour
                     realindex++;
                 }
             }
+            Debug.Log("실행됨?");
+            stat.ResetStat();
             enemyVisual.DeathReset();
             enemyVisual.DeathAnimation();
             transform.GetComponentInParent<EnemyHord>().Death(realindex);

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // SingleTone
     [SerializeField]
     public GameOverUI gameOverUI;
+    [SerializeField]
+    public GameClearUI gameClearUI;
     public bool isFirstGame = true;
 
     void Awake()
@@ -53,6 +55,13 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameOverUI.OnGameOver();
+        MapManager.Instance.OnGameOver();
+        isFirstGame = false;
+    }
+
+    public void GameClear()
+    {
+        gameClearUI.OnGameClear();
         MapManager.Instance.OnGameOver();
         isFirstGame = false;
     }

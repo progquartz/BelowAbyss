@@ -625,7 +625,10 @@ public class EffectManager : MonoBehaviour
             List<int> indexData = enemyHordManager.GetRowFromFrontHord(targetCount);
             for (int i = 0; i < indexData.Count; i++)
             {
-                data.Add(enemyHordManager.enemies[indexData[i]].stat);
+                if(enemyHordManager.enemies[indexData[i]].stat.currentHp > 0)
+                {
+                    data.Add(enemyHordManager.enemies[indexData[i]].stat);
+                }
             }
             return data;
         }
@@ -634,7 +637,10 @@ public class EffectManager : MonoBehaviour
             List<int> rowData = enemyHordManager.GetRowFromBackHord(targetCount);
             for (int i = 0; i < rowData.Count; i++)
             {
-                data.Add(enemyHordManager.enemies[rowData[i]].stat);
+                if (enemyHordManager.enemies[rowData[i]].stat.currentHp > 0)
+                {
+                    data.Add(enemyHordManager.enemies[rowData[i]].stat);
+                }
             }
             return data;
         }
@@ -643,7 +649,10 @@ public class EffectManager : MonoBehaviour
             List<int> rowData = enemyHordManager.GetAllFromHord();
             for (int i = 0; i < rowData.Count; i++)
             {
-                data.Add(enemyHordManager.enemies[rowData[i]].stat);
+                if (enemyHordManager.enemies[rowData[i]].stat.currentHp > 0)
+                {
+                    data.Add(enemyHordManager.enemies[rowData[i]].stat);
+                }
             }
             return data;
         }
@@ -652,7 +661,10 @@ public class EffectManager : MonoBehaviour
             List<int> rowData = enemyHordManager.GetAllFromHord();
             for (int i = 0; i < rowData.Count; i++)
             {
-                data.Add(enemyHordManager.enemies[rowData[i]].stat);
+                if (enemyHordManager.enemies[rowData[i]].stat.currentHp > 0)
+                {
+                    data.Add(enemyHordManager.enemies[rowData[i]].stat);
+                }
             }
             data.Add(playerStat.stat);
             return data;
