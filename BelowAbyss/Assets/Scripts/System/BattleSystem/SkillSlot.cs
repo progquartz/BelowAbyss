@@ -22,19 +22,6 @@ public class SkillSlot : MonoBehaviour
     private float delayNeeded;
 
 
-    public void TestSkillSlotGo()
-    {
-        SkillData tempSkillData = new SkillData();
-        tempSkillData.skillName = "테스트 스킬";
-        tempSkillData.skillLore = "스킬을 테스트하기 위한 테스트 스킬입니다.";
-        tempSkillData.skillCooltime = 5.0f;
-        tempSkillData.skillCode = 1;
-        tempSkillData.skillIconCode = 1;
-        tempSkillData.skillDelay = 3.0f;
-
-        SetupSkillData(tempSkillData);
-    }
-
     public void SetupSkillData(SkillData _skillData)
     {
         if(_skillData == null)
@@ -68,7 +55,7 @@ public class SkillSlot : MonoBehaviour
         isSkillSlotFilled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isSkillSlotFilled) // 스킬 슬롯에 데이터가 들어가있는지.
         {
@@ -168,7 +155,4 @@ public class SkillSlot : MonoBehaviour
             }
         }
     }
-
-
-
 }

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerAnimation : MonoBehaviour
 {
     public static PlayerAnimation instance;
-    public Animator animator;
+    private Animator animator;
     
     public AudioSource effectAudioSource;
 
@@ -41,10 +41,18 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool("isBattle", isBattling);
     }
-
+    public void SetTriggerIdle()
+    {
+        animator.SetTrigger("ToIdle");
+    }
     public void Smash()
     {
         animator.SetTrigger("Smash");
+    }
+
+    public void SetAnimatorSpeed(float speed)
+    {
+        animator.speed = speed;
     }
 
     public void EventSoundEffect()

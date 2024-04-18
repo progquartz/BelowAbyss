@@ -79,7 +79,7 @@ public class EntityStat : MonoBehaviour
     public BuffData bloodStack;
 
     public bool isOnFire; // 화염 효과. 매초 N의 데미지.
-    private float fireDuration;
+    public float fireDuration;
    
     public EntitySkillVisualCaller entitySkillVisualCaller;
 

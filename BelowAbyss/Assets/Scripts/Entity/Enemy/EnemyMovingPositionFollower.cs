@@ -14,5 +14,11 @@ public class EnemyMovingPositionFollower : MonoBehaviour
         {
             this.transform.position = target.transform.position;
         }
+        else
+        {
+            this.transform.position = target.transform.position;
+        }
     }
+
+    
 }

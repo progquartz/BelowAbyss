@@ -27,6 +27,7 @@ public class EnemyMovingPositionFollowing : MonoBehaviour
     public void GetBackToOriginalPosition()
     {
         currentAllocatedIndex = originalIndex;
+        this.transform.position = originalPos[originalIndex];
     }
     public void AllocateNewPosition(int index)
     {

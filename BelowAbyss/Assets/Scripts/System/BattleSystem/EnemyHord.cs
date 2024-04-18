@@ -27,7 +27,6 @@ public class EnemyHord : MonoBehaviour
     public void Death(int index)
     {
         enemyMovingPosFollower[index].GetBackToOriginalPosition();
-        enemyMovingPosFollower[index].GetCloseToTargetingPos();
         enemyMovingPosFollower.Remove(enemyMovingPosFollower[index]);
         enemies.Remove(enemies[index]);
         enemyHolder[index].GetComponentInChildren<EnemyMovingComponent>().MoveToOriginalPos();

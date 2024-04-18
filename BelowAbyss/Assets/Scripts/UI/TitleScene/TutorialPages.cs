@@ -21,11 +21,13 @@ public class TutorialPages : MonoBehaviour
 
     public void EnableTutorial()
     {
+        tutorialIndex = 0;
         isTutorialEnabled = true;
     }
 
     public void DisableTutorial()
     {
+
         isTutorialEnabled = false;
     }
 

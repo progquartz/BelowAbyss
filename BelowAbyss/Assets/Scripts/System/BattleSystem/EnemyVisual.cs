@@ -39,7 +39,6 @@ public class EnemyVisual : MonoBehaviour
 
     public void DeathReset()
     {
-        movingVisual.MoveToOriginalPos();
         noneMovingVisual.ChangeColorToOriginal();
     }
 

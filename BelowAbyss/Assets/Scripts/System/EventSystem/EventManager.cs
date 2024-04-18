@@ -122,17 +122,23 @@ public class EventManager : MonoBehaviour
 
     public void LoadEvent(int eventCode)
     {
-        
+        if(eventCode == 9999)
+        {
+            GameManager.instance.GameClear();
+            return;
+        }
         switch (EventToEventType[eventCode])
         {
             case EventType.DIALOG:
                 Debug.Log(eventCode + "에 대한 다이얼로그 이벤트 호출 요청 발생.");
-                UISelectionHolder.instance.OpenUI(2);
+                //UISelectionHolder.instance.OpenUI(2);
+                UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
                 Selection.instance.Appear(DialogEventList.FindEvent(eventCode));
                 break;
             case EventType.SELECTION:
                 Debug.Log(eventCode + "에 대한 선택 이벤트 호출 요청 발생.");
-                UISelectionHolder.instance.OpenUI(2);
+                //UISelectionHolder.instance.OpenUI(2); // 기존에 바뀌는 데이터.
+                UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
                 Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
                 break;
             case EventType.BATTLE:

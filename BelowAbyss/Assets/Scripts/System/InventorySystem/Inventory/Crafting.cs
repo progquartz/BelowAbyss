@@ -54,7 +54,6 @@ public class Crafting : MonoBehaviour
         CheckCrafting();
     }
 
-
     private void UpdateSprite()
     {
         string path = "Sprites/Item/";
@@ -109,12 +108,28 @@ public class Crafting : MonoBehaviour
         craftingDB[slot].stack++;
     }
 
-    public void MinusItemInCraftingSlot(int slot)
+    public void MinusItemInCraftingSlot(int itemcode)
     {
-        craftingDB[slot].stack--;
-        if(craftingDB[slot].stack <= 0)
+        int slot = -1;
+        if(craftingDB[0].itemcode == itemcode)
         {
-            craftingDB[slot].itemcode = 0;
+            slot = 0;
+        }
+        else if(craftingDB[1].itemcode == itemcode)
+        {
+            slot = 1;
+        }
+        if (slot == -1)
+        {
+            return;
+        }
+        else
+        {
+            craftingDB[slot].stack--;
+            if (craftingDB[slot].stack <= 0)
+            {
+                craftingDB[slot] = new Item(0, 0);
+            }
         }
     }
 
@@ -135,8 +150,6 @@ public class Crafting : MonoBehaviour
         if(craftingDB[index].stack > 0)
         {
 
-
-
             if (Inventory.instance.itemDB[craftingDBItemIndex[index]].stack - stack <= 0)
             {
                 Inventory.instance.HotSlotUnEquip(craftingDB[index].itemcode);
@@ -149,6 +162,8 @@ public class Crafting : MonoBehaviour
             }
             else if (craftingDB[index].stack - stack <= 0)
             {
+                Inventory.instance.itemDB[craftingDBItemIndex[index]].stack -= stack;
+                craftingDBItemIndex[index] = -1;
                 craftingDB[index].itemcode = 0;
                 craftingDB[index].stack = 0;
             }

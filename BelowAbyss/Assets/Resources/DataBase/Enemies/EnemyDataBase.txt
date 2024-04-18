@@ -2,7 +2,7 @@
     "enemies" : [
         {
             "EnemyCode" : 1,
-            "MaxHealth" : 10,
+            "MaxHealth" : 25,
             "Size" : 1,
             "enemySpriteCode" : "JellyFish",
             "SoundCode" : 10001,
@@ -24,7 +24,7 @@
         },
         {
             "EnemyCode" : 3,
-            "MaxHealth" : 15,
+            "MaxHealth" : 30,
             "Size" : 1,
             "enemySpriteCode" : "JellyFish",
             "SoundCode" : 10001,
@@ -37,7 +37,7 @@
         },
         {
             "EnemyCode" : 4,
-            "MaxHealth" : 13,
+            "MaxHealth" : 35,
             "Size" : 1,
             "enemySpriteCode" : "JellyFish",
             "SoundCode" : 10001,

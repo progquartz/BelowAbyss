@@ -25,6 +25,7 @@ public class SkillInventory : MonoBehaviour
     public List<int> usingSkillDB; // 사용 스킬 인벤 데이터.
     public List<SkillSlot> usingIngameSkillUI;
     public List<SkillSlot> usingSkillUI;
+    public List<ToggleNewImageSlot> toggleImages;
 
     public int unusedSlotCount = 32;
     public int usingSlotCount = 8;
@@ -42,6 +43,7 @@ public class SkillInventory : MonoBehaviour
     private GameObject upButton;
     [SerializeField]
     private GameObject downButton;
+    private List<int> ToggledSkillList = new List<int>();
 
     public void ToggleInventory()
     {
@@ -71,6 +73,7 @@ public class SkillInventory : MonoBehaviour
         {
             unusedSkillDB.Add(new SkillData());
             unusedSlot.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).gameObject);
+            toggleImages.Add(transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(6).GetComponent<ToggleNewImageSlot>());
         }
         GameObject usingSkillSlotParent = GameObject.Find("SkillSlots");
         for(int i = 0; i < usingSlotCount; i++)
@@ -106,6 +109,48 @@ public class SkillInventory : MonoBehaviour
                 usingSkillUI[i].DeleteSkillData();
             }
         }
+    }
+
+
+    public void EnqueueToggle(int skillCode)
+    {
+        int newIndex = -1;
+        for (int i = 0; i < skillDBCount; i++) // 모든 슬롯카운터에 한해.
+        {
+            if (unusedSkillDB[i].skillCode == skillCode) // 해당 슬롯에 아이템이 존재한다면.
+            {
+                newIndex = i;
+                break;
+            }
+        }
+        bool isItemIndexAvailable = false;
+        for (int i = 0; i < ToggledSkillList.Count; i++)
+        {
+            if (ToggledSkillList[i] == newIndex)
+            {
+                isItemIndexAvailable = true;
+                break;
+            }
+        }
+
+        if (!isItemIndexAvailable)
+        {
+            ToggledSkillList.Add(newIndex);
+        }
+    }
+
+    public void DequeAllSlotToggle()
+    {
+        for (int i = 0; i < ToggledSkillList.Count; i++)
+        {
+            ImageBlink(ToggledSkillList[i]);
+        }
+        ToggledSkillList.Clear();
+    }
+
+    public void ImageBlink(int index)
+    {
+        toggleImages[index].ToggleOn();
     }
 
     private void Update()
@@ -258,6 +303,7 @@ public class SkillInventory : MonoBehaviour
         if(!CheckSkillAvailable(skillCode))
         {
             unusedSkillDB[lastSkillAvailableIndex] = SkillDataBase.instance.GetSkillData(skillCode);
+            EnqueueToggle(skillCode);
             lastSkillAvailableIndex++;
         }
     }

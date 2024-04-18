@@ -25,12 +25,15 @@ public class EnemyStat : EntityStat
 
     public void ResetStat()
     {
+        
         armour = 0;
         isPoisoned = false;
         isBleeding = false;
         poisonStack = new BuffData();// 독 스택. 매 초 N만큼의 데미지를 줌.
         bloodStack = new BuffData(); // 출혈 스택. 잃은 체력의 N%의 데미지를 매 초 입음.
         isOnFire = false; // 불 붙음 여부. 불이 붙었을 경우 1초마다 정해진 만큼의 피해를 줌.
+        fireDuration = 0;
+        
         
 
     }
