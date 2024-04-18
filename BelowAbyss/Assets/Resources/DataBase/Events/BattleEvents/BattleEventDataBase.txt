@@ -1,0 +1,35 @@
+{
+	"battleEvents": 
+    [
+        {
+			"eventCode": 3002,
+			"isAdditionalEvent":true,
+			"additionalEventCode":4035,
+			"outLookEventCode": 1,
+            "hordCount" : 1,
+            "hordData" : ["1 3 4"],
+			"artworkpath" : 1,
+			"backgroundMusic" : 0
+        },
+                {
+			"eventCode": 3003,
+			"isAdditionalEvent":true,
+			"additionalEventCode":4038,
+			"outLookEventCode": 1,
+            "hordCount" : 3,
+            "hordData" : ["5 6 7","6 7","5 7"],
+			"artworkpath" : 1,
+			"backgroundMusic" : 0
+        },
+                {
+			"eventCode": 3004,
+			"isAdditionalEvent":true,
+			"additionalEventCode":2075,
+			"outLookEventCode": 1,
+            "hordCount" : 1,
+            "hordData" : ["8"],
+			"artworkpath" : 1,
+			"backgroundMusic" : 0
+        }
+    ]
+}

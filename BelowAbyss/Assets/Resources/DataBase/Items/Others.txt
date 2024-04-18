@@ -1,0 +1,60 @@
+{
+	"otherItems":[
+		{
+			"itemCode" : 2,
+			"itemName" : "중형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜 기간 연구해 개발에 성공한 체력 포션.\n\n중간 크기의 병에 보관되어있다.\n\n [효과] - 체력 + 10",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1,
+			"itemName" : "소형 체력 포션",
+			"itemCategory" : "포션",
+			"itemLore" : "약학자들이 오랜 기간 연구해 개발에 성공한 체력 포션.\n\n작은 크기의 병에 보관되어있다.\n\n [효과] - 체력 + 5",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 3,
+			"itemName" : "Item 3",
+			"itemCategory" : "Category 3",
+			"itemLore" : "Third Item!",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1001,
+			"itemName" : "Slime jelly",
+			"itemCategory" : "Ingredient",
+			"itemLore" : "Looks chewy",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1002,
+			"itemName" : "Wood Stick",
+			"itemCategory" : "Ingredient",
+			"itemLore" : "Long, weak stick",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1003,
+			"itemName" : "나무 그릇",
+			"itemCategory" : "재료",
+			"itemLore" : "단단한 껍질로 만든 그릇.",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1004,
+			"itemName" : "날카로운 금속 조각",
+			"itemCategory" : "재료",
+			"itemLore" : "칼 대신 사용할 수 있을 것 같다.",
+			"itemStackLimit" : 99
+		},
+		{
+			"itemCode" : 1005,
+			"itemName" : "나뭇가지",
+			"itemCategory" : "재료",
+			"itemLore" : "길고 곧게 뻗은 나뭇가지.",
+			"itemStackLimit" : 99
+		}
+	]
+}

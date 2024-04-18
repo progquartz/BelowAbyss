@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Effect
+    m_Hash: 835491012
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: ani_sheet_32_0
+      m_Hash: 637169404
+      m_Sprite: {fileID: 1279856411, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1279856411, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_1
+      m_Hash: 318594666
+      m_Sprite: {fileID: 63585031, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 63585031, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_2
+      m_Hash: 200544208
+      m_Sprite: {fileID: -82234482, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -82234482, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_3
+      m_Hash: 1022574406
+      m_Sprite: {fileID: -92913956, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -92913956, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_4
+      m_Hash: 580365029
+      m_Sprite: {fileID: 311526583, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 311526583, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_5
+      m_Hash: 361798259
+      m_Sprite: {fileID: 72338460, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 72338460, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_6
+      m_Hash: 211405769
+      m_Sprite: {fileID: 704515871, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 704515871, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_7
+      m_Hash: 1000274783
+      m_Sprite: {fileID: -1135101497, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1135101497, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 8
+  - m_Name: Die
+    m_Hash: 20298039
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: ani_sheet_32_40
+      m_Hash: 614030972
+      m_Sprite: {fileID: -77802885, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -77802885, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    - m_Name: ani_sheet_32_40_0
+      m_Hash: 360320344
+      m_Sprite: {fileID: -77802885, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -77802885, guid: 161b35452c353e7459eaee258cdc4187, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
+  m_PrimaryLibraryGUID: 

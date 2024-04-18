@@ -1,0 +1,72 @@
+{
+	"recipeDatas":[
+        {
+            "craftingRecipe" : [201,202],
+            "craftingItem" : 203
+        },
+        {
+            "craftingRecipe" : [1001,1002],
+            "craftingItem" : 3001
+        },
+        {
+            "craftingRecipe" : [1002,1001],
+            "craftingItem" : 3001
+        },
+        {
+            "craftingRecipe" : [2004,1003],
+            "craftingItem" : 2005
+        },
+        {
+            "craftingRecipe" : [1003,2004],
+            "craftingItem" : 2005
+        },
+        {
+            "craftingRecipe" : [2006,1003],
+            "craftingItem" : 2007
+        },
+        {
+            "craftingRecipe" : [1003,2006],
+            "craftingItem" : 2007
+        },
+        {
+            "craftingRecipe" : [1004,2008],
+            "craftingItem" : 2010
+        },
+        {
+            "craftingRecipe" : [2008,1004],
+            "craftingItem" : 2010
+        },
+        {
+            "craftingRecipe" : [2009,1005],
+            "craftingItem" : 2011
+        },
+        {
+            "craftingRecipe" : [1005,2009],
+            "craftingItem" : 2011
+        },
+        {
+            "craftingRecipe" : [1005,2008],
+            "craftingItem" : 2012
+        },
+        {
+            "craftingRecipe" : [2008,1005],
+            "craftingItem" : 2012
+        },
+        {
+            "craftingRecipe" : [2005,2013],
+            "craftingItem" : 2014
+        },
+        {
+            "craftingRecipe" : [2013,2005],
+            "craftingItem" : 2014
+        },
+        {
+            "craftingRecipe" : [2013,2007],
+            "craftingItem" : 2015
+        },
+        {
+            "craftingRecipe" : [2007,2013],
+            "craftingItem" : 2015
+        }
+    ]
+}
