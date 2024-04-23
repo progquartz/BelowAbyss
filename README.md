@@ -27,5 +27,11 @@
 게임 빌드 파일
 -
 
-게임 빌드 파일은 다음의 링크에서 다운 받으실 수 있습니다.
+게임 빌드 파일은 다음의 ([링크)](https://drive.google.com/file/d/1YHBmVsKKNjPEcumBnCTRxP5KfMMRqt89/view?usp=sharing)에서 다운 받으실 수 있습니다.
+최종 폴리싱이 되지 않은 관계로, 앱 설치 후 실행 시 실행이 안되는 문제 등이 생길 수 있습니다.
+
 버그나, 오류 등은 yong030389@naver.com으로 연락주신다면 정말, 정말 감사드리겠습니다.
+
+
+
+```
