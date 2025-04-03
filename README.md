@@ -6,9 +6,14 @@
 - 작품 소개 링크
 [- http://www.gamemedia.kr/title/below-the-abyss/](http://www.gamemedia.kr/title/below-the-abyss/)
 
-![Image](https://github.com/user-attachments/assets/e108ef91-86c7-491c-8178-e7b1944ee018)
+## 작업자
+- **김유신** - 게임 디렉팅, 아트 총괄, 기획 담당
+- **최정용** - 프로그래밍, QA 담당
+
 
 ## 게임 특징
+
+![Image](https://github.com/user-attachments/assets/e108ef91-86c7-491c-8178-e7b1944ee018)
 
  
 1.  **텍스트 어드벤처와 생존, 두 장르의 결합:**  생존 요소가 있는 로그라이크 게임을 텍스트를 통해 보다 가볍게 즐길 수 있습니다.
