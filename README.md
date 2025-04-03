@@ -6,7 +6,7 @@
 - 작품 소개 링크
 [- http://www.gamemedia.kr/title/below-the-abyss/](http://www.gamemedia.kr/title/below-the-abyss/)
 
-
+![Image](https://github.com/user-attachments/assets/e108ef91-86c7-491c-8178-e7b1944ee018)
 
 ## 게임 특징
 
@@ -20,7 +20,7 @@
 - 
 
 - **사용 엔진** : Unity
-- **수행 기간** : 2023.03~2023.10
+- **수행 기간** : 2023.03~2024.01
 - **팀 구성** : 의뢰 수주자 (아트 , 기획) 1명 / 프로그래머 1명
 - 개발 참여율 : 100%
 
@@ -29,9 +29,6 @@
 
 게임 빌드 파일은 다음의 ([링크)](https://drive.google.com/file/d/1YHBmVsKKNjPEcumBnCTRxP5KfMMRqt89/view?usp=sharing)에서 다운 받으실 수 있습니다.
 최종 폴리싱이 되지 않은 관계로, 앱 설치 후 실행 시 실행이 안되는 문제 등이 생길 수 있습니다.
-
-버그나, 오류 등은 yong030389@naver.com으로 연락주신다면 정말, 정말 감사드리겠습니다.
-
 
 
 ```
