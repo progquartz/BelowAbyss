@@ -2,7 +2,6 @@
 
 # Below Abyss
 
-- 계원대학교 게임미디어과 2023년 졸업작품작 의뢰 프로젝트
 - 작품 소개 링크
 [- http://www.gamemedia.kr/title/below-the-abyss/](http://www.gamemedia.kr/title/below-the-abyss/)
 
