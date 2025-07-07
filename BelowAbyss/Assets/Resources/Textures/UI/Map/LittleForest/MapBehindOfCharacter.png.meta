@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,343 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1350
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3c356d6dbea801418129518b60b2108
+      internalID: -753665167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1260
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84dce398704845843a71446cb0a178d6
+      internalID: -1722253365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1170
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54affadc95637604aabdd864eea92d62
+      internalID: 632806212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcac57bd8ab75a1498f74e62ffa9e049
+      internalID: -1462747509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 990
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 106e3a2c090d5a84a8409b34ad62e266
+      internalID: -274024563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a11c5ead156bee6459d2ae2b0ac67c52
+      internalID: 901887786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 810
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fc338b4eaee7784091e88362159ee41
+      internalID: 1670919797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 720
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4faec4f368c82c64dad1ad861cc7bcd3
+      internalID: 1254512810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 630
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af095b9a3c3ae74faaeeaec960d6268
+      internalID: -558633206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08854cfb957acfc4a96b0c4da3daa1c6
+      internalID: 581949993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 450
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ce069af3b67b544bec8dd712299e29
+      internalID: -1249292237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 360
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14e5a9c8739f7594aad42070d7304553
+      internalID: -269733051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 270
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fec568a2e69da7428a5325d178833a3
+      internalID: 1446770861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcffb5935deb1294c976441cdc17f853
+      internalID: 909092539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 90
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86ed546d02046ce44ae60b9f12ad3ab7
+      internalID: -1648005667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapBehindOfCharacter_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f09c3a2360724654fa067dafb93f1fb4
+      internalID: -1853387699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +462,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MapBehindOfCharacter_0: -753665167
+      MapBehindOfCharacter_1: -1722253365
+      MapBehindOfCharacter_10: -1249292237
+      MapBehindOfCharacter_11: -269733051
+      MapBehindOfCharacter_12: 1446770861
+      MapBehindOfCharacter_13: 909092539
+      MapBehindOfCharacter_14: -1648005667
+      MapBehindOfCharacter_15: -1853387699
+      MapBehindOfCharacter_2: 632806212
+      MapBehindOfCharacter_3: -1462747509
+      MapBehindOfCharacter_4: -274024563
+      MapBehindOfCharacter_5: 901887786
+      MapBehindOfCharacter_6: 1670919797
+      MapBehindOfCharacter_7: 1254512810
+      MapBehindOfCharacter_8: -558633206
+      MapBehindOfCharacter_9: 581949993
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

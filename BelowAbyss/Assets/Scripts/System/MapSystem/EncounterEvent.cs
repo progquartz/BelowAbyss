@@ -13,8 +13,13 @@ public class EncounterEvent : MonoBehaviour
     [Header("호출 이벤트코드")]
     public int loadingEventCode;
 
+    private EventEndUp currentEventEndUp = EventEndUp.DEFAULT;
+    private EventEndUp changingEventEndUp = EventEndUp.DEFAULT;
+    private Coroutine defaultAnimCoroutine;
+    public float frameDelay = 0.125f;
+
     [Header("기본 스프라이트")]
-    public Sprite defaultSprite;
+    public Sprite[] defaultSprite;
     [Header("전투 종료시 스프라이트")]
     public Sprite battleEndSprite;
 
@@ -36,53 +41,77 @@ public class EncounterEvent : MonoBehaviour
     {
         if ((!(MapManager.Instance.GetStageNum() == 0 && MapManager.Instance.GetTileNum() == 0)) || MapManager.Instance.mapVisual.isInitiatingEncounting)
         {
-            switch (eventEndUpWith)
+            changingEventEndUp = eventEndUpWith;
+        }
+        return false;
+    }
+
+    private void Update()
+    {
+        if(changingEventEndUp == currentEventEndUp)
+        {
+            currentEventEndUp = changingEventEndUp;
+
+            if(currentEventEndUp == EventEndUp.DEFAULT)
             {
-                case EventEndUp.DEFAULT:
-                    if (defaultSprite != null)
-                    {
-                        encounterEventSprite.sprite = defaultSprite;
-                        return true;
-                    }
-                    break;
+                // 애니메이션 진행
+                defaultAnimCoroutine =  StartCoroutine(PlayDefaultAnimation());  
+            }
+        }
+        else
+        {
+            currentEventEndUp = changingEventEndUp;
+            StopCoroutine(defaultAnimCoroutine);
+            switch (currentEventEndUp)
+            {
                 case EventEndUp.BATTLEEND:
                     if (battleEndSprite != null)
                     {
                         encounterEventSprite.sprite = battleEndSprite;
-                        return true;
                     }
                     break;
                 case EventEndUp.SELECTION1:
                     if (Selection1Sprite != null)
                     {
                         encounterEventSprite.sprite = Selection1Sprite;
-                        return true;
                     }
                     break;
                 case EventEndUp.SELECTION2:
                     if (Selection2Sprite != null)
                     {
                         encounterEventSprite.sprite = Selection2Sprite;
-                        return true;
                     }
                     break;
                 case EventEndUp.SELECTION3:
                     if (Selection3Sprite != null)
                     {
                         encounterEventSprite.sprite = Selection3Sprite;
-                        return true;
                     }
                     break;
                 case EventEndUp.SELECTION4:
                     if (Selection4Sprite != null)
                     {
                         encounterEventSprite.sprite = Selection4Sprite;
-                        return true;
                     }
                     break;
             }
         }
-        return false;
+
+        
+
+    }
+
+    private IEnumerator PlayDefaultAnimation()
+    {
+        int frameCount = defaultSprite.Length;
+        int currentFrame = 0;
+
+        while (true)
+        {
+            encounterEventSprite.sprite = defaultSprite[currentFrame];
+            currentFrame = (currentFrame + 1) % frameCount;
+            yield return new WaitForSeconds(frameDelay);
+        }
     }
 
     public void ChangeData(EncounterEvent data)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3007944510234798202}
   - component: {fileID: 6150927474552725121}
   m_Layer: 5
-  m_Name: 1v 1
+  m_Name: 1g
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,13 +50,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abdb394a3be43c479c90d9714068fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingEventCode: 2005
+  loadingEventCode: 2007
   defaultSprite: {fileID: 7237052157183991084, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
-  battleEndSprite: {fileID: 7237052157183991084, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
-  Selection1Sprite: {fileID: 7237052157183991084, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
-  Selection2Sprite: {fileID: 7237052157183991084, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
-  Selection3Sprite: {fileID: 7237052157183991084, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
-  Selection4Sprite: {fileID: 7237052157183991084, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  battleEndSprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  Selection1Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  Selection2Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  Selection3Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  Selection4Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
 --- !u!222 &3007944510234798202
 CanvasRenderer:
   m_ObjectHideFlags: 0

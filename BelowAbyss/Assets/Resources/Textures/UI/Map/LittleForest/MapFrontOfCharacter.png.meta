@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,343 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1350
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55b3b586fc8e3d7458066464c6781581
+      internalID: -1240517685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1260
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 953809fe7c08e064885afa63e5ae6435
+      internalID: -2007993996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1170
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf1c69ea92e3bc344a286d9f8da9a5de
+      internalID: 1661009561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ddec15fda0eb81408c981e256dfede9
+      internalID: -1460004781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 990
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d20aee8da8380a34286983596f37ccd1
+      internalID: 532590679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa5cb919e92da940b1c3faac6839bd9
+      internalID: -1026925769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 810
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d5403101ad3444cad5e1d26c195eec
+      internalID: -1750363663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 720
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dfafcf7f3307a44c8b2e36e9fdb1fc9
+      internalID: 1024067922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 630
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c5641ea82df0b43b81cba11d005ed7
+      internalID: -1657945915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f538509d7a8f8499090f93e8a2aca9
+      internalID: 169383646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 450
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f50c3fb3ab5c12d47bcc43ddaff85594
+      internalID: -4742528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 360
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 894c35b399574964292bb05355843deb
+      internalID: -693982362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 270
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33b79fc267a994948ae84f9df3c1e2c6
+      internalID: -844387906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69ad44d348e6e3b47ba1f0b23d2b10bb
+      internalID: 1893995506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 90
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9a1320b065bafb4dbde20f2cf4cfc17
+      internalID: -909541916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapFrontOfCharacter_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1514
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b415c58785b08c0489c12fdc9ad3aeb1
+      internalID: -614917698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +462,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MapFrontOfCharacter_0: -1240517685
+      MapFrontOfCharacter_1: -2007993996
+      MapFrontOfCharacter_10: -4742528
+      MapFrontOfCharacter_11: -693982362
+      MapFrontOfCharacter_12: -844387906
+      MapFrontOfCharacter_13: 1893995506
+      MapFrontOfCharacter_14: -909541916
+      MapFrontOfCharacter_15: -614917698
+      MapFrontOfCharacter_2: 1661009561
+      MapFrontOfCharacter_3: -1460004781
+      MapFrontOfCharacter_4: 532590679
+      MapFrontOfCharacter_5: -1026925769
+      MapFrontOfCharacter_6: -1750363663
+      MapFrontOfCharacter_7: 1024067922
+      MapFrontOfCharacter_8: -1657945915
+      MapFrontOfCharacter_9: 169383646
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

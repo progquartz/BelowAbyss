@@ -12,7 +12,18 @@ public class MapVisual : MonoBehaviour
 
     
     public GameObject mapFrontOfCharacter;
+    public Image mapFrontImage;
+    private Sprite[] frontOfCharacterFrames;
+    private Coroutine frontAnimationCoroutine;
+    
     public GameObject mapBehindOfCharacter;
+    public Image mapBehindImage;
+    private Sprite[] behindOfCharacterFrames;
+    private Coroutine behindAnimationCoroutine;
+
+    public float frameDelay = 0.1f; // 프레임당 0.1초 (10fps)
+
+
     public RectTransform mapFrontPos;
     public RectTransform mapBackPos;
     public GameObject FadeInOutObject;
@@ -57,6 +68,10 @@ public class MapVisual : MonoBehaviour
         mapFrontPos = mapFrontOfCharacter.GetComponent<RectTransform>();
         mapBackPos = mapBehindOfCharacter.GetComponent<RectTransform>();
 
+        mapBehindImage = mapBehindOfCharacter.GetComponent<Image>();
+        mapFrontImage = mapFrontOfCharacter.GetComponent<Image>();
+
+
         per_step = Mathf.Abs((lock_max_PosX - lock_min_PosX) / step);
         // 점점 줄어들어가게 됨. 맵은 뒤로 움직여야 플레이어는 앞으로 움직임.
         beforeMarker = lock_max_PosX;
@@ -99,12 +114,94 @@ public class MapVisual : MonoBehaviour
     // 맵의 스프라이트를 테마에 맞게 교체
     public void ChangeMapSpriteTheme()
     {
-        // 여기 이미지 로딩이 정상적으로 되지 않음.
-        string mapThemePath = "Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme();
-        Debug.Log("Textures/UI/Map/" + MapManager.Instance.GetCurrentMapTheme() + "/MapFrontOfCharacter");
-        mapFrontOfCharacter.GetComponent<Image>().sprite = IMG2Sprite.LoadNewSprite(mapThemePath + "/MapFrontOfCharacter") as Sprite;
-        mapBehindOfCharacter.GetComponent<Image>().sprite = IMG2Sprite.LoadNewSprite(mapThemePath + "/MapBehindOfCharacter") as Sprite;
+        // 먼저 Image 컴포넌트 초기화
+        mapBehindImage = mapBehindOfCharacter.GetComponent<Image>();
+        mapFrontImage = mapFrontOfCharacter.GetComponent<Image>();
+
+        if (mapBehindImage == null || mapFrontImage == null)
+        {
+            Debug.LogError("mapImage is NULL!");
+        }
+
+        // 그다음 테마 변경
+        string mapTheme = MapManager.Instance.GetCurrentMapTheme();
+        ChangeMapTheme(mapTheme);
     }
+
+
+    public void ChangeMapTheme(string mapTheme)
+    {
+        string behindPath = $"Textures/UI/Map/{mapTheme}/MapBehindOfCharacter";
+        string frontPath = $"Textures/UI/Map/{mapTheme}/MapFrontOfCharacter";
+
+
+        var loadedBackgroundFrames = Resources.LoadAll<Sprite>(behindPath);
+
+        if (loadedBackgroundFrames == null || loadedBackgroundFrames.Length == 0)
+        {
+            Debug.LogError($"[MapBackgroundAnimator] 스프라이트를 찾을 수 없습니다: {behindPath}");
+            return;
+        }
+
+        behindOfCharacterFrames = loadedBackgroundFrames;
+        // 기존 애니메이션 종료
+        if (behindAnimationCoroutine != null)
+        {
+            StopCoroutine(behindAnimationCoroutine);
+        }
+
+        
+        behindAnimationCoroutine = StartCoroutine(PlayBackgroundAnimation());
+
+        var loadedFrontFrames = Resources.LoadAll<Sprite>(frontPath);
+
+        if (loadedFrontFrames == null || loadedFrontFrames.Length == 0)
+        {
+            Debug.LogError($"[MapBackgroundAnimator] 스프라이트를 찾을 수 없습니다: {frontPath}");
+            return;
+        }
+
+        frontOfCharacterFrames = loadedFrontFrames;
+        // 기존 애니메이션 종료
+        if (frontAnimationCoroutine != null)
+        {
+            StopCoroutine(frontAnimationCoroutine);
+        }
+        frontAnimationCoroutine = StartCoroutine(PlayFrontgroundAnimation());
+    }
+
+    private IEnumerator PlayBackgroundAnimation()
+    {
+        Debug.Log($"[PlayBackgroundAnimation] Start, behindOfCharacterFrames[0]: {behindOfCharacterFrames?[0]?.name}");
+
+        int frameCount = behindOfCharacterFrames.Length;
+        int currentFrame = 0;
+
+        while (true)
+        {
+            Debug.Log($"{behindOfCharacterFrames[currentFrame].name}");
+            mapBehindImage.sprite = behindOfCharacterFrames[currentFrame];
+            currentFrame = (currentFrame + 1) % frameCount;
+            yield return new WaitForSeconds(frameDelay);
+        }
+    }
+
+    private IEnumerator PlayFrontgroundAnimation()
+    {
+        Debug.Log($"[PlayBackgroundAnimation] Start, behindOfCharacterFrames[0]: {frontOfCharacterFrames?[0]?.name}");
+
+        int frameCount = frontOfCharacterFrames.Length;
+        int currentFrame = 0;
+
+        while (true)
+        {
+            Debug.Log($"{frontOfCharacterFrames[currentFrame].name}");
+            mapFrontImage.sprite = frontOfCharacterFrames[currentFrame];
+            currentFrame = (currentFrame + 1) % frameCount;
+            yield return new WaitForSeconds(frameDelay);
+        }
+    }
+
 
     // 초기로 돌아오면서, 해당 맵의 초기 이벤트를 지정.
     public void ChangeMapEncounterEvent()
