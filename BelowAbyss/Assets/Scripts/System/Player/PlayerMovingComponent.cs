@@ -121,7 +121,8 @@ public class PlayerMovingComponent : MonoBehaviour
 
     public void HurtState()
     {
-        playerVisual.HitSpriteColorControl();
+        playerVisual.PlayEffect(EffectType.BLOOD);
+        //playerVisual.HitSpriteColorControl();
         // 이미 공격당하는 중임.
         if (newState == EntityMovingState.HURT)
         {

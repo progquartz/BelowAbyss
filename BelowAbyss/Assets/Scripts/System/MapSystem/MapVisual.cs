@@ -179,7 +179,6 @@ public class MapVisual : MonoBehaviour
 
         while (true)
         {
-            Debug.Log($"{behindOfCharacterFrames[currentFrame].name}");
             mapBehindImage.sprite = behindOfCharacterFrames[currentFrame];
             currentFrame = (currentFrame + 1) % frameCount;
             yield return new WaitForSeconds(frameDelay);
@@ -195,7 +194,6 @@ public class MapVisual : MonoBehaviour
 
         while (true)
         {
-            Debug.Log($"{frontOfCharacterFrames[currentFrame].name}");
             mapFrontImage.sprite = frontOfCharacterFrames[currentFrame];
             currentFrame = (currentFrame + 1) % frameCount;
             yield return new WaitForSeconds(frameDelay);

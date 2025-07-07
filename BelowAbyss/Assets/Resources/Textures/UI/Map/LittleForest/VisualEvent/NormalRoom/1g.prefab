@@ -62,7 +62,6 @@ MonoBehaviour:
   - {fileID: -5231513298851115194, guid: f6a419a128be5f64c81930401334356a, type: 3}
   - {fileID: 6678162994775137268, guid: f6a419a128be5f64c81930401334356a, type: 3}
   - {fileID: 6098986086164111463, guid: f6a419a128be5f64c81930401334356a, type: 3}
-  battleEndSprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
   Selection1Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
   Selection2Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
   Selection3Sprite: {fileID: 8508890305058649377, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
@@ -95,7 +94,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b9237586655877445a31e11e49f093e5, type: 3}
+  m_Sprite: {fileID: -1240517685, guid: b27b414aa32c8ca4583cf013e40d43c6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

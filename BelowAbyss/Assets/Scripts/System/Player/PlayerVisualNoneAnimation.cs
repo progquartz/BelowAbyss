@@ -1,53 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[System.Serializable]
+public class EffectTypeVisualData
+{
+    public EffectType effectType;
+    public List<Sprite> sprite;
+}
 public class PlayerVisualNoneAnimation : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
-
-    private Animator animator;
-    private float hitColorChangeTime = 0.1f;
+    private List<EffectTypeVisualData> effectTypeVisualDatas;
     [SerializeField]
-    private bool isHitColorTimeRunning = false;
+    private GameObject effectPrefab;
     [SerializeField]
-    private bool isNewHitTriggered = false;
+    private Transform parentTransform;
 
-    private void Start()
+    [SerializeField]
+    private float frameDelay = 0.1f; // 프레임당 시간
+
+
+    public void TestPlayEffect()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        PlayEffect(EffectType.POISON);
     }
 
-    public void HitSpriteColorControl()
+    public void PlayEffect(EffectType effectType)
     {
-        StartCoroutine(IE_SpriteColorChangeOnHit());
+        Debug.Log(1);
+        List<Sprite> sprites = null;
+        foreach (var effect in effectTypeVisualDatas)
+        {
+            if (effect.effectType == effectType)
+            {
+                sprites = effect.sprite;
+                break;
+            }
+        }
+
+        Debug.Log(2);
+        if (sprites == null || sprites.Count == 0)
+        {
+            Debug.LogWarning($"No sprites found for effect type: {effectType}");
+            return;
+        }
+
+        GameObject effectObject = Instantiate(effectPrefab, parentTransform);
+        effectObject.transform.localPosition = Vector3.zero;
+        effectObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+
+        SpriteRenderer sr = effectObject.GetComponent<SpriteRenderer>();
+
+        if (sr == null)
+        {
+            Debug.LogError("Effect prefab에 SpriteRenderer가 없습니다.");
+            Destroy(effectObject);
+            return;
+        }
+
+        StartCoroutine(PlayEffectAnimation(effectObject, sr, sprites));
     }
 
-    IEnumerator IE_SpriteColorChangeOnHit()
+    private IEnumerator PlayEffectAnimation(GameObject effectObject, SpriteRenderer sr,  List<Sprite> sprites)
     {
-        spriteRenderer.color = new Color(1, 0.5f, 0.5f);
-        if (isHitColorTimeRunning)
+        foreach (var sprite in sprites)
         {
-            isNewHitTriggered = true;
+            if (sr != null)
+            {
+                sr.sprite = sprite;
+                Debug.Log(sprite.name);
+            }
+                
+
+            yield return new WaitForSeconds(frameDelay);
         }
-        else
-        {
-            isNewHitTriggered = false;
-        }
-        isHitColorTimeRunning = true;
-        yield return new WaitForSeconds(hitColorChangeTime);
-        if (isNewHitTriggered)
-        {
-            isNewHitTriggered = false;
-        }
-        else
-        {
-            spriteRenderer.color = Color.white;
-        }
-        isNewHitTriggered = false;
-        isHitColorTimeRunning = false;
-        yield return null;
+
+        Destroy(effectObject);
     }
 }

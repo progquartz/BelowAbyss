@@ -20,8 +20,6 @@ public class EncounterEvent : MonoBehaviour
 
     [Header("기본 스프라이트")]
     public Sprite[] defaultSprite;
-    [Header("전투 종료시 스프라이트")]
-    public Sprite battleEndSprite;
 
     [Header("선택지 1 선택")]
     public Sprite Selection1Sprite;
@@ -64,12 +62,6 @@ public class EncounterEvent : MonoBehaviour
             StopCoroutine(defaultAnimCoroutine);
             switch (currentEventEndUp)
             {
-                case EventEndUp.BATTLEEND:
-                    if (battleEndSprite != null)
-                    {
-                        encounterEventSprite.sprite = battleEndSprite;
-                    }
-                    break;
                 case EventEndUp.SELECTION1:
                     if (Selection1Sprite != null)
                     {
@@ -118,7 +110,6 @@ public class EncounterEvent : MonoBehaviour
     {
         loadingEventCode = data.loadingEventCode;
         defaultSprite = data.defaultSprite;
-        battleEndSprite = data.battleEndSprite;
         Selection1Sprite = data.Selection1Sprite;
         Selection2Sprite = data.Selection2Sprite;
         Selection3Sprite = data.Selection3Sprite;
