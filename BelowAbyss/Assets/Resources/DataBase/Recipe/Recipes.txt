@@ -10,7 +10,7 @@
         },
         {
             "craftingRecipe" : [1002,1001],
-            "craftingItem" : 3001
+            "craftingItem" : 3002
         },
         {
             "craftingRecipe" : [2004,1003],
