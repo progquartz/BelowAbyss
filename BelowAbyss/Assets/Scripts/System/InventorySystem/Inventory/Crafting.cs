@@ -79,6 +79,7 @@ public class Crafting : MonoBehaviour
 
         if (craftedDB.itemcode != 0)
         {
+            Debug.Log($"{craftedDB.itemcode}");
             Sprite image;
             image = Resources.Load<Sprite>(path + craftedDB.itemcode.ToString());
             craftedSlot.transform.GetChild(0).gameObject.SetActive(true);
@@ -188,6 +189,7 @@ public class Crafting : MonoBehaviour
         int itemcode = ItemDataBase.instance.SearchRecipe(item1, item2);
         if(itemcode != -1)
         {
+            Debug.Log($"{item1} 과 {item2}를 조합하면, {itemcode}가 나온다?");
             currentCraftableItem = itemcode;
             craftedDB.itemcode = itemcode;
             craftedDB.stack = count;
