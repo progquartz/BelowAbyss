@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
     /// 전투 이전에 저장되어야 하는 
     /// </summary>
     public PlayerStat statBeforeBattle;
-    [SerializeField]
-    private PlayerVisualNoneAnimation visualNoneAnimation;
+    public PlayerVisualNoneAnimation visualNoneAnimation;
     [SerializeField]
     private PlayerMovingComponent visualAnimation;
 

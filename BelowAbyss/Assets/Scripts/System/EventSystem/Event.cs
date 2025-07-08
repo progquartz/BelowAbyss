@@ -13,5 +13,5 @@ public class Event
     public int additionalEventCode; // 있다면, 이를 실행하는 이벤트코드.
 
     public int outLookEventCode; // 외부에서 보여지는 이벤트 코드 유형.
-
+    public string playerAnimationKey;
 }

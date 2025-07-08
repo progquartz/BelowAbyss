@@ -32,6 +32,11 @@ public class PlayerAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public void PlayAnimation(string key, bool isLoop = false)
+    {
+        // 여기까지는 구현 미구현....
+    }
+
     public void SetMove(bool isWalk)
     {
         animator.SetBool("isMoving", isWalk);

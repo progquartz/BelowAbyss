@@ -1,9 +1,6 @@
 [System.Serializable]
-public class LootingData
+public class LootingData : Event
 {
-    public int eventCode;
-    public bool isLastEvent;
-    public int additionalEventCode;
     public int[] rootingItem;
     public int[] rootingMin;
     public int[] rootingMax;

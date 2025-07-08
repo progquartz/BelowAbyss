@@ -30,7 +30,7 @@ public class LootingSystem : MonoBehaviour
         SetTableSkillDataOpen(data);
         SetTableTraitDataOpen(data);
         SetTableEffectDataOpen(data);
-        if(data.isLastEvent)
+        if(data.isAdditionalEvent)
         {
             MapManager.Instance.MoveFront();
         }

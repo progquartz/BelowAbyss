@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 /*
@@ -127,30 +128,60 @@ public class EventManager : MonoBehaviour
             GameManager.instance.GameClear();
             return;
         }
+        
         switch (EventToEventType[eventCode])
         {
             case EventType.DIALOG:
-                Debug.Log(eventCode + "에 대한 다이얼로그 이벤트 호출 요청 발생.");
-                //UISelectionHolder.instance.OpenUI(2);
-                UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
-                Selection.instance.Appear(DialogEventList.FindEvent(eventCode));
+                HandleDialogEvent(eventCode);
                 break;
             case EventType.SELECTION:
-                Debug.Log(eventCode + "에 대한 선택 이벤트 호출 요청 발생.");
-                //UISelectionHolder.instance.OpenUI(2); // 기존에 바뀌는 데이터.
-                UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
-                Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
+                HandleSelectionEvent(eventCode);
                 break;
             case EventType.BATTLE:
-                Debug.Log(eventCode + "에 대한 전투 이벤트 호출 요청 발생.");
-                BattleManager.instance.BattlePhaseBegin(BattleEventList.FindEvent(eventCode));
+                HandleBattleEvent(eventCode);
                 break;
             case EventType.LOOTING:
-                Debug.Log(eventCode + "에 대한 루팅 이벤트 호출 요청 발생.");
-                LootingData lootData = LootingEventList.FindEvent(eventCode);
-                LootingSystem.instance.LootTableOpen(lootData);
+                HandleLootingEvent(eventCode);
                 break;
         }
+    }
+
+    private void HandleDialogEvent(int eventCode)
+    {
+        Debug.Log(eventCode + "에 대한 다이얼로그 이벤트 호출 요청 발생.");
+        UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
+        Selection.instance.Appear(DialogEventList.FindEvent(eventCode));
+        HandleAnimationKey(DialogEventList.FindEvent(eventCode));
+    }
+
+    private void HandleSelectionEvent(int eventCode)
+    {
+        Debug.Log(eventCode + "에 대한 선택 이벤트 호출 요청 발생.");
+        UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
+        Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
+        HandleAnimationKey(SelectionEventList.FindEvent(eventCode));
+    }
+
+    private void HandleBattleEvent(int eventCode)
+    {
+        BattleManager.instance.BattlePhaseBegin(BattleEventList.FindEvent(eventCode));
+        HandleAnimationKey(BattleEventList.FindEvent(eventCode));
+    }
+
+    private void HandleLootingEvent(int eventCode)
+    {
+        Debug.Log(eventCode + "에 대한 루팅 이벤트 호출 요청 발생.");
+        LootingData lootData = LootingEventList.FindEvent(eventCode);
+        LootingSystem.instance.LootTableOpen(lootData);
+        HandleAnimationKey(LootingEventList.FindEvent(eventCode));
+    }
+
+    public void HandleAnimationKey(Event eventData)
+    {
+        if (eventData.playerAnimationKey == null)
+            return;
+
+        PlayerAnimation.instance.PlayAnimation(eventData.playerAnimationKey);
     }
 
     public EventType LoadEventType(int eventCode)

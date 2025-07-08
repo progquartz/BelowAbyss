@@ -298,6 +298,7 @@ public class EffectManager : MonoBehaviour
         if (dataValid)
         {
             PutEffect();
+            AmplifyVisualEffect(effect);
         }
         else
         {
@@ -308,50 +309,10 @@ public class EffectManager : MonoBehaviour
         return true;
     }
 
-    public bool AmplifyVisualEffect(EffectData effect, int skillVisualDataBuff = 0, int skillVisualDataAttack = 0)
+    public void AmplifyVisualEffect(EffectData effect)
     {
-        Debug.Log(effect.str1 + "에 대한 효과 발동함.");
-        ResetTempDatas();
-        bool dataValid = true;
-
-        dataValid &= PutFirstLineDatas(effect.str1);
-        dataValid &= PutSecondLineDatas(effect.str2);
-        dataValid &= PutThirdLineDatas(effect.str3);
-
-        if (dataValid)
-        {
-            VisualSkillEffect(effect, skillVisualDataBuff, skillVisualDataAttack);
-        }
-        else
-        {
-            Debug.Log("정상적이지 않은 str형식이 로딩되어서 effect visualizing이 정상적으로 발생되지 않았음.");
-            return false;
-        }
-        return true;
+        Player.instance.visualNoneAnimation.PlayEffect(status);
     }
-
-    private void VisualSkillEffect(EffectData effect, int skillVisualDataBuff = 0, int skillVisualDataAttack = 0)
-    {
-        List<EntityStat> targetData = GetTarget();
-        // 자신에 대한 버프 비주얼 이펙트가 존재하는 경우.
-        if (skillVisualDataBuff != 0)
-        {
-            Player.instance.GetComponentInChildren<EntitySkillVisualCaller>().CallSkillVisual(skillVisualDataBuff);
-        }
-
-        if (skillVisualDataAttack != 0)
-        {
-            if (targetData[0] is EnemyStat)
-            {
-                foreach(EnemyStat data in targetData)
-                {
-                    data.gameObject.GetComponentInChildren<EntitySkillVisualCaller>().CallSkillVisual(skillVisualDataAttack);
-                }
-            }
-        }
-    }
-
-
 
     public void TestToPutEffect()
     {

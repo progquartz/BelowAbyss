@@ -29,7 +29,6 @@ public class PlayerVisualNoneAnimation : MonoBehaviour
 
     public void PlayEffect(EffectType effectType)
     {
-        Debug.Log(1);
         List<Sprite> sprites = null;
         foreach (var effect in effectTypeVisualDatas)
         {
@@ -40,7 +39,6 @@ public class PlayerVisualNoneAnimation : MonoBehaviour
             }
         }
 
-        Debug.Log(2);
         if (sprites == null || sprites.Count == 0)
         {
             Debug.LogWarning($"No sprites found for effect type: {effectType}");
