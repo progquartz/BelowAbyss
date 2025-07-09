@@ -22,8 +22,13 @@ public class Dialog : MonoBehaviour
     [SerializeField]
     protected TextMeshProUGUI subparagraphText;
     [SerializeField]
-    protected TextMeshProUGUI dialog;
+    protected TextMeshProUGUI dialogNoImage;
+    [SerializeField]
+    protected TextMeshProUGUI dialogWithImage;
+    [SerializeField]
+    protected Image image;
     
+
     protected GameObject backgroundImage;
     public int nextEvent;
     public bool isNextEventExist;
@@ -31,11 +36,13 @@ public class Dialog : MonoBehaviour
     // 당장 안함.
     private AudioClip backgroundMusic;
 
-    private void Start()
+    protected virtual void Start()
     {
         paragraphText = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         subparagraphText = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
-        dialog = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        dialogNoImage = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        dialogWithImage = transform.GetChild(0).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
+        image = transform.GetChild(0).GetChild(1).GetChild(2).GetComponent<Image>();
     }
 
 
@@ -47,7 +54,7 @@ public class Dialog : MonoBehaviour
     public bool LoadEventCode(DialogEvent data)
     {
         paragraphText.text = data.paragraphText;
-        dialog.text = data.dialog;
+        dialogNoImage.text = data.dialog;
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
 

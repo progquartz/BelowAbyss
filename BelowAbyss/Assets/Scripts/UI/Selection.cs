@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class Selection : Dialog
 {
@@ -15,10 +17,17 @@ public class Selection : Dialog
             instance = this;
         }
     }
-    
-    public TextMeshProUGUI[] selectionDialog = new TextMeshProUGUI[4];
-    public GameObject[] selectionPanel = new GameObject[4];
+
+    public Transform noImageSelectionParent;
+    public Transform withImageSelectionParent;
+    public TextMeshProUGUI[] selectionNoImageDialog = new TextMeshProUGUI[4];
+    public TextMeshProUGUI[] selectionWithImageDialog = new TextMeshProUGUI[4];
+    public GameObject[] selectionNoImagePanel = new GameObject[4];
+    public GameObject[] selectionWithImagePanel = new GameObject[4];
+
     public int[] selectionEvent = new int[4];
+
+    private readonly string imagesPath = "Textures/Events/";
 
     public void Appear(SelectionEvent data)
     {
@@ -44,15 +53,19 @@ public class Selection : Dialog
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
-        paragraphText = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        subparagraphText = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
-        dialog = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
-        for(int i = 0; i < 4; i++)
+        base.Start();
+        noImageSelectionParent = transform.GetChild(0).GetChild(2);
+        withImageSelectionParent = transform.GetChild(0).GetChild(3);
+        for (int i = 0; i < 4; i++)
         {
-            selectionPanel[i] = transform.GetChild(0).GetChild(2).GetChild(i).gameObject;
-            selectionDialog[i] = selectionPanel[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+            selectionNoImagePanel[i] = transform.GetChild(0).GetChild(2).GetChild(i).gameObject;
+            selectionNoImageDialog[i] = selectionNoImagePanel[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+            selectionWithImagePanel[i] = transform.GetChild(0).GetChild(3).GetChild(i).gameObject;
+            selectionWithImageDialog[i] = selectionWithImagePanel[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
         }
 
     }
@@ -62,30 +75,131 @@ public class Selection : Dialog
         Debug.Log("다이얼로그 이벤트 로드됨.");
         isSelectionEventloaded = false;
         paragraphText.text = data.paragraphText;
+
         string additionalLootDialog = GetAdditionalEventCode(data);
-        if(additionalLootDialog != null)
+
+        if (additionalLootDialog != null)
         {
-            dialog.text = data.dialog + "\n" + additionalLootDialog;
+            if (data.backgroundImageKey == null)
+                dialogNoImage.text = data.dialog + "\n" + additionalLootDialog;
+            else
+                dialogWithImage.text = data.dialog + "\n" + additionalLootDialog;
         }
         else
         {
-            dialog.text = data.dialog;
+            if (data.backgroundImageKey == null)
+                dialogNoImage.text = data.dialog;
+            else
+                dialogWithImage.text = data.dialog;
         }
-        
+
+        if (data.backgroundImageKey != null)
+        {
+            LoadImage(data.backgroundImageKey);
+        }
+
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
 
         for (int i = 0; i < 1; i++)
         {
-            selectionDialog[i].text = "계속"; // 이벤트 데이터가 주어진 놈은 하고, 아닌 경우는 지워버리기.
-            AppearPanel(i);
+            if(data.backgroundImageKey == null)
+            {
+                selectionNoImageDialog[i].text = "계속"; // 이벤트 데이터가 주어진 놈은 하고, 아닌 경우는 지워버리기.
+                AppearPanel(i, false);
+            }
+            else
+            {
+                selectionWithImageDialog[i].text = "계속";
+                AppearPanel(i, true);
+            }
         }
         for (int i = 1; i < 4; i++)
         {
-            DisappearPanel(i);
+            if (data.backgroundImageKey == null)
+            {
+                DisappearPanel(i, false);
+            }
+            else
+            {
+                DisappearPanel(i, true);
+            }
         }
 
         return true;
+    }
+
+    public bool LoadEventCode(SelectionEvent data)
+    {
+        Debug.Log("선택 이벤트 로드됨.");
+        isSelectionEventloaded = true;
+        paragraphText.text = data.paragraphText;
+        string additionalLootDialog = GetAdditionalEventCode(data);
+
+        if (additionalLootDialog != null)
+        {
+            if (data.backgroundImageKey == null)
+                dialogNoImage.text = data.dialog + "\n" + additionalLootDialog;
+            else
+                dialogWithImage.text = data.dialog + "\n" + additionalLootDialog;
+        }
+        else
+        {
+            if (data.backgroundImageKey == null)
+                dialogNoImage.text = data.dialog;
+            else
+                dialogWithImage.text = data.dialog;
+        }
+
+        if(data.backgroundImageKey != null)
+        {
+            LoadImage(data.backgroundImageKey);
+        }
+
+
+        nextEvent = data.additionalEventCode;
+        isNextEventExist = data.isAdditionalEvent;
+
+        for (int i = 0; i < data.selectionDialog.Length; i++)
+        {
+            if (data.backgroundImageKey == null)
+            {
+                selectionNoImageDialog[i].text = data.selectionDialog[i]; // 이벤트 데이터가 주어진 놈은 하고, 아닌 경우는 지워버리기.
+                AppearPanel(i, false);
+            }
+            else
+            {
+                Debug.Log(data.selectionDialog[i]);
+                selectionWithImageDialog[i].text = data.selectionDialog[i];
+                AppearPanel(i, true);
+            }
+        }
+        for (int i = data.selectionDialog.Length; i < 4; i++)
+        {
+            if(data.backgroundImageKey == null)
+            {
+                DisappearPanel(i, false);
+            }
+            else
+            {
+                DisappearPanel(i, true);
+            }
+            
+        }
+        selectionEvent = data.selectionEvent;
+        // 이미지 및 여러 추가사항들 존재.
+        return true;
+    }
+
+    private void LoadImage(string key)
+    {
+        Sprite sprite = Resources.Load<Sprite>(imagesPath + key);
+        if(sprite == null)
+        {
+            Debug.LogWarning("이미지가 비정상적으로 로드되었습니다.");
+            image.gameObject.SetActive(false);
+        }
+        image.sprite = sprite;
     }
 
     private string GetAdditionalEventCode(Event data)
@@ -102,48 +216,56 @@ public class Selection : Dialog
     }
 
 
-    public bool LoadEventCode(SelectionEvent data)
-    {
-        isSelectionEventloaded = true;
-        paragraphText.text = data.paragraphText;
-        subparagraphText.text = data.subparagraphText;
-        dialog.text = data.dialog;
-        nextEvent = data.additionalEventCode;
-        isNextEventExist = data.isAdditionalEvent;
 
-        for (int i = 0; i < data.selectionDialog.Length; i++)
+
+    public void AppearPanel(int index, bool isImageIncluded)
+    {
+        if(!isImageIncluded)
         {
-            selectionDialog[i].text = data.selectionDialog[i]; // 이벤트 데이터가 주어진 놈은 하고, 아닌 경우는 지워버리기.
-            AppearPanel(i);
+            dialogNoImage.gameObject.SetActive(true);
+            dialogWithImage.gameObject.SetActive(false);
+            image.gameObject.SetActive(false);
+            noImageSelectionParent.gameObject.SetActive(true);
+            withImageSelectionParent.gameObject.SetActive(false);
+            selectionNoImagePanel[index].SetActive(true);
+            selectionWithImagePanel[index].SetActive(false);
         }
-        for (int i = data.selectionDialog.Length; i < 4; i++)
+        else
         {
-            DisappearPanel(i);
+            dialogNoImage.gameObject.SetActive(false);
+            dialogWithImage.gameObject.SetActive(true);
+            image.gameObject.SetActive(true);
+            noImageSelectionParent.gameObject.SetActive(false);
+            withImageSelectionParent.gameObject.SetActive(true);
+            selectionWithImagePanel[index].SetActive(true);
+            selectionNoImagePanel[index].SetActive(false);
         }
-        selectionEvent = data.selectionEvent;
-        // 이미지 및 여러 추가사항들 존재.
-        return true;
+        
     }
 
-    public void AppearPanel(int index)
+    public void DisappearPanel(int index, bool isImageIncluded)
     {
-        selectionPanel[index].SetActive(true);
-    }
-
-    public void DisappearPanel(int index)
-    {
-        selectionPanel[index].SetActive(false);
+        if(!isImageIncluded)
+        {
+            selectionNoImagePanel[index].SetActive(false);
+        }
+        else
+        {
+            selectionWithImagePanel[index].SetActive(false);
+        }
+        
     }
 
     private void CleanUp()
     {
         paragraphText.text = "";
         subparagraphText.text = "";
-        dialog.text = "";
+        dialogNoImage.text = "";
 
         for (int i = 0; i < 4; i++)
         {
-            DisappearPanel(i);
+            DisappearPanel(i, true);
+            DisappearPanel(i, false);
         }
     }
 

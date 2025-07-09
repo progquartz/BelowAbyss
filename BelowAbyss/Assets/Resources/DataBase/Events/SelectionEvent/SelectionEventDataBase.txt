@@ -54,6 +54,7 @@
 			"isAdditionalEvent":false,
 			"additionalEventCode":-1,
 			"outLookEventCode": 1,
+            "backgroundImageKey" : "test",
 			"paragraphText" : "풀숲발견고블린1",
             "subparagraphText" : "beware sub",
 			"dialog": "당신은 길을 지나다, 왠지 모르게 수상하게 생긴 풀숲을 발견합니다.\n\n조금 힘이 들더라도 저 곳을 수색한다면, 무엇인가 먹을 걸 발견할 수 있지 않을까요?",

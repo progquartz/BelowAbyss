@@ -267,8 +267,12 @@ public class Inventory : MonoBehaviour
                 slots[i].transform.GetChild(1).gameObject.SetActive(true);
                 slots[i].transform.GetChild(2).gameObject.SetActive(false);
                 slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = image;
-                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
-                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().outlineWidth = 0.3f;
+                TextMeshProUGUI text = slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
+                if (text != null)
+                { 
+                    text.SetText(itemDB[i].stack.ToString());
+                    text.outlineWidth = 0.3f;
+                }
                 slots[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemName);
                 slots[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemLore);
 
