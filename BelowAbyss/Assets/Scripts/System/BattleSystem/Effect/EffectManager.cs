@@ -7,10 +7,6 @@ public enum EffectTarget
 {
     NONE,
     PLAYER,
-    FRONT,
-    BACK,
-    ALL,
-    REALALL
 }
 
 public enum EffectType
@@ -27,10 +23,6 @@ public enum EffectType
     MAXMIN,
     CURVIT,
     MAXVIT,
-    DISARM,
-    ALLATK,
-    MELATK,
-    SKLATK,
     POISON,
     POIDEL,
     BLOOD,
@@ -43,8 +35,6 @@ public enum EffectCountFor
 {
     NONE,
     INSTANT,
-    BATTLE,
-    SECOND
 }
 
 
@@ -53,8 +43,6 @@ public class EffectManager : MonoBehaviour
 {
     public static EffectManager instance;
 
-
-    public EnemyHord enemyHordManager;
     public Player playerStat;
 
     public EffectData testData;
@@ -102,7 +90,6 @@ public class EffectManager : MonoBehaviour
     {
         if (!GameManager.instance.isFirstGame)
         {
-            enemyHordManager = BattleManager.instance.enemyHord;
             playerStat = Player.instance;
         }
     }
@@ -132,20 +119,8 @@ public class EffectManager : MonoBehaviour
         }
         switch (strs[0])
         {
-            case "A":
-                target = EffectTarget.ALL;
-                break;
             case "P":
                 target = EffectTarget.PLAYER;
-                break;
-            case "F":
-                target = EffectTarget.FRONT;
-                break;
-            case "B":
-                target = EffectTarget.BACK;
-                break;
-            case "R":
-                target = EffectTarget.REALALL;
                 break;
             default:
                 target = EffectTarget.NONE;
@@ -176,18 +151,6 @@ public class EffectManager : MonoBehaviour
                 break;
             case "CA":
                 status = EffectType.CURARM;
-                break;
-            case "DA":
-                status = EffectType.DISARM;
-                break;
-            case "AA":
-                status = EffectType.ALLATK;
-                break;
-            case "MA":
-                status = EffectType.MELATK;
-                break;
-            case "SA":
-                status = EffectType.SKLATK;
                 break;
             case "PO":
                 status = EffectType.POISON;
@@ -241,12 +204,6 @@ public class EffectManager : MonoBehaviour
 
         switch (strs[0])
         {
-            case "B":
-                effectIndicator = EffectCountFor.BATTLE;
-                break;
-            case "S":
-                effectIndicator = EffectCountFor.SECOND;
-                break;
             case "I":
                 effectIndicator = EffectCountFor.INSTANT;
                 break;
@@ -338,16 +295,6 @@ public class EffectManager : MonoBehaviour
             case EffectType.CURARM:
                 CurArmourChange();
                 break;
-            case EffectType.DISARM:
-                DisArm();
-                break;
-            case EffectType.ALLATK:
-                AllAttackDamageChange();
-                break;
-            case EffectType.MELATK:
-                break;
-            case EffectType.SKLATK:
-                break;
             case EffectType.POISON:
                 PoisonChange();
                 break;
@@ -398,22 +345,6 @@ public class EffectManager : MonoBehaviour
                 target[i].AllAttackDamageControl(effectPower, 'I', 0.0f);
             }
         }
-        else if (effectIndicator == EffectCountFor.BATTLE)
-        {
-            List<EntityStat> target = GetTarget();
-            for (int i = 0; i < target.Count; i++)
-            {
-                target[i].AllAttackDamageControl(effectPower, 'B', effectDuration);
-            }
-        }
-        else if (effectIndicator == EffectCountFor.SECOND)
-        {
-            List<EntityStat> target = GetTarget();
-            for (int i = 0; i < target.Count; i++)
-            {
-                target[i].AllAttackDamageControl(effectPower, 'S', effectDuration);
-            }
-        }
     }
 
     // p [I,S,B] / E [I, S]
@@ -425,22 +356,6 @@ public class EffectManager : MonoBehaviour
             for (int i = 0; i < target.Count; i++)
             {
                 target[i].AllHitDamageControl(effectPower, 'I', 0.0f);
-            }
-        }
-        else if (effectIndicator == EffectCountFor.BATTLE)
-        {
-            List<EntityStat> target = GetTarget();
-            for (int i = 0; i < target.Count; i++)
-            {
-                target[i].AllHitDamageControl(effectPower, 'B', effectDuration);
-            }
-        }
-        else if (effectIndicator == EffectCountFor.SECOND)
-        {
-            List<EntityStat> target = GetTarget();
-            for (int i = 0; i < target.Count; i++)
-            {
-                target[i].AllHitDamageControl(effectPower, 'S', effectDuration);
             }
         }
     }
@@ -578,55 +493,6 @@ public class EffectManager : MonoBehaviour
         List<EntityStat> data = new List<EntityStat>();
         if (target == EffectTarget.PLAYER)
         {
-            data.Add(playerStat.stat);
-            return data;
-        }
-        else if (target == EffectTarget.FRONT)
-        {
-            List<int> indexData = enemyHordManager.GetRowFromFrontHord(targetCount);
-            for (int i = 0; i < indexData.Count; i++)
-            {
-                if(enemyHordManager.enemies[indexData[i]].stat.currentHp > 0)
-                {
-                    data.Add(enemyHordManager.enemies[indexData[i]].stat);
-                }
-            }
-            return data;
-        }
-        else if (target == EffectTarget.BACK)
-        {
-            List<int> rowData = enemyHordManager.GetRowFromBackHord(targetCount);
-            for (int i = 0; i < rowData.Count; i++)
-            {
-                if (enemyHordManager.enemies[rowData[i]].stat.currentHp > 0)
-                {
-                    data.Add(enemyHordManager.enemies[rowData[i]].stat);
-                }
-            }
-            return data;
-        }
-        else if (target == EffectTarget.ALL)
-        {
-            List<int> rowData = enemyHordManager.GetAllFromHord();
-            for (int i = 0; i < rowData.Count; i++)
-            {
-                if (enemyHordManager.enemies[rowData[i]].stat.currentHp > 0)
-                {
-                    data.Add(enemyHordManager.enemies[rowData[i]].stat);
-                }
-            }
-            return data;
-        }
-        else if(target == EffectTarget.REALALL)
-        {
-            List<int> rowData = enemyHordManager.GetAllFromHord();
-            for (int i = 0; i < rowData.Count; i++)
-            {
-                if (enemyHordManager.enemies[rowData[i]].stat.currentHp > 0)
-                {
-                    data.Add(enemyHordManager.enemies[rowData[i]].stat);
-                }
-            }
             data.Add(playerStat.stat);
             return data;
         }

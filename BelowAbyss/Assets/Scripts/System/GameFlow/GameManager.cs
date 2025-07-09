@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
             MapManager.Instance. FlushAllMapDatas();
             MapManager.Instance.GenerateNextStage(true);
             gameOverUI = GameObject.Find("GameOverUIHolder").GetComponent<GameOverUI>();
-            EffectManager.instance.enemyHordManager = BattleManager.instance.enemyHord;
             EffectManager.instance.playerStat = Player.instance;
         }
         //SkillInventory.instance.FirstSetup();

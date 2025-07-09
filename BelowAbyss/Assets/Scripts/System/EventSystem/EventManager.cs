@@ -35,23 +35,6 @@ public class LootingEvents
 }
 
 
-[System.Serializable]
-public class BattleEvents
-{
-    public BattleEvent[] battleEvents;
-
-    public BattleEvent FindEvent(int eventcode)
-    {
-        for(int i = 0; i < battleEvents.Length; i++)
-        {
-            if(battleEvents[i].eventCode == eventcode)
-            {
-                return battleEvents[i];
-            }
-        }
-        return null;
-    }
-}
 
 [System.Serializable]
 public class DialogEvents
@@ -116,7 +99,6 @@ public class EventManager : MonoBehaviour
     // 이벤트  리스트를 가져오는 매니저.
     public DialogEvents DialogEventList = new DialogEvents();
     public SelectionEvents SelectionEventList = new SelectionEvents();
-    public BattleEvents BattleEventList = new BattleEvents();
     public LootingEvents LootingEventList = new LootingEvents();
 
     public EventType[] EventToEventType = new EventType[10000];
@@ -136,9 +118,6 @@ public class EventManager : MonoBehaviour
                 break;
             case EventType.SELECTION:
                 HandleSelectionEvent(eventCode);
-                break;
-            case EventType.BATTLE:
-                HandleBattleEvent(eventCode);
                 break;
             case EventType.LOOTING:
                 HandleLootingEvent(eventCode);
@@ -160,12 +139,6 @@ public class EventManager : MonoBehaviour
         UISelectionHolder.instance.NewToggleUI(2); // UI 선택창에서 새로 깜박이게 만듬.
         Selection.instance.Appear(SelectionEventList.FindEvent(eventCode));
         HandleAnimationKey(SelectionEventList.FindEvent(eventCode));
-    }
-
-    private void HandleBattleEvent(int eventCode)
-    {
-        BattleManager.instance.BattlePhaseBegin(BattleEventList.FindEvent(eventCode));
-        HandleAnimationKey(BattleEventList.FindEvent(eventCode));
     }
 
     private void HandleLootingEvent(int eventCode)

@@ -52,8 +52,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingEventCode: 2066
-  defaultSprite: {fileID: -4237103111050198709, guid: 11067734df34db440b9fb8280b186030, type: 3}
-  battleEndSprite: {fileID: -2126301280, guid: 11067734df34db440b9fb8280b186030, type: 3}
+  frameDelay: 0.125
+  defaultSprite:
+  - {fileID: -3700342064314601235, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: 6055716193112750580, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: 5039078368763241592, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: -1368636351983938567, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: 3021917635605721181, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: -5231513298851115194, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: 6678162994775137268, guid: f6a419a128be5f64c81930401334356a, type: 3}
+  - {fileID: 6098986086164111463, guid: f6a419a128be5f64c81930401334356a, type: 3}
   Selection1Sprite: {fileID: 857461870, guid: 11067734df34db440b9fb8280b186030, type: 3}
   Selection2Sprite: {fileID: -4237103111050198709, guid: 11067734df34db440b9fb8280b186030, type: 3}
   Selection3Sprite: {fileID: -4237103111050198709, guid: 11067734df34db440b9fb8280b186030, type: 3}

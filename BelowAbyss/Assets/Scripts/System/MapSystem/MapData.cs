@@ -31,14 +31,6 @@ public class MapData : MonoBehaviour
     private int bossEvent; // 출발하는 이전 방도 들어갈 수 있다면, List<int>일 것이고, 아니면 그냥 int일것.
     public bool lastRoomVisited;
 
-    public enum EncounterType
-    {
-        NORMAL,
-        SUPPLY,
-        TRAIT,
-        MOVEMENT,
-        BATTLE
-    }
 
     /// <summary>
     /// 테마 선택, 테마를 맵 setup보다 빨리하는 이유는 mapvisual의 테마 변경 때문임.

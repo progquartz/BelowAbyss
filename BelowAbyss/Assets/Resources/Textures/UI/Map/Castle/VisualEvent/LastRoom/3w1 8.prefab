@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,8 +52,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingEventCode: 2056
-  defaultSprite: {fileID: 6098986086164111463, guid: 1dff5000b7f823544b2a8f1f130f47de, type: 3}
-  battleEndSprite: {fileID: 6098986086164111463, guid: 1dff5000b7f823544b2a8f1f130f47de, type: 3}
+  frameDelay: 0.125
+  defaultSprite:
+  - {fileID: -6530286005838182601, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: 7213549408062777424, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: -1201110318216432283, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: -3954191126557221548, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: -6358338743140399927, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: -4237103111050198709, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: 5137176317640478037, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
+  - {fileID: -5040466491260973426, guid: c95f5b497ddfeab47b161940a88c2329, type: 3}
   Selection1Sprite: {fileID: -8422217058015869244, guid: 1dff5000b7f823544b2a8f1f130f47de, type: 3}
   Selection2Sprite: {fileID: 6098986086164111463, guid: 1dff5000b7f823544b2a8f1f130f47de, type: 3}
   Selection3Sprite: {fileID: 6098986086164111463, guid: 1dff5000b7f823544b2a8f1f130f47de, type: 3}

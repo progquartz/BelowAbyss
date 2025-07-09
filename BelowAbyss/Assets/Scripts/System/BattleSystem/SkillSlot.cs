@@ -59,31 +59,6 @@ public class SkillSlot : MonoBehaviour
     {
         if (isSkillSlotFilled) // 스킬 슬롯에 데이터가 들어가있는지.
         {
-            if (BattleManager.instance.isBattleStarted) // 전투 시작.
-            {
-                if (isSkillNeedDelay && !isSkillEnabled) // 만약 딜레이가 필요한데 스킬 활성화가 되지 않은 경우.
-                {
-                    delayNeeded -= Time.deltaTime;
-                    if (delayNeeded <= 0)
-                    {
-                        isSkillEnabled = true;
-                    }
-                }
-                else // 쿨타임 작동 시작.
-                {
-                    isSkillEnabled = true;
-                    CheckCooltime();
-                }
-            }
-            else // 전투 종료 및 초기화.
-            {
-                delayNeeded = skillData.skillDelay;
-                isSkillEnabled = false;
-                coolTimeLeft = 0.0f;
-                skillDelayUI.fillAmount = 1.0f;
-                skillCooltimeUI.fillAmount = 1.0f;
-            }
-
             UpdateVisual();
         }
         else
@@ -110,26 +85,8 @@ public class SkillSlot : MonoBehaviour
     private void UpdateVisual()
     {
         skillImage.color = new Color(1, 1, 1, 1);
-        if (BattleManager.instance.isBattleStarted)
-        {
-            if (!isSkillEnabled)
-            {
-                if (skillData.skillDelay != 0)
-                {
-                    skillDelayUI.fillAmount = delayNeeded / skillData.skillDelay;
-                }
-            }
-            else
-            {
-                skillDelayUI.fillAmount = 0.0f;
-                skillCooltimeUI.fillAmount = coolTimeLeft / skillData.skillCooltime;
-            }
-        }
-        else
-        {
-            skillDelayUI.fillAmount = 0.0f;
-            skillCooltimeUI.fillAmount = 0.0f;
-        }
+        skillDelayUI.fillAmount = 0.0f;
+        skillCooltimeUI.fillAmount = 0.0f;
     }
 
     private void UpdateNoneVisual()
@@ -150,7 +107,6 @@ public class SkillSlot : MonoBehaviour
             {
                 EffectData effData = new EffectData(skillData.skillEffect1[i], skillData.skillEffect2[i], skillData.skillEffect3[i]);
                 EffectManager.instance.AmplifyEffect(effData);
-                BattleSoundManager.instance.PlaySound(skillData.skillSoundCode, 0.3f);
             }
         }
     }

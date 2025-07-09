@@ -9,8 +9,6 @@ public enum UIHolderList
     Setting = 0,
     Inventory = 1,
     Dialog = 2,
-    Skill = 3,
-    Trait = 4
 }
 
 public class UISelectionHolder : MonoBehaviour
@@ -29,8 +27,8 @@ public class UISelectionHolder : MonoBehaviour
     [SerializeField]
     private UISelectionButtonToggler[] itemToggledList;
 
-    private GameObject[] iconSelectedBar = new GameObject[5];
-    private Image[] iconButtonImage = new Image[5];
+    private GameObject[] iconSelectedBar = new GameObject[3];
+    private Image[] iconButtonImage = new Image[3];
 
 
     private void Awake()
@@ -45,7 +43,7 @@ public class UISelectionHolder : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        for (int i = 0; i < 5;  i++)
+        for (int i = 0; i < 3;  i++)
         {
             iconSelectedBar[i] = transform.GetChild(1).GetChild(i).gameObject;
             iconButtonImage[i] = transform.GetChild(2).GetChild(i).GetComponent<Image>();

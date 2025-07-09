@@ -120,7 +120,6 @@ public class EncounterEvent : MonoBehaviour
 public enum EventEndUp
 {
     DEFAULT,
-    BATTLEEND,
     SELECTION1,
     SELECTION2,
     SELECTION3,

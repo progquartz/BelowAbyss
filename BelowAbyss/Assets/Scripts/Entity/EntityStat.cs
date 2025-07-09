@@ -23,24 +23,6 @@ public class BuffData
     }
 }
 
-public class BuffBattleData
-{
-    public int buffPower;
-    public int buffBattleCount;
-
-    public BuffBattleData(int _power, int _buffBattle)
-    {
-        buffPower = _power;
-        buffBattleCount = _buffBattle;
-    }
-
-    public BuffBattleData()
-    {
-        buffPower = 0;
-        buffBattleCount = 0;
-    }
-}
-
 [System.Serializable]
 public class EntityStat : MonoBehaviour
 {

@@ -2,6 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum EntityMovingState
+{
+    IDLE,
+    ATTACK,
+    ATTACKFINISHED,
+    ATTACKFALLBACK,
+    HURT,
+    HURTFINISHED,
+    HURTFALLFRONT
+}
+
 public class PlayerMovingComponent : MonoBehaviour
 {
     [SerializeField]

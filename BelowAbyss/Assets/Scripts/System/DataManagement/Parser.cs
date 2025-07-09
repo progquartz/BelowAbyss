@@ -6,7 +6,6 @@ public enum EventType
 {
     DIALOG = 5,
     SELECTION = 6,
-    BATTLE = 2,
     LOOTING = 4,
 }
 
@@ -36,9 +35,7 @@ public class Parser : MonoBehaviour
     public TextAsset textSelectionData;
     public TextAsset textLootingData;
 
-    public TextAsset textBattleData;
     public TextAsset skillData;
-    public TextAsset traitData;
 
     public TextAsset OtherItems;
     public TextAsset WeaponItems;
@@ -46,7 +43,6 @@ public class Parser : MonoBehaviour
 
     public TextAsset RecipeDatas;
 
-    public TextAsset EnemyDatas;
     public TextAsset stageThemeDatas;
     
 
@@ -84,16 +80,6 @@ public class Parser : MonoBehaviour
         // 스킬 데이터 로드.
         SkillDataBase.instance.skillDatas = JsonUtility.FromJson<SkillDatas>(skillData.text);
 
-        // 특성 데이터 로드
-        TraitDataBase.instance.traitDatas = JsonUtility.FromJson<TraitDatas>(traitData.text);
-
-
-        // 전투 이벤트 데이터 로드.
-        EventManager.instance.BattleEventList = JsonUtility.FromJson<BattleEvents>(textBattleData.text);
-        for (int i = 0; i < EventManager.instance.BattleEventList.battleEvents.Length; i++)
-        {
-            EventManager.instance.EventToEventType[EventManager.instance.BattleEventList.battleEvents[i].eventCode] = EventType.BATTLE;
-        }
 
         // 테마 데이터 로드.
         ThemeDataBase.instance.stageThemeDatas = JsonUtility.FromJson<StageThemeDatas>(stageThemeDatas.text);
@@ -119,10 +105,6 @@ public class Parser : MonoBehaviour
 
         // 아이템에 대한 모든 데이터 로드가 완료되었을 때.
         itemData.LoadStableStringData();
-
-        // 적들에 대한 모든 데이터 로드.
-        EnemyDataBase.instance.enemies = JsonUtility.FromJson<Enemies>(EnemyDatas.text);
-
 
     }
 

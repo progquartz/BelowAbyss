@@ -8,10 +8,6 @@ public class Player : MonoBehaviour
     public PlayerStat stat;
     public bool isPlayerDead = false;
 
-    /// <summary>
-    /// 전투 이전에 저장되어야 하는 
-    /// </summary>
-    public PlayerStat statBeforeBattle;
     public PlayerVisualNoneAnimation visualNoneAnimation;
     [SerializeField]
     private PlayerMovingComponent visualAnimation;
@@ -47,7 +43,7 @@ public class Player : MonoBehaviour
         if (stat.currentHp <= 0 && !isPlayerDead)
         {
             visualAnimation.DeathState();
-            BattleManager.instance.OnPlayerDeath();
+            GameManager.instance.GameOver();
             PlayerStatReset();
             isPlayerDead = true;
         }
