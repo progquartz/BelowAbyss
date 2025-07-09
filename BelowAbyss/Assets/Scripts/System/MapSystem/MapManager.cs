@@ -61,6 +61,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public int GetCurrentStageNum()
+    {
+        return currentStage;
+    }
+
     public void OnGameOver()
     {
         FlushAllMapDatas();

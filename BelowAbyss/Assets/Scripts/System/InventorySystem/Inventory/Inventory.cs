@@ -130,13 +130,12 @@ public class Inventory : MonoBehaviour
 
     public void PressItemIcon(int index)
     {
-        UISoundEffect.instance.UseItemSound();
         Debug.Log(index + "번째 슬롯의 아이템을 사용합니다.");
         if(itemDB[index].itemcode != 0)
         {
             Crafting.instance.MinusItemInCraftingSlot(itemDB[index].itemcode);
             Debug.Log("통과");
-            UseItem(index);
+            TryUseItem(index);
             if (itemDB[index].stack <= 0)
             {
                 if (hotSlotDB[0] == index)
@@ -269,6 +268,7 @@ public class Inventory : MonoBehaviour
                 slots[i].transform.GetChild(2).gameObject.SetActive(false);
                 slots[i].transform.GetChild(1).GetChild(0).GetComponentInChildren<Image>().sprite = image;
                 slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().SetText(itemDB[i].stack.ToString());
+                slots[i].transform.GetChild(1).GetChild(1).GetComponentInChildren<TextMeshProUGUI>().outlineWidth = 0.3f;
                 slots[i].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemName);
                 slots[i].transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(ItemDataBase.instance.LoadItemData(itemDB[i].itemcode).itemLore);
 
@@ -346,13 +346,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void UseItem(int index)
+    public void TryUseItem(int index)
     {
         int itemcode = 0;
         itemcode = itemDB[index].itemcode;
         Debug.Log("아이템코드는" + itemcode);
         if (ItemDataBase.instance.GetType(itemcode) == ItemType.CONSUMPTION)
         {
+            UISoundEffect.instance.UseItemSound();
             Debug.Log(index + "번째 인덱스의 " + itemcode + "번 아이템 사용 호출");
             ConsumeItemData data = ItemDataBase.instance.LoadItemData(itemcode) as ConsumeItemData;
             for(int i = 0; i < data.itemUseCode1.Length; i++)
@@ -363,22 +364,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void DropItem(int index, Transform cursorOn)
-    {
-        string getter = cursorOn.parent.name;
-
-        int itemcode = 0;
-        if (getter == "InventoryContents") // 인벤토리일 경우.
-        {
-            itemcode = Inventory.instance.itemDB[index].itemcode;
-        }
-
-        if (itemcode != 0)
-        {
-            Debug.Log(index + "번 인덱스의 아이템을 버립니다.");
-            LossItem(index, itemcode);
-        }
-    }
     /// <summary>
     /// 아이템을 획득하는 코드. 만약에 아이템창이 가득 찬 상태라면, 불가능한 false값을 내보냄.
     /// </summary>
@@ -400,6 +385,7 @@ public class Inventory : MonoBehaviour
                 if(isNotStackable == 0) // 모든 아이템들이 정상적으로 들어갔다면 return true;
                 {
                     EnqueueToggle(itemcode);
+                    SortInventory();  // 정렬 호출
                     return true;
                 }
             }
@@ -418,6 +404,7 @@ public class Inventory : MonoBehaviour
                 {
                     Debug.Log(emp + "번의 빈 공간에" + itemcode + "번의 아이템을 넣음.");
                     EnqueueToggle(itemcode);
+                    SortInventory();  // 정렬 호출
                     return true;
                 }
             }
@@ -426,15 +413,48 @@ public class Inventory : MonoBehaviour
         // 여기까지 오면 모든 아이템 슬롯이 비지 않았고 같은 아이템 슬롯에는 해당 아이템들이 가득 찬것임.
         Debug.Log(itemcode + "번의 아이템이" + isNotStackable + "만큼 인벤토리에 저장되지 못함.");
         EnqueueToggle(itemcode);
+        SortInventory();  // 정렬 호출
         return false;
        
 
 
     }
 
+    /// <summary>
+    /// itemDB를 itemcode 순서대로 정렬하고 빈 슬롯을 뒤로 보냄
+    /// </summary>
+    public void SortInventory()
+    {
+        // 아이템 코드가 0이 아닌 아이템만 따로 모아서 정렬
+        List<Item> nonEmptyItems = new List<Item>();
+        foreach (var item in itemDB)
+        {
+            if (item.itemcode != 0)
+            {
+                nonEmptyItems.Add(item);
+            }
+        }
+
+        // itemcode 기준으로 오름차순 정렬
+        nonEmptyItems.Sort((a, b) => a.itemcode.CompareTo(b.itemcode));
+
+        // 정렬된 아이템들로 itemDB 채우기
+        for (int i = 0; i < slotCount; i++)
+        {
+            if (i < nonEmptyItems.Count)
+            {
+                itemDB[i] = nonEmptyItems[i];
+            }
+            else
+            {
+                itemDB[i] = new Item(0, 0); // 빈 슬롯으로 초기화
+            }
+        }
+    }
+
     private void LossItem(int index, int itemcode)
     {
-        if(itemDB[index].stack > 0)
+        if (itemDB[index].stack > 0)
         {
             itemDB[index].stack--;
             if (itemDB[index].stack == 0)
@@ -442,16 +462,21 @@ public class Inventory : MonoBehaviour
                 EmptySlot(index);
             }
         }
+        SortInventory(); // 정렬 호출
     }
 
+    public void TestGetItem()
+    {
+        GetItem(1005, 5);
+        GetItem(1004, 5);
+        GetItem(1003, 5);
+        GetItem(1002, 5);
+        GetItem(1001, 5);
+        GetItem(2004, 5);
+    }
     private void EmptySlot(int index)
     {
         Item item = new Item(0, 0);
         itemDB[index] = item;
-    }
-
-    public void InventoryClickSound()
-    {
-        UISoundEffect.instance.ButtonClickSound();
     }
 }
