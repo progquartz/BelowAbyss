@@ -62,7 +62,16 @@ public class Selection : Dialog
         Debug.Log("다이얼로그 이벤트 로드됨.");
         isSelectionEventloaded = false;
         paragraphText.text = data.paragraphText;
-        dialog.text = data.dialog;
+        string additionalLootDialog = GetAdditionalEventCode(data);
+        if(additionalLootDialog != null)
+        {
+            dialog.text = data.dialog + "\n" + additionalLootDialog;
+        }
+        else
+        {
+            dialog.text = data.dialog;
+        }
+        
         nextEvent = data.additionalEventCode;
         isNextEventExist = data.isAdditionalEvent;
 
@@ -77,6 +86,19 @@ public class Selection : Dialog
         }
 
         return true;
+    }
+
+    private string GetAdditionalEventCode(Event data)
+    {
+        if (!data.isAdditionalEvent)
+            return null;
+
+        if (EventManager.instance.EventToEventType[data.additionalEventCode] == EventType.LOOTING)
+        {
+            string lootResult = EventManager.instance.LoadLootingEvent(data.additionalEventCode);
+            return lootResult;
+        }
+        return null;
     }
 
 

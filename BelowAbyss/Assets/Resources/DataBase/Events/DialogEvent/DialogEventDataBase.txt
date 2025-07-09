@@ -3,10 +3,10 @@
 		{
 			"eventCode": 10,
 			"isAdditionalEvent":true,
-			"additionalEventCode":11,
+			"additionalEventCode":4002,
 			"outLookEventCode": 1,
 			"paragraphText" : "test1",
-			"dialog": "test text1 \n asdf",
+			"dialog": "테스트용 선택지입니다.",
 			"backgroundImage" : 0,
 			"artworkpath" : 1,
 			"backgroundMusic" : 0

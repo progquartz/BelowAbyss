@@ -125,6 +125,11 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public string LoadLootingEvent(int eventCode)
+    {
+        return HandleLootingEvent(eventCode);
+    }
+
     private void HandleDialogEvent(int eventCode)
     {
         Debug.Log(eventCode + "에 대한 다이얼로그 이벤트 호출 요청 발생.");
@@ -141,12 +146,13 @@ public class EventManager : MonoBehaviour
         HandleAnimationKey(SelectionEventList.FindEvent(eventCode));
     }
 
-    private void HandleLootingEvent(int eventCode)
+    private string HandleLootingEvent(int eventCode)
     {
         Debug.Log(eventCode + "에 대한 루팅 이벤트 호출 요청 발생.");
         LootingData lootData = LootingEventList.FindEvent(eventCode);
-        LootingSystem.instance.LootTableOpen(lootData);
+        string lootResult = LootingSystem.instance.LootTableOpen(lootData);
         HandleAnimationKey(LootingEventList.FindEvent(eventCode));
+        return lootResult;
     }
 
     public void HandleAnimationKey(Event eventData)

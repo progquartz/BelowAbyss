@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -53,11 +54,18 @@ public class Dialog : MonoBehaviour
         return true;
     }
 
+    [Obsolete]
     public void NextButtonPressed()
     {
+
         if (isNextEventExist)
         {
-            EventManager.instance.LoadEvent(nextEvent);
+            // 조건이 맞나 체크 후 다시 없앨 것.
+            if(false)
+            {
+                EventManager.instance.LoadEvent(nextEvent);
+            }
+            
         }
     }
 }
